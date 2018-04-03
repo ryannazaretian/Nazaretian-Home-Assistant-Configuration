@@ -2,10 +2,10 @@ homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises and sets
-  latitude: 30.167500
-  longitude: -97.943649
+  latitude: !secret latitude
+  longitude: !secret longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 287
+  elevation: !secret elevation
   # metric for Metric, imperial for Imperial
   unit_system: imperial
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -30,7 +30,7 @@ http:
   # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
   # Uncomment this if you are using SSL or running in Docker etc
-  base_url: https://hass.pupsandpaddles.com
+  base_url: !secret base_url
 
 
 # Checks for available updates
@@ -414,8 +414,8 @@ climate:
 
 zone home:
   name: Home
-  latitude: 30.167500
-  longitude: -97.943649
+  latitude: !secret latitude
+  longitude: !secret longitude
   radius: 100
   icon: mdi:home
       
