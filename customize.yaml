@@ -1,0 +1,202 @@
+sensor.car_1_occupancy:
+  friendly_name: Corvette Occupancy
+light.dining_room_dimmer:
+  icon: mdi:ceiling-light
+zwave.aeotec_zw090_zstick_gen5_us:
+  homebridge_hidden: true
+switch.driveway_flood_light:
+  icon: mdi:ceiling-light
+switch.desktop:
+  icon: mdi:desktop-tower
+switch.driveway_door_light:
+  icon: mdi:lightbulb
+switch.switch:
+  icon: mdi:ceiling-light
+cover.garage_door:
+  icon: mdi:garage
+sensor.speedtest_ping:
+  icon: mdi:timer
+sensor.cpu_temp:
+  icon: mdi:thermometer
+group.all_automations:
+  friendly_name: All Automations
+  hidden: false
+  homebridge_hidden: true
+group.all_covers:
+  friendly_name: All Covers
+  hidden: false
+  homebridge_hidden: true
+group.all_devices:
+  friendly_name: All Devices
+  hidden: false
+  homebridge_hidden: true
+group.all_lights:
+  friendly_name: All Lights
+  hidden: false
+  homebridge_hidden: true
+group.all_remotes:
+  friendly_name: All Remotes
+  hidden: false
+  homebridge_hidden: true
+group.all_switches:
+  friendly_name: All Switches
+  hidden: false
+  homebridge_hidden: true
+automation.climate__nightime_heat:
+  homebridge_hidden: true
+automation.climate__nighttime_cool:
+  homebridge_hidden: true
+automation.dining_room__nightlight_off:
+  homebridge_hidden: true
+automation.dining_room__nightlight_on:
+  homebridge_hidden: true
+automation.dining_room__turn_lights_to_night_mode_after_the_tv_is_off_for_10_minutes:
+  homebridge_hidden: true
+automation.dining_room__turn_on_light_when_someone_arrives_home:
+  homebridge_hidden: true
+automation.driveway__turn_off_light_after_door_closed:
+  homebridge_hidden: true
+automation.driveway__turn_off_side_light_after_motion_detected:
+  homebridge_hidden: true
+automation.driveway__turn_on_lights_when_door_opens:
+  homebridge_hidden: true
+automation.driveway__turn_on_side_light_when_motion_detected:
+  homebridge_hidden: true
+zwave.driveway_door:
+  homebridge_hidden: true
+zwave.driveway_flood:
+  homebridge_hidden: true
+group.frontdoor:
+  homebridge_hidden: true
+zwave.front_outdoor:
+  homebridge_hidden: true
+automation.front_yard__turn_off_porch_lights_after_motion_is_no_longer_detected:
+  homebridge_hidden: true
+automation.front_yard__turn_on_porch_lights_when_motion_is_detect_at_front_door:
+  homebridge_hidden: true
+group.garage:
+  homebridge_hidden: true
+automation.garage_door__alert_household_when_garage_is_open_for_15_minutes_and_noone_is_home:
+  homebridge_hidden: true
+automation.garage_door__close_notification_:
+  homebridge_hidden: true
+automation.garage_door__close_door_if_ryan_is_not_home_and_space_available:
+  homebridge_hidden: true
+automation.garage_door__closing_notification:
+  homebridge_hidden: true
+automation.garage_door__garage_door_controller_connected:
+  homebridge_hidden: true
+automation.garage_door__open_notification:
+  homebridge_hidden: true
+automation.garage_door__open_garage_when_ryan_arrives_and_space_available:
+  homebridge_hidden: true
+automation.garage_door__opening_notification:
+  homebridge_hidden: true
+zone.home:
+  homebridge_hidden: true
+automation.home_assistant__notify_ryan_on_startup:
+  homebridge_hidden: true
+automation.home_assistant__set_parameters_on_startup:
+  homebridge_hidden: true
+automation.home_assistant__update_notifications:
+  homebridge_hidden: true
+group.homeups:
+  homebridge_hidden: true
+group.household:
+  homebridge_hidden: true
+group.livingroom:
+  homebridge_hidden: true
+group.other:
+  homebridge_hidden: true
+automation.outside_lights__turn_off_outdoor_lights_after_someone_arrives:
+  homebridge_hidden: true
+automation.outside_lights__turn_on_outdoor_lights_when_ryan_or_chelsea_arrives:
+  homebridge_hidden: true
+automation.ring__send_motion_notification_when_ryan_or_chelsea_is_not_home:
+  homebridge_hidden: true
+group.speedtest:
+  homebridge_hidden: true
+automation.speedtest__time_warner_download:
+  homebridge_hidden: true
+group.systemmonitor:
+  homebridge_hidden: true
+automation.ups__send_notification_on_power_loss:
+  homebridge_hidden: true
+automation.ups__send_notification_on_power_restored:
+  homebridge_hidden: true
+automation.ups__shutdown_home_assistant_when_on_battery_and_less_than_5_mins_remaining:
+  homebridge_hidden: true
+group.default_view:
+  homebridge_hidden: true
+device_tracker.ryans_iphone:
+  friendly_name: Ryan's iPhone (Home Assistant)
+device_tracker.chelseas_iphone:
+  friendly_name: Chelsea's iPhone (Home Assistant)
+device_tracker.homeassistant_ryans_iphone:
+  friendly_name: Ryan's iPhone (OwnTracks)
+sensor.ups_load_watts:
+  icon: mdi:flash-circle
+binary_sensor.security_sensor_4:
+  device_class: door
+  friendly_name: Front Door
+binary_sensor.security_sensor_0:
+  device_class: garage_door
+  friendly_name: Garage Bay Door
+binary_sensor.security_sensor_1:
+  device_class: window
+  friendly_name: Kitchen / Breakfast Nook Windows
+binary_sensor.security_sensor_2:
+  device_class: door
+  friendly_name: Back Door / Living Room Windows
+binary_sensor.security_sensor_3:
+  device_class: window
+  friendly_name: Master Bedroom / Master Bathroom Windows
+binary_sensor.security_sensor_5:
+  device_class: window
+  friendly_name: Front Bedroom / North Bathroom Windows
+binary_sensor.security_sensor_6:
+  device_class: window
+  friendly_name: Utility Room Window
+binary_sensor.security_sensor_8:
+  device_class: door
+  friendly_name: Garage Entry Door
+binary_sensor.security_sensor_21:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_20:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_19:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_18:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_17:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_16:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_15:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_14:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_13:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_12:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_11:
+  hidden: true
+  homebridge_hidden: true
+binary_sensor.security_sensor_10:
+  device_class: smoke
+  friendly_name: Smoke / Heat Detectors
+binary_sensor.security_sensor_7:
+  hidden: true
+binary_sensor.security_sensor_9:
+  hidden: true

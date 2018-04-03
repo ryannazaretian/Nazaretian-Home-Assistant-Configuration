@@ -1,0 +1,457 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 30.167500
+  longitude: -97.943649
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 287
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Chicago
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+# Enables map
+map:
+
+
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  base_url: https://hass.pupsandpaddles.com
+
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+
+# Discover some devices automatically
+discovery:
+
+media_player:
+  - platform: webostv
+    host: 192.168.215.104
+    mac: CC:2D:8C:A4:8E:8B
+    name: Living Room TV
+  - platform: plex
+    include_non_clients: true
+    use_episode_art: true
+    use_dynamic_groups: true
+    scan_interval: 15
+  
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+  exclude:
+    entities:
+      - sensor.load_15m
+      - sensor.load_1m
+      - sensor.load_5m
+      - sensor.since_last_boot
+      - sensor.last_boot
+  
+# View all events in a logbook
+logbook:
+  exclude:
+    entities:
+      - sensor.since_last_boot 
+      - sensor.last_boot
+      - sensor.load_15m
+      - sensor.load_1m
+      - sensor.load_5m
+
+# Track the sun
+sun:
+
+# Enable MQTT Broker
+mqtt:
+  broker: localhost
+
+automation: !include automations.yaml
+
+# Ring
+ring:
+  username: !secret ring_username
+  password: !secret ring_password
+
+camera:
+  - platform: ring
+  
+zwave:
+  usb_path: /dev/ttyACM0
+  
+apcupsd:
+  
+binary_sensor:
+  - platform: ring
+    monitored_conditions:
+    - ding
+    - motion
+  - platform: mqtt
+    state_topic: "garage_state/car0/state"
+    name: "Subaru Parking"
+    device_class: occupancy
+    icon: mdi:sports_car
+
+  - platform: mqtt
+    state_topic: "garage_state/car1/state"
+    name: "Corvette Parking"
+    device_class: occupancy
+    icon: mdi:sports_car
+  
+  - platform: apcupsd
+  
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_0"
+    name: "Security Sensor 0"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_1"
+    name: "Security Sensor 1"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_2"
+    name: "Security Sensor 2"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_3"
+    name: "Security Sensor 3"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_4"
+    name: "Security Sensor 4"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_5"
+    name: "Security Sensor 5"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_6"
+    name: "Security Sensor 6"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_7"
+    name: "Security Sensor 7"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_8"
+    name: "Security Sensor 8"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_9"
+    name: "Security Sensor 9"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_10"
+    name: "Security Sensor 10"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_11"
+    name: "Security Sensor 11"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_12"
+    name: "Security Sensor 12"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_13"
+    name: "Security Sensor 13"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_14"
+    name: "Security Sensor 14"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_15"
+    name: "Security Sensor 15"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_16"
+    name: "Security Sensor 16"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_17"
+    name: "Security Sensor 17"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_18"
+    name: "Security Sensor 18"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_19"
+    name: "Security Sensor 19"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_20"
+    name: "Security Sensor 20"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+
+  - platform: mqtt
+    state_topic: "securitySystem/sensor_21"
+    name: "Security Sensor 21"
+    device_class: lock
+    payload_on: 1
+    payload_off: 0
+    
+
+cover:    
+  - platform: mqtt
+    name: "Garage Door"
+    state_topic: "garage_state/door_state"
+    command_topic: "garage_ctl/toggle_door"  
+    payload_open: "OPEN"     
+    payload_close: "CLOSE"
+    payload_stop: "STOP"
+    state_open: "OPENED"
+    state_closed: "CLOSED"
+    device_class: garage
+    
+sensor:
+  - platform: yr
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - lowClouds
+      - mediumClouds
+      - highClouds
+      - dewpointTemperature
+  - platform: speedtest
+    monitored_conditions:
+     - ping
+     - download
+     - upload
+  - platform: ring
+    monitored_conditions:
+      - battery
+      - last_activity
+      - last_ding
+      - last_motion
+      - volume
+  - platform: mqtt
+    state_topic: "garage_state/door_state"
+    name: "Garage Door State"
+  - platform: mqtt
+    state_topic: "garage_state/temperature"
+    name: "Garage Temperature"
+    unit_of_measurement: "°F"
+  - platform: mqtt
+    state_topic: "garage_state/car0/dist"
+    name: "Subaru Sensor Distance"
+    unit_of_measurement: "in"
+  - platform: mqtt
+    state_topic: "garage_state/car1/dist"
+    name: "Corvette Sensor Distance"
+    unit_of_measurement: "in"
+  - platform: mqtt
+    state_topic: "garage_state/car0/trigger"
+    name: "Subaru Sensor Trigger"
+    unit_of_measurement: "in"
+  - platform: mqtt
+    state_topic: "garage_state/car1/trigger"
+    name: "Corvette Sensor Trigger"
+    unit_of_measurement: "in"
+  - platform: template
+    sensors:
+      subaru_occupancy:
+        friendly_name: 'Subaru Occupancy'
+        value_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}Car In{% else %}Car Out{% endif %}'
+        icon_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
+      corvette_occupancy:
+        friendly_name: 'Corvette Occupancy'
+        value_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}Car In{% else %}Car Out{% endif %}'
+        icon_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
+  - platform: command_line
+    name: CPU Temp
+    command: "/bin/cat /sys/class/thermal/thermal_zone0/temp"
+    unit_of_measurement: "ºC"
+    value_template: '{{ value | multiply(0.001) }}'
+  - platform: systemmonitor
+    resources:
+      - type: memory_use_percent
+      - type: load_1m
+      - type: load_5m
+      - type: load_15m
+      - type: processor_use
+      - type: last_boot
+      - type: since_last_boot
+  - platform: apcupsd
+    resources:
+      - bcharge
+      - linev
+      - loadpct
+      - nominv
+      - nompower
+      - numxfers
+      - outputv
+      - status
+      - timeleft
+      - tonbatt
+  - platform: plex
+    username: !secret plex_username
+    password: !secret plex_password
+
+    
+input_number:
+  touchpanel_brightness:
+    name: Touchpanel Brightness
+    icon: mdi:brightness-5
+    initial: 127
+    min: 15
+    max: 255
+    step: 1   
+    
+google_domains:
+  domain: !secret google_domains_domain
+  username: !secret google_domains_username
+  password: !secret google_domains_password
+        
+device_tracker:
+  - platform: owntracks
+    max_gps_accuracy: 200
+    waypoints: True
+#  - platform: icloud
+#    username: !secret icloud_username
+#    password: !secret icloud_password
+#    account_name: iCloud
+      
+      
+# Honeywell Thermostat
+climate:
+  platform: honeywell
+  region: us
+  username: !secret honeywell_username
+  password: !secret honeywell_password
+  scan_interval: 600
+  cool_away_temperature: 25
+  heat_away_temperature: 20 
+
+zone home:
+  name: Home
+  latitude: 30.167500
+  longitude: -97.943649
+  radius: 100
+  icon: mdi:home
+      
+# iOS
+ios:
+
+notify:
+  - name: ios
+    platform: ios
+  - name: html5
+    platform: html5
+    gcm_api_key: !secret gcm-server-key
+    gcm_sender_id: !secret gcm-sender-id
+
+# Text to speech
+tts:
+  platform: google
+
+group: !include groups.yaml
+
+switch:
+  - platform: wake_on_lan
+    # Desktop
+    name: "Desktop"
+    mac_address: "b0-6e-bf-a5-da-7e"
+    host: 192.168.215.100
+    retain: true
+
+recorder:
+  purge_interval: 1
+  purge_keep_days: 14
+  exclude:
+    domains:
+      - automation
+      - weblink
+      - updater
+
+alarm_control_panel:
+      - platform: manual

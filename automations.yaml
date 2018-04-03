@@ -1,0 +1,654 @@
+- action:
+  - data:
+      entity_id: switch.driveway_door_light
+    entity_id: switch.driveway_door_light
+    service: switch.turn_on
+  - data:
+      entity_id: switch.driveway_flood_light
+    entity_id: switch.driveway_flood_light
+    service: switch.turn_on
+  - data:
+      entity_id: switch.switch
+    service: switch.turn_on
+  alias: Outside Lights - Turn on outdoor lights when Ryan or Chelsea arrives
+  id: '1499691067565'
+  trigger:
+  - entity_id: device_tracker.chelseas_iphone,device_tracker.homeassistant_ryans_iphone
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: state
+    entity_id: switch.driveway_door_light
+    state: 'off'
+- action:
+  - data:
+      entity_id: switch.driveway_door_light
+    entity_id: switch.driveway_door_light
+    service: switch.turn_off
+  - data:
+      entity_id: switch.driveway_flood_light
+    entity_id: switch.driveway_flood_light
+    service: switch.turn_off
+  - data:
+      entity_id: switch.switch
+    service: switch.turn_off
+  alias: Outside Lights - Turn off outdoor lights after someone arrives
+  id: '1499691067566'
+  trigger:
+  - entity_id:
+    - device_tracker.homeassistant_ryans_iphone
+    - device_tracker.chelseas_iphone
+    for:
+      minutes: 15
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: binary_sensor.ring_office_door_motion
+    for:
+      minutes: 15
+    state: 'off'
+- action:
+  - data:
+      entity_id: switch.driveway_door_light
+    entity_id: switch.driveway_door_light
+    service: switch.turn_on
+  - data:
+      entity_id: switch.driveway_flood_light
+    service: switch.turn_on
+  alias: Driveway - Turn on side light when motion detected
+  id: '1499691067567'
+  trigger:
+  - entity_id: binary_sensor.ring_office_door_motion
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - condition: state
+      entity_id: switch.driveway_door_light
+      for:
+        seconds: 15
+      state: 'off'
+    - condition: state
+      entity_id: switch.driveway_flood_light
+      for:
+        seconds: 15
+      state: 'off'
+- action:
+  - service: switch.turn_off
+    entity_id: switch.driveway_door_light
+  - service: switch.turn_off
+    entity_id: switch.driveway_flood_light
+  alias: Driveway - Turn off side light after motion detected
+  id: '1499691067568'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.ring_office_door_motion
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 15
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.driveway_door_light
+      state: 'on'
+      for:
+        minutes: 15
+    - condition: state
+      entity_id: switch.driveway_flood_light
+      state: 'on'
+      for:
+        minutes: 15
+- action:
+  - data:
+      message: Driveway motion detected, but no one is home!
+    service: notify.ios
+  alias: Ring - Send motion notification when Ryan or Chelsea is not home
+  id: '1499691067569'
+  trigger:
+  - entity_id: binary_sensor.ring_office_door_motion
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: group.household
+    state: not_home
+- action:
+  - data:
+      message: Download Speed Low
+    service: notify.ios
+  alias: Speedtest - Time Warner Download
+  id: '1499691067570'
+  trigger:
+  - below: '15'
+    entity_id: sensor.speedtest_download
+    platform: numeric_state
+- action:
+  - alias: Update notifications
+    data:
+      message: Home Assistant  {{ states.updater.updater.state }}  is now available.
+      title: New Home Assistant Release
+    service: notify.ios
+  alias: Home Assistant - Update Notifications
+  id: '1501803740993'
+  trigger:
+  - entity_id: updater.updater
+    platform: state
+- action:
+  - alias: Set Subaru Distance Trigger
+    data:
+      payload: '100'
+      qos: 1
+      retain: 1
+      topic: garage_ctl/car0/dist_trig
+    service: mqtt.publish
+  - alias: Set Corvette Distance Trigger
+    data:
+      payload: '100'
+      qos: 1
+      retain: 1
+      topic: garage_ctl/car1/dist_trig
+    service: mqtt.publish
+  alias: Home Assistant - Set Parameters on Startup
+  condition: []
+  id: '1503199174152'
+  trigger:
+  - event: start
+    platform: homeassistant
+  - payload: started
+    platform: mqtt
+    topic: garage_state
+- action:
+  - alias: Send Garage Door - Open Notification
+    data:
+      message: Garage Door Opened
+    service: notify.ios
+  alias: Garage Door - Open Notification
+  condition: []
+  id: '1503754601473'
+  trigger:
+  - entity_id: sensor.garage_door_state
+    platform: state
+    to: OPENED
+- action:
+  - alias: Send Garage Door - Closed Notification
+    data:
+      message: Garage Door Closed
+    service: notify.ios
+  alias: 'Garage Door - Close Notification '
+  condition: []
+  id: '1503754753488'
+  trigger:
+  - entity_id: sensor.garage_door_state
+    platform: state
+    to: CLOSED
+- action:
+  - alias: Send Garage Door - Closing Notification
+    data:
+      message: Garage Door Closing
+    service: notify.ios
+  alias: Garage Door - Closing Notification
+  condition: []
+  id: '1503762569153'
+  trigger:
+  - entity_id: sensor.garage_door_state
+    from: OPENED
+    platform: state
+- action:
+  - alias: Send Garage Door - Opening Notification
+    data:
+      message: Garage Door Opening
+    service: notify.ios
+  alias: Garage Door - Opening Notification
+  condition: []
+  id: '1503762640781'
+  trigger:
+  - entity_id: sensor.garage_door_state
+    from: CLOSED
+    platform: state
+- action:
+  - data:
+      entity_id: cover.garage_door
+    service: cover.open_cover
+  - data:
+      message: Opening garage door based on available space.
+    service: notify.ios
+  alias: Garage Door - Open garage when Ryan arrives and space available
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.subaru_parking
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.corvette_parking
+      state: 'off'
+  - condition: state
+    entity_id: sensor.garage_door_state
+    state: CLOSED
+  id: '1503764090424'
+  trigger:
+  - entity_id: device_tracker.homeassistant_ryans_iphone
+    from: not_home
+    platform: state
+    to: home
+- action:
+  - data:
+      message: Garage controller connected
+    service: notify.ios_ryans_iphone
+  alias: Garage Door - Garage door controller connected
+  condition: []
+  id: '1503765196505'
+  trigger:
+  - payload: ''
+    platform: mqtt
+    topic: garage_state/started
+- action:
+  - data:
+      entity_id: cover.garage_door
+    service: cover.close_cover
+  - data:
+      message: Ryan is away. Closing garage door...
+    service: notify.ios
+  alias: Garage Door - Close door if Ryan is not home and space available
+  condition:
+  - condition: and
+    conditions:
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.subaru_parking
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.corvette_parking
+        state: 'off'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: sensor.garage_door_state
+        state: OPENED
+      - condition: state
+        entity_id: sensor.garage_door_state
+        state: OPENING
+      - condition: state
+        entity_id: sensor.garage_door_state
+        state: STOPPED
+      - condition: state
+        entity_id: sensor.garage_door_state
+        state: UNDEFINED
+  id: '1503765780870'
+  trigger:
+  - entity_id: device_tracker.homeassistant_ryans_iphone,device_tracker.ryans_iphone
+    from: home
+    platform: state
+    to: not_home
+- action:
+  - data:
+      message: Home Assistant Started
+    service: notify.ios_ryans_iphone
+  alias: Home Assistant - Notify Ryan on Startup
+  condition: []
+  id: '1503944562866'
+  trigger:
+  - event: start
+    platform: homeassistant
+- action:
+  - data:
+      brightness: '185'
+      entity_id: light.dining_room_dimmer
+    service: light.turn_on
+  alias: Dining Room - Turn on light when someone arrives home
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  id: '1504403055053'
+  trigger:
+  - entity_id: group.household
+    from: not_home
+    platform: state
+    to: home
+- action:
+  - data:
+      brightness: '40'
+      entity_id: light.dining_room_dimmer
+      transition: '3'
+    service: light.turn_on
+  alias: Dining Room - Nightlight On
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: light.dining_room_dimmer
+      state: 'off'
+    - below: '40'
+      condition: numeric_state
+      entity_id: light.dining_room_dimmer
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  id: '1504403578117'
+  trigger:
+  - minutes: /5
+    platform: time
+    seconds: 0
+- action:
+  - data:
+      entity_id: light.dining_room_dimmer
+    service: light.turn_off
+  alias: Dining Room - Nightlight Off
+  condition: []
+  id: '1504403791681'
+  trigger:
+  - event: sunrise
+    platform: sun
+- action:
+  - data:
+      entity_id: switch.driveway_door_light
+    service: switch.turn_on
+  - data:
+      entity_id: switch.driveway_flood_light
+    service: switch.turn_on
+  alias: Driveway - Turn on lights when door opens
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  id: '1504482665721'
+  trigger:
+  - entity_id: sensor.garage_door_state
+    from: CLOSED
+    platform: state
+- action:
+  - data:
+      entity_id: switch.driveway_door_light
+    service: switch.turn_off
+  - data:
+      entity_id: switch.driveway_flood_light
+    service: switch.turn_off
+  alias: Driveway - Turn off light after door closed
+  condition: []
+  id: '1504482789906'
+  trigger:
+  - entity_id: sensor.garage_door_state
+    platform: state
+    to: CLOSED
+- action:
+  - data:
+      brightness: '40'
+      entity_id: light.dining_room_dimmer
+      transition: '3'
+    service: light.turn_on
+  alias: Dining Room - Turn lights to night mode after the TV is off for 10 minutes
+  condition: []
+  id: '1505182050709'
+  trigger:
+  - entity_id: media_player.living_room_tv
+    from: 'on'
+    platform: state
+    to: 'off'
+    for:
+      minutes: 10
+- action:
+  - data:
+      message: apcupsd has reported an AC power loss. Your equipment is now on battery
+        power.
+      title: AC Power Loss
+    service: notify.ios
+  alias: UPS - Send notification on power loss
+  condition: []
+  id: '1507831314973'
+  trigger:
+  - entity_id: binary_sensor.ups_online_status
+    from: 'on'
+    platform: state
+    to: 'off'
+- action:
+  - data:
+      message: apcupsd has reported an AC power restored. Your equipment is now on
+        mains power.
+      title: AC Power Restored
+    service: notify.ios
+  alias: UPS - Send notification on power restored
+  condition: []
+  id: '1507831415527'
+  trigger:
+  - entity_id: binary_sensor.ups_online_status
+    from: 'off'
+    platform: state
+    to: 'on'
+- action:
+  - data:
+      message: UPS time remaining < 5 mins. Shutting down Home Assistant.
+      title: Home Assistant Shutting Down!
+    service: notify.ios
+  - data: {}
+    service: homeassistant.turn_off
+  alias: UPS - Shutdown Home Assistant when on battery and less than 5 mins remaining
+  condition:
+  - condition: state
+    entity_id: binary_sensor.ups_online_status
+    state: 'off'
+  id: '1507831704568'
+  trigger:
+  - entity_id: sensor.ups_time_left
+    from: '6'
+    platform: state
+    to: '5'
+- action:
+  - data:
+      message: Garage door is open and no one is home!
+    service: notify.ios
+  alias: Garage Door - Alert Household when garage is open for 15 minutes and no-one
+    is home
+  condition:
+  - condition: state
+    entity_id: group.household
+    state: not_home
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.garage_door_state
+      state: OPENED
+    - condition: state
+      entity_id: sensor.garage_door_state
+      state: OPENING
+    - condition: state
+      entity_id: sensor.garage_door_state
+      state: STOPPED
+    - condition: state
+      entity_id: sensor.garage_door_state
+      state: UNDEFINED
+    - condition: state
+      entity_id: sensor.garage_door_state
+      state: OPENING
+  id: '1511031537772'
+  trigger:
+  - minutes: /10
+    platform: time
+    seconds: 0
+- action:
+  - data:
+      entity_id: climate.thermostat
+      operation_mode: Heat
+      temperature: '74'
+    service: climate.set_temperature
+  - data:
+      message: Daytime Heat @ 74F
+    service: notify.ios
+  alias: Climate - Daytime Heat
+  condition:
+  - condition: state
+    entity_id: sensor.yr_temperature
+    state: 'below: 70'
+  - after: 06:00:00
+    before: '22:00:00'
+    condition: time
+  id: '1513870438510'
+  trigger:
+  - at: 06:00:00
+    platform: time
+  - below: '70'
+    entity_id: sensor.yr_temperature
+    platform: numeric_state
+- action:
+  - data:
+      entity_id: climate.thermostat
+      operation_mode: Heat
+      temperature: '70'
+    service: climate.set_temperature
+  - data:
+      message: Nightime Heat @ 70F
+    service: notify.notify
+  alias: Climate - Nightime Heat
+  condition:
+  - condition: state
+    entity_id: sensor.yr_temperature
+    state: 'below: 70'
+  - after: '22:00:00'
+    before: 06:00:00
+    condition: time
+  id: '1513870439770'
+  trigger:
+  - at: '22:00:00'
+    platform: time
+  - below: '70'
+    entity_id: sensor.yr_temperature
+    platform: numeric_state
+- action:
+  - data:
+      message: Climate - Daytime Cool @ 74F
+    service: notify.ios
+  - data:
+      entity_id: climate.thermostat
+      operation_mode: Cool
+      target_temp_high: '25'
+      target_temp_low: '21'
+      temperature: '23'
+    service: climate.set_temperature
+  alias: Climate - Daytime Cool
+  condition:
+  - above: '70'
+    condition: numeric_state
+    entity_id: sensor.yr_temperature
+  - after: 06:00:00
+    before: '22:00:00'
+    condition: time
+  id: '1513882152620'
+  trigger:
+  - at: 06:00:00
+    platform: time
+  - above: '70'
+    entity_id: sensor.yr_temperature
+    platform: numeric_state
+- action:
+  - data:
+      entity_id: climate.thermostat
+      operation_mode: Cool
+      temperature: '72'
+    service: climate.set_temperature
+  - data:
+      message: Climate - Nighttime Cool @ 72F
+    service: notify.ios
+  alias: Climate - Nighttime Cool
+  condition:
+  - above: '70'
+    condition: numeric_state
+    entity_id: sensor.yr_temperature
+  - after: '22:00:00'
+    before: 06:00:00
+    condition: time
+  id: '1513882303596'
+  trigger:
+  - above: '70'
+    entity_id: sensor.yr_temperature
+    platform: numeric_state
+  - at: '22:00:00'
+    platform: time
+- action:
+  - data:
+      entity_id: switch.switch
+    service: switch.turn_on
+  alias: Front Yard - Turn on porch lights when motion is detect at front door
+  condition:
+  - condition: state
+    entity_id: switch.switch
+    for:
+      seconds: 15
+    state: 'off'
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  id: '1521513635055'
+  trigger:
+  - entity_id: binary_sensor.ring_front_door_motion
+    from: 'off'
+    platform: state
+    to: 'on'
+- action:
+  - data:
+      entity_id: switch.switch
+    service: switch.turn_off
+  alias: Front Yard - Turn off porch lights after motion is no longer detected
+  condition:
+  - condition: state
+    entity_id: switch.switch
+    state: 'on'
+  id: '1521513770399'
+  trigger:
+  - entity_id: binary_sensor.ring_front_door_motion
+    from: 'on'
+    platform: state
+    to: 'off'
+    for:
+      minutes: 15
+- action:
+  - data:
+      payload_template: '{{states(''input_number.touchpanel_brightness'')}}'
+      topic: touchpanel/brightness
+    service: mqtt.publish
+  alias: Manually Set Touchpanel Brightness
+  condition: []
+  id: '1521688698723'
+  trigger:
+  - entity_id: input_number.touchpanel_brightness
+    platform: state
+- action:
+  - data:
+      entity_id: input_number.touchpanel_brightness
+      value: '150'
+    service: input_number.set_value
+  alias: Autoset Touchpanel Day Brightness
+  condition: []
+  id: '1521753661603'
+  trigger:
+  - entity_id: sun.sun
+    from: below_horizon
+    platform: state
+    to: above_horizon
+- action:
+  - data:
+      entity_id: input_number.touchpanel_brightness
+      value: '30'
+    service: input_number.set_value
+  alias: Autoset Touchpanel Night Brightness
+  condition: []
+  id: '1521753758728'
+  trigger:
+  - entity_id: sun.sun
+    from: above_horizon
+    platform: state
+    to: below_horizon

@@ -1,0 +1,179 @@
+  default_view:
+    view: yes
+    icon: mdi:home
+    entities:
+      - input_number.touchpanel_brightness
+      - climate.home
+      - group.all_switches
+      - group.all_lights
+      - group.all_covers
+      - group.Speedtest
+      - group.SystemMonitor
+      - alarm_control_panel.ha_alarm
+
+  LivingRoom:
+    name: Living Room
+    view: yes
+    icon: mdi:television-classic
+    entities:
+      - media_player.living_room_tv
+      - media_player.apple_tv
+      - media_player.chromeo
+      - sensor.plex
+      - light.dining_room_dimmer
+      - automation.dining_room__nightlight_off
+      - automation.dining_room__nightlight_on
+      - automation.dining_room__turn_lights_to_night_mode_after_the_tv_is_off_for_10_minutes
+      - automation.dining_room__turn_on_light_when_someone_arrives_home
+
+
+  SystemMonitor:
+    name: System Monitor
+    icon: mdi:chip
+    entities:
+      - sensor.processor_use
+      - sensor.cpu_temp
+      - sensor.load_1m
+      - sensor.load_5m
+      - sensor.load_15m
+      - sensor.last_boot
+      - sensor.since_last_boot
+      - sensor.ups_status
+      - sensor.ups_time_left
+
+  Speedtest:
+  - sensor.speedtest_ping
+  - sensor.speedtest_download
+  - sensor.speedtest_upload
+
+  FrontDoor:
+    name: Front Door
+    view: yes
+    icon: mdi:door
+    entities:
+      - camera.front_door
+      - sensor.ring_front_door_last_activity
+      - sensor.ring_front_door_last_ding
+      - sensor.ring_front_door_last_motion
+      - sensor.ring_front_door_battery
+      - switch.switch
+      - automation.front_yard__turn_on_porch_lights_when_motion_is_detect_at_front_door
+      - automation.front_yard__turn_off_porch_lights_after_motion_is_no_longer_detected
+
+
+  Garage:
+    name: Garage
+    view: yes
+    icon: mdi:garage
+    entities:
+      - camera.office_door
+      - sensor.garage_door_state
+      - sensor.subaru_occupancy
+      - sensor.corvette_occupancy
+      - sensor.garage_temperature
+      - sensor.subaru_sensor_distance
+      - sensor.corvette_sensor_distance
+      - sensor.subaru_sensor_trigger
+      - sensor.corvette_sensor_trigger
+      - cover.garage_door
+      - sensor.ring_office_door_last_activity
+      - sensor.ring_office_door_last_ding
+      - sensor.ring_office_door_last_motion
+      - switch.driveway_door_light
+      - switch.driveway_flood_light
+      - sensor.garage_door_state
+      - automation.driveway__turn_off_light_after_door_closed
+      - automation.driveway__turn_off_side_light_after_motion_detected
+      - automation.driveway__turn_on_lights_when_door_opens
+      - automation.driveway__turn_on_side_light_when_motion_detected
+      - automation.garage_door__alert_household_when_garage_is_open_for_15_minutes_and_noone_is_home
+      - automation.garage_door__close_door_if_ryan_is_not_home_and_space_available
+      - automation.garage_door__close_notification_
+      - automation.garage_door__closing_notification
+      - automation.garage_door__garage_door_controller_connected
+      - automation.garage_door__open_garage_when_ryan_arrives_and_space_available
+      - automation.garage_door__open_notification
+      - automation.garage_door__opening_notification
+      - automation.ring__send_motion_notification_when_ryan_or_chelsea_is_not_home
+
+  Household:
+    name: Household
+    view: yes
+    icon: mdi:account-multiple
+    entities:
+      - device_tracker.ryans_iphone
+      - device_tracker.chelseas_iphone
+      - device_tracker.homeassistant_ryans_iphone
+
+  Climate:
+    name: Climate Control
+    view: yes
+    icon: mdi:air-conditioner
+    entities:
+      - climate.home
+      - sensor.yr_temperature
+      - sensor.yr_symbol
+      - automation.climate__daytime_cool
+      - automation.climate__daytime_heat
+      - automation.climate__nighttime_cool
+      - automation.climate__nightime_heat
+
+  HomeUPS:
+    name: Home UPS
+    view: yes
+    icon: mdi:battery
+    entities:
+      - sensor.ups_status
+      - sensor.ups_battery
+      - sensor.ups_time_left
+      - sensor.ups_time_on_battery
+      - sensor.ups_transfer_count
+      - automation.ups__send_notification_on_power_loss
+      - automation.ups__send_notification_on_power_restored
+      - automation.ups__shutdown_home_assistant_when_on_battery_and_less_than_5_mins_remaining
+
+  SecurityInputs:
+    name: SecurityInputs
+    view: no
+    icon: mdi:lock-outline
+    entities: 
+      - binary_sensor.security_sensor_0
+      - binary_sensor.security_sensor_1
+      - binary_sensor.security_sensor_2
+      - binary_sensor.security_sensor_3
+      - binary_sensor.security_sensor_4
+      - binary_sensor.security_sensor_5
+      - binary_sensor.security_sensor_6
+      - binary_sensor.security_sensor_7
+      - binary_sensor.security_sensor_8
+      - binary_sensor.security_sensor_9
+      - binary_sensor.security_sensor_10
+      - binary_sensor.security_sensor_11
+      - binary_sensor.security_sensor_12
+      - binary_sensor.security_sensor_13
+      - binary_sensor.security_sensor_14
+      - binary_sensor.security_sensor_15
+      - binary_sensor.security_sensor_16
+      - binary_sensor.security_sensor_17
+      - binary_sensor.security_sensor_18
+      - binary_sensor.security_sensor_19
+      - binary_sensor.security_sensor_20
+      - binary_sensor.security_sensor_21
+      
+  Security:
+    name: Security
+    view: yes
+    icon: mdi:lock-outline
+    entities: 
+      - group.securityinputs
+
+  Other:
+    name: Other
+    view: yes
+    icon: mdi:script
+    entities:
+      - automation.home_assistant__notify_ryan_on_startup
+      - automation.home_assistant__set_parameters_on_startup
+      - automation.home_assistant__update_notifications
+      - automation.speedtest__time_warner_download
+      - group.all_automations
