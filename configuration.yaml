@@ -31,6 +31,9 @@ http:
   api_password: !secret http_password
   # Uncomment this if you are using SSL or running in Docker etc
   base_url: !secret base_url
+  cors_allowed_origins:
+  # add in the domain name or IP mentioned in the CORS error
+    - 192.168.215.101
 
 
 # Checks for available updates
@@ -53,7 +56,12 @@ media_player:
     use_episode_art: true
     use_dynamic_groups: true
     scan_interval: 15
-  
+    host: 127.0.0.1
+    port: 32400
+    username: !secret plex_username
+    password: !secret plex_password
+    ssl: true
+
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -67,12 +75,12 @@ history:
       - sensor.load_5m
       - sensor.since_last_boot
       - sensor.last_boot
-  
+
 # View all events in a logbook
 logbook:
   exclude:
     entities:
-      - sensor.since_last_boot 
+      - sensor.since_last_boot
       - sensor.last_boot
       - sensor.load_15m
       - sensor.load_1m
@@ -94,12 +102,12 @@ ring:
 
 camera:
   - platform: ring
-  
+
 zwave:
   usb_path: /dev/ttyACM0
-  
+
 apcupsd:
-  
+
 binary_sensor:
   - platform: ring
     monitored_conditions:
@@ -116,9 +124,9 @@ binary_sensor:
     name: "Corvette Parking"
     device_class: occupancy
     icon: mdi:sports_car
-  
+
   - platform: apcupsd
-  
+
   - platform: mqtt
     state_topic: "securitySystem/sensor_0"
     name: "Security Sensor 0"
@@ -272,20 +280,20 @@ binary_sensor:
     device_class: lock
     payload_on: 1
     payload_off: 0
-    
 
-cover:    
+
+cover:
   - platform: mqtt
     name: "Garage Door"
     state_topic: "garage_state/door_state"
-    command_topic: "garage_ctl/toggle_door"  
-    payload_open: "OPEN"     
+    command_topic: "garage_ctl/toggle_door"
+    payload_open: "OPEN"
     payload_close: "CLOSE"
     payload_stop: "STOP"
     state_open: "OPENED"
     state_closed: "CLOSED"
     device_class: garage
-    
+
 sensor:
   - platform: yr
     monitored_conditions:
@@ -347,6 +355,11 @@ sensor:
         friendly_name: 'Corvette Occupancy'
         value_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}Car In{% else %}Car Out{% endif %}'
         icon_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
+      ups_load_watts:
+        friendly_name: 'UPS Load'
+        value_template: "{{ states('sensor.ups_load')|float * 5.0}}"
+        unit_of_measurement: 'watts'
+
   - platform: command_line
     name: CPU Temp
     command: "/bin/cat /sys/class/thermal/thermal_zone0/temp"
@@ -366,8 +379,6 @@ sensor:
       - bcharge
       - linev
       - loadpct
-      - nominv
-      - nompower
       - numxfers
       - outputv
       - status
@@ -377,7 +388,7 @@ sensor:
     username: !secret plex_username
     password: !secret plex_password
 
-    
+
 input_number:
   touchpanel_brightness:
     name: Touchpanel Brightness
@@ -385,23 +396,28 @@ input_number:
     initial: 127
     min: 15
     max: 255
-    step: 1   
-    
+    step: 1
+
 google_domains:
   domain: !secret google_domains_domain
   username: !secret google_domains_username
   password: !secret google_domains_password
-        
+
 device_tracker:
   - platform: owntracks
     max_gps_accuracy: 200
     waypoints: True
-#  - platform: icloud
-#    username: !secret icloud_username
-#    password: !secret icloud_password
-#    account_name: iCloud
-      
-      
+  - platform: unifi
+    host: localhost
+    port: 8443
+    verify_ssl: false
+    username: !secret unifi_username
+    password: !secret unifi_password
+
+neato:
+  username: !secret neato_username
+  password: !secret neato_password
+
 # Honeywell Thermostat
 climate:
   platform: honeywell
@@ -410,7 +426,7 @@ climate:
   password: !secret honeywell_password
   scan_interval: 600
   cool_away_temperature: 25
-  heat_away_temperature: 20 
+  heat_away_temperature: 20
 
 zone home:
   name: Home
@@ -418,7 +434,7 @@ zone home:
   longitude: !secret longitude
   radius: 100
   icon: mdi:home
-      
+
 # iOS
 ios:
 
@@ -454,4 +470,14 @@ recorder:
       - updater
 
 alarm_control_panel:
-      - platform: manual
+  - platform: manual
+    name: Home Alarm
+    code: !secret alarm_code
+    pending_time: 30
+    delay_time: 20
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0

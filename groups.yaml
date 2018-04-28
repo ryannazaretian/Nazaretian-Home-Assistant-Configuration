@@ -4,12 +4,31 @@
     entities:
       - input_number.touchpanel_brightness
       - climate.home
+      
       - group.all_switches
       - group.all_lights
       - group.all_covers
-      - group.Speedtest
-      - group.SystemMonitor
-      - alarm_control_panel.ha_alarm
+      - group.homesecurity
+      - group.systemmonitor
+      
+  Neato:
+    name: Neato
+    view: yes
+    icon: mdi:robot-vacuum-variant
+    entities:
+      - vacuum.neato
+      - camera.neato_cleaning_map
+      - switch.neato_schedule
+    
+      
+  HomeSecurity:
+    name: Home Security
+    view: yes
+    icon: mdi:security-home
+    entities:
+     - alarm_control_panel.home_alarm
+     - group.securityinputs
+
 
   LivingRoom:
     name: Living Room
@@ -40,6 +59,7 @@
       - sensor.since_last_boot
       - sensor.ups_status
       - sensor.ups_time_left
+      - sensor.ups_load_watts
 
   Speedtest:
   - sensor.speedtest_ping
@@ -123,8 +143,12 @@
     view: yes
     icon: mdi:battery
     entities:
-      - sensor.ups_status
       - sensor.ups_battery
+      - sensor.ups_input_voltage
+      - sensor.ups_load
+      - sensor.ups_load_watts
+      - sensor.ups_output_voltage
+      - sensor.ups_status
       - sensor.ups_time_left
       - sensor.ups_time_on_battery
       - sensor.ups_transfer_count
@@ -133,10 +157,12 @@
       - automation.ups__shutdown_home_assistant_when_on_battery_and_less_than_5_mins_remaining
 
   SecurityInputs:
-    name: SecurityInputs
+    name: Security Inputs
     view: no
-    icon: mdi:lock-outline
+    icon: mdi:security-home
     entities: 
+      - binary_sensor.ring_front_door_motion
+      - binary_sensor.ring_office_door_motion
       - binary_sensor.security_sensor_0
       - binary_sensor.security_sensor_1
       - binary_sensor.security_sensor_2
@@ -160,13 +186,6 @@
       - binary_sensor.security_sensor_20
       - binary_sensor.security_sensor_21
       
-  Security:
-    name: Security
-    view: yes
-    icon: mdi:lock-outline
-    entities: 
-      - group.securityinputs
-
   Other:
     name: Other
     view: yes

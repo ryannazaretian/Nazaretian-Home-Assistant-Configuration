@@ -403,56 +403,22 @@
     for:
       minutes: 10
 - action:
-  - data:
-      message: apcupsd has reported an AC power loss. Your equipment is now on battery
-        power.
-      title: AC Power Loss
-    service: notify.ios
-  alias: UPS - Send notification on power loss
+  - data_template:
+      message: The UPS has reported a state change from {{trigger.from_state.state.title()}}
+        to {{trigger.to_state.state.title()}}
+      title: UPS Event
+    service: notify.notify
+  alias: UPS - Send notification state change
   condition: []
   id: '1507831314973'
   trigger:
-  - entity_id: binary_sensor.ups_online_status
-    from: 'on'
+  - entity_id: sensor.ups_status
     platform: state
-    to: 'off'
-- action:
-  - data:
-      message: apcupsd has reported an AC power restored. Your equipment is now on
-        mains power.
-      title: AC Power Restored
-    service: notify.ios
-  alias: UPS - Send notification on power restored
-  condition: []
-  id: '1507831415527'
-  trigger:
-  - entity_id: binary_sensor.ups_online_status
-    from: 'off'
-    platform: state
-    to: 'on'
-- action:
-  - data:
-      message: UPS time remaining < 5 mins. Shutting down Home Assistant.
-      title: Home Assistant Shutting Down!
-    service: notify.ios
-  - data: {}
-    service: homeassistant.turn_off
-  alias: UPS - Shutdown Home Assistant when on battery and less than 5 mins remaining
-  condition:
-  - condition: state
-    entity_id: binary_sensor.ups_online_status
-    state: 'off'
-  id: '1507831704568'
-  trigger:
-  - entity_id: sensor.ups_time_left
-    from: '6'
-    platform: state
-    to: '5'
 - action:
   - data:
       message: Garage door is open and no one is home!
     service: notify.ios
-  alias: Garage Door - Alert Household when garage is open for 15 minutes and no-one
+  alias: Garage Door - Alert Household when garage is open for 15 minutes and no one
     is home
   condition:
   - condition: state
@@ -480,104 +446,6 @@
   - minutes: /10
     platform: time
     seconds: 0
-- action:
-  - data:
-      entity_id: climate.thermostat
-      operation_mode: Heat
-      temperature: '74'
-    service: climate.set_temperature
-  - data:
-      message: Daytime Heat @ 74F
-    service: notify.ios
-  alias: Climate - Daytime Heat
-  condition:
-  - condition: state
-    entity_id: sensor.yr_temperature
-    state: 'below: 70'
-  - after: 06:00:00
-    before: '22:00:00'
-    condition: time
-  id: '1513870438510'
-  trigger:
-  - at: 06:00:00
-    platform: time
-  - below: '70'
-    entity_id: sensor.yr_temperature
-    platform: numeric_state
-- action:
-  - data:
-      entity_id: climate.thermostat
-      operation_mode: Heat
-      temperature: '70'
-    service: climate.set_temperature
-  - data:
-      message: Nightime Heat @ 70F
-    service: notify.notify
-  alias: Climate - Nightime Heat
-  condition:
-  - condition: state
-    entity_id: sensor.yr_temperature
-    state: 'below: 70'
-  - after: '22:00:00'
-    before: 06:00:00
-    condition: time
-  id: '1513870439770'
-  trigger:
-  - at: '22:00:00'
-    platform: time
-  - below: '70'
-    entity_id: sensor.yr_temperature
-    platform: numeric_state
-- action:
-  - data:
-      message: Climate - Daytime Cool @ 74F
-    service: notify.ios
-  - data:
-      entity_id: climate.thermostat
-      operation_mode: Cool
-      target_temp_high: '25'
-      target_temp_low: '21'
-      temperature: '23'
-    service: climate.set_temperature
-  alias: Climate - Daytime Cool
-  condition:
-  - above: '70'
-    condition: numeric_state
-    entity_id: sensor.yr_temperature
-  - after: 06:00:00
-    before: '22:00:00'
-    condition: time
-  id: '1513882152620'
-  trigger:
-  - at: 06:00:00
-    platform: time
-  - above: '70'
-    entity_id: sensor.yr_temperature
-    platform: numeric_state
-- action:
-  - data:
-      entity_id: climate.thermostat
-      operation_mode: Cool
-      temperature: '72'
-    service: climate.set_temperature
-  - data:
-      message: Climate - Nighttime Cool @ 72F
-    service: notify.ios
-  alias: Climate - Nighttime Cool
-  condition:
-  - above: '70'
-    condition: numeric_state
-    entity_id: sensor.yr_temperature
-  - after: '22:00:00'
-    before: 06:00:00
-    condition: time
-  id: '1513882303596'
-  trigger:
-  - above: '70'
-    entity_id: sensor.yr_temperature
-    platform: numeric_state
-  - at: '22:00:00'
-    platform: time
 - action:
   - data:
       entity_id: switch.switch
@@ -652,3 +520,27 @@
     from: above_horizon
     platform: state
     to: below_horizon
+- action:
+  - data:
+      title: SMOKE / HEAT ALARM TRIGGERED!
+    service: notify.notify
+  alias: Notify on Smoke / Heat Alarm Triggered
+  condition: []
+  id: '1524446956600'
+  trigger:
+  - entity_id: binary_sensor.security_sensor_10
+    from: 'false'
+    platform: state
+    to: 'true'
+- action:
+  - data:
+      title: Smoke / Heat Alarm Cleared!
+    service: notify.notify
+  alias: Notify on Smoke / Heat alarm Cleared
+  condition: []
+  id: '1524447186104'
+  trigger:
+  - entity_id: binary_sensor.security_sensor_10
+    from: 'true'
+    platform: state
+    to: 'false'

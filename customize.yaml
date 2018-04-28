@@ -200,3 +200,6 @@ binary_sensor.security_sensor_7:
   hidden: true
 binary_sensor.security_sensor_9:
   hidden: true
+vacuum.neato: {}
+group.neato:
+  icon: mdi:roomba
