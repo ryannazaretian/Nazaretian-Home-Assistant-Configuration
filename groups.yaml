@@ -4,7 +4,7 @@
     entities:
       - input_number.touchpanel_brightness
       - climate.home
-      
+      - group.darksky
       - group.all_switches
       - group.all_lights
       - group.all_covers
@@ -36,8 +36,8 @@
     icon: mdi:television-classic
     entities:
       - media_player.living_room_tv
-      - media_player.apple_tv
-      - media_player.chromeo
+      - media_player.ryans_chromecast
+      - media_player.name_1
       - sensor.plex
       - light.dining_room_dimmer
       - automation.dining_room__nightlight_off
@@ -121,9 +121,8 @@
     view: yes
     icon: mdi:account-multiple
     entities:
-      - device_tracker.ryans_iphone
-      - device_tracker.chelseas_iphone
-      - device_tracker.homeassistant_ryans_iphone
+      - binary_sensor.ryan_home
+      - binary_sensor.chelsea_home
 
   Climate:
     name: Climate Control
@@ -196,3 +195,34 @@
       - automation.home_assistant__update_notifications
       - automation.speedtest__time_warner_download
       - group.all_automations
+      
+  Darksky:
+    name: Dark Sky
+    view: yes
+    icon: mdi:weather-partlycloudy
+    entities: 
+      - sensor.dark_sky_summary
+      - sensor.dark_sky_precip_type
+      - sensor.dark_sky_precip_intensity
+      - sensor.dark_sky_precip_probability
+      - sensor.dark_sky_precip_accumulation
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_apparent_temperature
+      - sensor.dark_sky_dew_point
+      - sensor.dark_sky_wind_speed
+      - sensor.dark_sky_wind_bearing
+      - sensor.dark_sky_cloud_cover
+      - sensor.dark_sky_humidity
+      - sensor.dark_sky_pressure
+      - sensor.dark_sky_visibility
+      - sensor.dark_sky_ozone
+      - sensor.dark_sky_minutely_summary
+      - sensor.dark_sky_hourly_summary
+      - sensor.dark_sky_daily_summary
+      - sensor.dark_sky_temperature_max
+      - sensor.dark_sky_temperature_min
+      - sensor.dark_sky_apparent_temperature_max
+      - sensor.dark_sky_apparent_temperature_min
+      - sensor.dark_sky_precip_intensity_max
+      - sensor.dark_sky_uv_index
+      - sensor.dark_sky_icon

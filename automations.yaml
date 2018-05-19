@@ -13,10 +13,10 @@
   alias: Outside Lights - Turn on outdoor lights when Ryan or Chelsea arrives
   id: '1499691067565'
   trigger:
-  - entity_id: device_tracker.chelseas_iphone,device_tracker.homeassistant_ryans_iphone
-    from: not_home
+  - entity_id: binary_sensor.chelsea_home,binary_sensor.ryan_home
+    from: "off"
     platform: state
-    to: home
+    to: "on"
   condition:
   - condition: state
     entity_id: sun.sun
@@ -40,13 +40,13 @@
   id: '1499691067566'
   trigger:
   - entity_id:
-    - device_tracker.homeassistant_ryans_iphone
-    - device_tracker.chelseas_iphone
+    - binary_sensor.ryan_home
+    - binary_sensor.chelsea_home
     for:
       minutes: 15
-    from: not_home
+    from: "off"
     platform: state
-    to: home
+    to: "on"
   condition:
   - condition: state
     entity_id: binary_sensor.ring_office_door_motion
@@ -241,10 +241,10 @@
     state: CLOSED
   id: '1503764090424'
   trigger:
-  - entity_id: device_tracker.homeassistant_ryans_iphone
-    from: not_home
+  - entity_id: binary_sensor.ryan_home
+    from: "off"
     platform: state
-    to: home
+    to: "on"
 - action:
   - data:
       message: Garage controller connected
@@ -291,10 +291,10 @@
         state: UNDEFINED
   id: '1503765780870'
   trigger:
-  - entity_id: device_tracker.homeassistant_ryans_iphone,device_tracker.ryans_iphone
-    from: home
+  - entity_id: binary_sensor.ryan_home
+    from: "on"
     platform: state
-    to: not_home
+    to: "off"
 - action:
   - data:
       message: Home Assistant Started
@@ -418,8 +418,7 @@
   - data:
       message: Garage door is open and no one is home!
     service: notify.ios
-  alias: Garage Door - Alert Household when garage is open for 15 minutes and no one
-    is home
+  alias: Garage Door - Alert Household when garage is open for 15 minutes and no one is home
   condition:
   - condition: state
     entity_id: group.household

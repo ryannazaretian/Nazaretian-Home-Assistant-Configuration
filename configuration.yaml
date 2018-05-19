@@ -24,8 +24,6 @@ config:
 # Enables map
 map:
 
-
-
 http:
   # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
@@ -48,20 +46,28 @@ discovery:
 
 media_player:
   - platform: webostv
-    host: 192.168.215.104
-    mac: CC:2D:8C:A4:8E:8B
+    host: !secret webos_ip
+    mac:  !secret webos_mac
     name: Living Room TV
+    
   - platform: plex
     include_non_clients: true
     use_episode_art: true
     use_dynamic_groups: true
     scan_interval: 15
-    host: 127.0.0.1
-    port: 32400
+    host: !secret plex_ip
+    port: !secret plex_port
     username: !secret plex_username
     password: !secret plex_password
     ssl: true
+  - platform: apple_tv
+    name: Apple TV
 
+apple_tv:
+  - host: !secret apple_tv_ip
+    login_id: !secret apple_tv_login_id
+    credentials: !secret apple_tv_credentials
+    name: Apple TV
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -280,7 +286,37 @@ binary_sensor:
     device_class: lock
     payload_on: 1
     payload_off: 0
-
+  
+  - platform: template
+    sensors:
+      security_ready:
+        device_class: safety
+        value_template: >-
+          {{    is_state('binary_sensor.security_sensor_0',  'on')
+             or is_state('binary_sensor.security_sensor_1',  'on')
+             or is_state('binary_sensor.security_sensor_2',  'on')
+             or is_state('binary_sensor.security_sensor_3',  'on')
+             or is_state('binary_sensor.security_sensor_4',  'on')
+             or is_state('binary_sensor.security_sensor_5',  'on')
+             or is_state('binary_sensor.security_sensor_6',  'on')
+             or is_state('binary_sensor.security_sensor_8',  'on')
+             or is_state('binary_sensor.security_sensor_10', 'on') }}
+             
+      ryan_home:
+        device_class: presence
+        value_template: >-
+          {{    is_state('device_tracker.ryans_iphone',  'home')
+             or is_state('device_tracker.ryansapplewatch',  'home')
+             or is_state('device_tracker.ryansiphone',  'home')
+             or is_state('device_tracker.homeassistant_ryans_iphone',  'home')}}
+    
+      chelsea_home:
+        device_class: presence
+        value_template: >-
+          {{    is_state('device_tracker.chelseas_iphone',  'home')
+             or is_state('device_tracker.chelseasiphone',  'home') }}
+    
+  
 
 cover:
   - platform: mqtt
@@ -387,6 +423,35 @@ sensor:
   - platform: plex
     username: !secret plex_username
     password: !secret plex_password
+    
+  - platform: darksky
+    api_key: 4a878a47b4ae2467dfd3715542b8c96b
+    monitored_conditions:
+      - summary
+      - precip_type
+      - precip_intensity
+      - precip_probability
+      - precip_accumulation
+      - temperature
+      - apparent_temperature
+      - dew_point
+      - wind_speed
+      - wind_bearing
+      - cloud_cover
+      - humidity
+      - pressure
+      - visibility
+      - ozone
+      - minutely_summary
+      - hourly_summary
+      - daily_summary
+      - temperature_max
+      - temperature_min
+      - apparent_temperature_max
+      - apparent_temperature_min
+      - precip_intensity_max
+      - uv_index
+      - icon
 
 
 input_number:
@@ -456,8 +521,8 @@ switch:
   - platform: wake_on_lan
     # Desktop
     name: "Desktop"
-    mac_address: "b0-6e-bf-a5-da-7e"
-    host: 192.168.215.100
+    mac_address: !secret desktop_mac
+    host: !secret desktop_ip
     retain: true
 
 recorder:
