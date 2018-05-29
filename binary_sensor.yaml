@@ -1,0 +1,238 @@
+- platform: ring
+  monitored_conditions:
+  - ding
+  - motion
+  
+- platform: mqtt
+  state_topic: "garage_state/car0/state"
+  name: "Subaru Parking"
+  device_class: occupancy
+  icon: mdi:sports_car
+
+- platform: mqtt
+  state_topic: "garage_state/car1/state"
+  name: "Corvette Parking"
+  device_class: occupancy
+  icon: mdi:sports_car
+
+- platform: apcupsd
+- platform: mqtt
+  state_topic: "securitySystem/sensor_0"
+  name: "Security Sensor 0"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_1"
+  name: "Security Sensor 1"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_2"
+  name: "Security Sensor 2"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_3"
+  name: "Security Sensor 3"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_4"
+  name: "Security Sensor 4"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_5"
+  name: "Security Sensor 5"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_6"
+  name: "Security Sensor 6"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_7"
+  name: "Security Sensor 7"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_8"
+  name: "Security Sensor 8"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_9"
+  name: "Security Sensor 9"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_10"
+  name: "Security Sensor 10"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_11"
+  name: "Security Sensor 11"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_12"
+  name: "Security Sensor 12"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_13"
+  name: "Security Sensor 13"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_14"
+  name: "Security Sensor 14"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_15"
+  name: "Security Sensor 15"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_16"
+  name: "Security Sensor 16"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_17"
+  name: "Security Sensor 17"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_18"
+  name: "Security Sensor 18"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_19"
+  name: "Security Sensor 19"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_20"
+  name: "Security Sensor 20"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: mqtt
+  state_topic: "securitySystem/sensor_21"
+  name: "Security Sensor 21"
+  device_class: lock
+  payload_on: 1
+  payload_off: 0
+
+- platform: template
+  sensors:
+    security_ready:
+      device_class: safety
+      value_template: >-
+        {{    is_state('binary_sensor.security_sensor_0',  'on')
+           or is_state('binary_sensor.security_sensor_1',  'on')
+           or is_state('binary_sensor.security_sensor_2',  'on')
+           or is_state('binary_sensor.security_sensor_3',  'on')
+           or is_state('binary_sensor.security_sensor_4',  'on')
+           or is_state('binary_sensor.security_sensor_5',  'on')
+           or is_state('binary_sensor.security_sensor_6',  'on')
+           or is_state('binary_sensor.security_sensor_8',  'on')
+           or is_state('binary_sensor.security_sensor_10', 'on') }}
+           
+    ryan_home:
+      device_class: presence
+      value_template: >-
+        {{    is_state('device_tracker.ryans_iphone',  'home') 
+           or is_state('device_tracker.ryansapplewatch',  'home') 
+           or is_state('device_tracker.ryansiphone',  'home') 
+           or is_state('device_tracker.homeassistant_ryans_iphone',  'home')}} 
+  
+    chelsea_home:
+      device_class: presence
+      value_template: >-
+        {{    is_state('device_tracker.chelseas_iphone',  'home')
+           or is_state('device_tracker.chelseasiphone',  'home') }}
+  
+- platform: bayesian
+  name: 'ryan_home_bayesian'
+  prior: 0.5
+  probability_threshold: 0.9
+  observations:
+    - entity_id: 'device_tracker.ryans_iphone' # Home Assistant App (GPS)
+      prob_given_true: 0.9
+      prob_given_false: 0.1
+      platform: 'state'
+      to_state: 'on'
+    - entity_id: 'device_tracker.ryansapplewatch' # Unifi AP
+      prob_given_true: 0.99
+      prob_given_false: 0.6
+      platform: 'state'
+      to_state: 'on'
+    - entity_id: 'device_tracker.ryansiphone' # Unifi AP
+      prob_given_true: 0.99
+      prob_given_false: 0.6
+      platform: 'state'
+      to_state: 'on'
+    - entity_id: 'device_tracker.homeassistant_ryans_iphone' # Own Tracks (GPS + BLE Beacon)
+      prob_given_true: 0.9
+      prob_given_false: 0.1
+      platform: 'state'
+      to_state: 'on'
+    - entity_id: 'device_tracker.ryans_iphone' # Own Tracks (GPS + BLE Beacon)
+      prob_given_true: 0.9
+      prob_given_false: 0.1
+      platform: 'state'
+      to_state: 'off'
+    - entity_id: 'device_tracker.homeassistant_ryans_iphone' # Own Tracks (GPS + BLE Beacon)
+      prob_given_true: 0.9
+      prob_given_false: 0.1
+      platform: 'state'
+      to_state: 'off'
+      
+    

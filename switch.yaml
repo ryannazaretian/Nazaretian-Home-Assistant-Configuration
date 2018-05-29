@@ -1,0 +1,6 @@
+- platform: wake_on_lan
+  # Desktop
+  name: "Desktop"
+  mac_address: !secret desktop_mac
+  host: !secret desktop_ip
+  retain: true
