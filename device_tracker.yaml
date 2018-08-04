@@ -2,8 +2,13 @@
   max_gps_accuracy: 200
   waypoints: True
 - platform: unifi
-  host: localhost
-  port: 8443
+  host: !secret unifi_ip
+  port: !secret unifi_port
   verify_ssl: false
   username: !secret unifi_username
   password: !secret unifi_password
+  interval_seconds: 10
+  consider_home: 180
+  new_device_defaults:
+    track_new_devices: False
+    hide_if_away: False

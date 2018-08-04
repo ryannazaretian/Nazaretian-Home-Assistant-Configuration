@@ -13,11 +13,13 @@
     - mediumClouds
     - highClouds
     - dewpointTemperature
+    
 - platform: speedtest
   monitored_conditions:
    - ping
    - download
    - upload
+   
 - platform: ring
   monitored_conditions:
     - battery
@@ -25,44 +27,115 @@
     - last_ding
     - last_motion
     - volume
+    
 - platform: mqtt
   state_topic: "garage_state/door_state"
   name: "Garage Door State"
+  
 - platform: mqtt
   state_topic: "garage_state/temperature"
   name: "Garage Temperature"
   unit_of_measurement: "°F"
+  device_class: temperature
+  
 - platform: mqtt
   state_topic: "garage_state/car0/dist"
   name: "Subaru Sensor Distance"
   unit_of_measurement: "in"
+  
 - platform: mqtt
   state_topic: "garage_state/car1/dist"
   name: "Corvette Sensor Distance"
   unit_of_measurement: "in"
+  
 - platform: mqtt
   state_topic: "garage_state/car0/trigger"
   name: "Subaru Sensor Trigger"
   unit_of_measurement: "in"
+  
 - platform: mqtt
   state_topic: "garage_state/car1/trigger"
   name: "Corvette Sensor Trigger"
   unit_of_measurement: "in"
+  
 - platform: template
   sensors:
     subaru_occupancy:
       friendly_name: 'Subaru Occupancy'
       value_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}Car In{% else %}Car Out{% endif %}'
       icon_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
+    
     corvette_occupancy:
       friendly_name: 'Corvette Occupancy'
       value_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}Car In{% else %}Car Out{% endif %}'
       icon_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
+    
     ups_load_watts:
       friendly_name: 'UPS Load'
       value_template: "{{ states('sensor.ups_load')|float * 5.0}}"
+      
       unit_of_measurement: 'watts'
+    hvac_zwave_battery:
+      friendly_name: 'HVAC Z-Wave Battery Level'
+      value_template: "{{ states.zwave.homeseer_unknown_type0201_id000a_5.attributes.battery_level }}"
+      unit_of_measurement: '%'
+      device_class: battery
 
+    water_heater_zwave_battery:
+      friendly_name: 'Water Heater Z-Wave Battery Level'
+      value_template: "{{ states.zwave.homeseer_unknown_type0201_id000a_6.attributes.battery_level }}"
+      unit_of_measurement: '%'
+      device_class: battery
+    
+    neato_battery:
+      friendly_name: 'Neato Battery Level'
+      value_template: "{{ states.vacuum.neato.attributes.battery_level }}"
+      icon_template: "{{ states.vacuum.neato.attributes.battery_icon }}"
+      unit_of_measurement: '%'
+      device_class: battery
+      
+    office_window_west_zwave_battery:
+      friendly_name: 'Office Windows - West Battery Level'
+      value_template: "{{ states.zwave.neo_coolcam_doorwindow_detector.attributes.battery_level }}"
+      unit_of_measurement: '%'
+      device_class: battery
+      
+    office_window_east_zwave_battery:
+      friendly_name: 'Office Windows - East Battery Level'
+      value_template: "{{ states.zwave.neo_coolcam_doorwindow_detector_2.attributes.battery_level }}"
+      unit_of_measurement: '%'
+      device_class: battery
+      
+    master_bathroom_multisensor_humidity:
+      friendly_name: Master Bathroom Humidity 
+      unit_of_measurement: "%"
+      value_template: "{{ states('sensor.zooz_zse40_4in1_sensor_relative_humidity') }}"
+      device_class: humidity
+      
+    master_bathroom_multisensor_temperature:
+      friendly_name: Master Bathroom Temperature 
+      unit_of_measurement: "°F"
+      value_template: "{{ states('sensor.zooz_zse40_4in1_sensor_temperature') }}"
+      device_class: temperature
+      
+    master_bathroom_multisensor_battery:
+      friendly_name: Master Bathroom Battery 
+      unit_of_measurement: "%"
+      value_template: "{{ states.zwave.zooz_zse40_4in1_sensor.attributes.battery_level }}"
+      device_class: battery
+      
+    master_bathroom_multisensor_illuminance:
+      friendly_name: Master Bathroom Battery 
+      unit_of_measurement: "%"
+      value_template: "{{ states('sensor.zooz_zse40_4in1_sensor_luminance') }}"
+      device_class: illuminance
+      
+    office_door_battery:
+      friendly_name: Office Door Battery
+      unit_of_measurement: "%"
+      value_template: "{{ states.zwave.vision_zd2105us5_recessed_doorwindow_sensor.attributes.battery_level }}"
+      device_class: battery
+      
 - platform: command_line
   name: CPU Temp
   command: "/bin/cat /sys/class/thermal/thermal_zone0/temp"
@@ -112,10 +185,10 @@
     - minutely_summary
     - hourly_summary
     - daily_summary
-    - temperature_max
-    - temperature_min
-    - apparent_temperature_max
-    - apparent_temperature_min
+    - temperature_high
+    - temperature_low
+    - apparent_temperature_high
+    - apparent_temperature_low
     - precip_intensity_max
     - uv_index
     - icon

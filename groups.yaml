@@ -2,14 +2,72 @@
     view: yes
     icon: mdi:home
     entities:
-      - input_number.touchpanel_brightness
+      - group.securityquick
+      - cover.garage_door
       - climate.home
-      - group.darksky
+      - group.systemmonitor
+      - camera.front_door
+      - camera.office_door
+      
+
+      
+  SecurityQuick:
+    name: Security Quick Glance
+    view: no
+    icon: mdi:security-home
+    entities: 
+      - alarm_control_panel.home_alarm
+      - binary_sensor.security_ready
+      
+  Zwave:
+    name: Z-Wave
+    view: yes
+    icon: mdi:access-point
+    entities:
+      - group.zwavebatteries
+      - group.zwavedevices
+    
+  ZwaveBatteries:
+    name: Z-Wave Batteries
+    icon: mdi:battery
+    entities: 
+      - sensor.hvac_zwave_battery
+      - sensor.water_heater_zwave_battery
+      - sensor.office_window_east_zwave_battery
+      - sensor.office_window_west_zwave_battery
+      - sensor.master_bathroom_multisensor_battery
+      - sensor.office_door_battery
+      
+  ZwaveDevices:
+    name: Z-Wave Devices
+    icon: mdi:access-point
+    entities:
+      - zwave.aeotec_zw090_zstick_gen5_us
+      - zwave.dining_room
+      - zwave.driveway_door
+      - zwave.driveway_flood
+      - zwave.front_outdoor
+      - zwave.gr_unknown_type0003_id0003
+      - zwave.enerwave_zwnrsm1_plussmart_single_relay_switch_module
+      - zwave.homeseer_unknown_type0201_id000a_5
+      - zwave.homeseer_unknown_type0201_id000a_6
+      - zwave.neo_coolcam_doorwindow_detector
+      - zwave.neo_coolcam_doorwindow_detector_2
+      - zwave.vision_zd2105us5_recessed_doorwindow_sensor
+      - zwave.zooz_zse40_4in1_sensor
+
+  AllIO:
+    name: All I/O
+    view: yes
+    icon: mdi:folder-network
+    entities:
       - group.all_switches
       - group.all_lights
       - group.all_covers
-      - group.homesecurity
-      - group.systemmonitor
+      - group.all_fans
+      - group.all_remotes
+      - group.all_devices
+      - group.all_vacuum_cleaners
       
   Neato:
     name: Neato
@@ -19,7 +77,19 @@
       - vacuum.neato
       - camera.neato_cleaning_map
       - switch.neato_schedule
-    
+      
+  Temperatures:
+    name: Temperatures
+    view: yes
+    icon: mdi:thermometer
+    entities: 
+      - sensor.cpu_temp
+      - sensor.garage_temperature
+      - sensor.homeseer_unknown_type0201_id000a_temperature_5
+      - sensor.homeseer_unknown_type0201_id000a_temperature_6
+      - sensor.dark_sky_temperature
+      - sensor.master_bathroom_multisensor_temperature
+      - sensor.master_bathroom_multisensor_humidity
       
   HomeSecurity:
     name: Home Security
@@ -36,16 +106,30 @@
     icon: mdi:television-classic
     entities:
       - media_player.living_room_tv
-      - media_player.ryans_chromecast
-      - media_player.name_1
+      - media_player.apple_tv_2
       - sensor.plex
       - light.dining_room_dimmer
       - automation.dining_room__nightlight_off
       - automation.dining_room__nightlight_on
-      - automation.dining_room__turn_lights_to_night_mode_after_the_tv_is_off_for_10_minutes
       - automation.dining_room__turn_on_light_when_someone_arrives_home
 
+  Batteries:
+    name: Batteries
+    icon: mdi:battery
+    entities: 
+      - sensor.ups_battery
+      - sensor.neato_battery
+      - sensor.hvac_zwave_battery
+      - sensor.water_heater_zwave_battery
+      - sensor.office_window_east_zwave_battery
+      - sensor.office_window_west_zwave_battery
+      - sensor.master_bathroom_multisensor_battery
+      - sensor.office_door_battery
+      - sensor.ring_front_door_battery
+      - sensor.ryans_iphone_battery_level
+      - sensor.chelseas_iphone_battery_level
 
+      
   SystemMonitor:
     name: System Monitor
     icon: mdi:chip
@@ -60,6 +144,7 @@
       - sensor.ups_status
       - sensor.ups_time_left
       - sensor.ups_load_watts
+      - sensor.ups_battery
 
   Speedtest:
   - sensor.speedtest_ping
@@ -124,18 +209,6 @@
       - binary_sensor.ryan_home
       - binary_sensor.chelsea_home
 
-  Climate:
-    name: Climate Control
-    view: yes
-    icon: mdi:air-conditioner
-    entities:
-      - climate.home
-      - sensor.yr_temperature
-      - sensor.yr_symbol
-      - automation.climate__daytime_cool
-      - automation.climate__daytime_heat
-      - automation.climate__nighttime_cool
-      - automation.climate__nightime_heat
 
   HomeUPS:
     name: Home UPS
@@ -154,6 +227,17 @@
       - automation.ups__send_notification_on_power_loss
       - automation.ups__send_notification_on_power_restored
       - automation.ups__shutdown_home_assistant_when_on_battery_and_less_than_5_mins_remaining
+      
+  MasterBedroom:
+    name: Master Bedroom
+    view: yes
+    icon: mdi:bed-empty
+    entities:
+      - binary_sensor.master_bathroom_multisensor_motion
+      - sensor.master_bathroom_multisensor_temperature
+      - sensor.master_bathroom_multisensor_humidity
+      - fan.master_bathroom_ceiling_fan
+      - media_player.master_bedroom_apple_tv
 
   SecurityInputs:
     name: Security Inputs
@@ -184,6 +268,12 @@
       - binary_sensor.security_sensor_19
       - binary_sensor.security_sensor_20
       - binary_sensor.security_sensor_21
+      - binary_sensor.hvac_leak
+      - binary_sensor.water_heater_leak
+      - binary_sensor.office_window_east
+      - binary_sensor.office_window_west
+      - binary_sensor.office_door
+      - binary_sensor.master_bathroom_multisensor_motion
       
   Other:
     name: Other

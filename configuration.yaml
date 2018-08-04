@@ -26,9 +26,9 @@ http:
   api_password: !secret http_password
   # Uncomment this if you are using SSL or running in Docker etc
   base_url: !secret base_url
-  cors_allowed_origins:
+  # cors_allowed_origins:
   # add in the domain name or IP mentioned in the CORS error
-    - 192.168.215.101
+  # - localhost
 
 
 # Checks for available updates
@@ -53,12 +53,19 @@ input_number: !include input_number.yaml
 climate: !include climate.yaml
 zone: !include zone.yaml
 media_player: !include media_player.yaml
+panel_iframe: !include panel_iframe.yaml
+fan: !include fan.yaml
   
 apple_tv:
-  - host: !secret apple_tv_ip
-    login_id: !secret apple_tv_login_id
-    credentials: !secret apple_tv_credentials
-    name: Apple TV
+  - host: !secret lr_apple_tv_ip
+    login_id: !secret lr_apple_tv_login_id
+    credentials: !secret lr_apple_tv_credentials
+    name: Living Room Apple TV
+
+  - host: !secret mbr_apple_tv_ip
+    login_id: !secret mbr_apple_tv_login_id
+    credentials: !secret mbr_apple_tv_credentials
+    name: Master Bedroom Apple TV
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -105,11 +112,6 @@ zwave:
 
 apcupsd:
 
-google_domains:
-  domain: !secret google_domains_domain
-  username: !secret google_domains_username
-  password: !secret google_domains_password
-
 neato:
   username: !secret neato_username
   password: !secret neato_password
@@ -133,11 +135,12 @@ alarm_control_panel:
   - platform: manual
     name: Home Alarm
     code: !secret alarm_code
-    pending_time: 30
-    delay_time: 20
-    trigger_time: 4
+    disarm_after_trigger: false
     disarmed:
       trigger_time: 0
     armed_home:
       pending_time: 0
       delay_time: 0
+    armed_away:
+      pending_time: 60
+      delay_time: 20

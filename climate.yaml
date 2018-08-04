@@ -3,5 +3,5 @@
   username: !secret honeywell_username
   password: !secret honeywell_password
   scan_interval: 600
-  cool_away_temperature: 25
-  heat_away_temperature: 20
+  away_cool_temperature : 29
+  away_heat_temperature : 18

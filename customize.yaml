@@ -40,8 +40,8 @@ group.all_remotes:
   homebridge_hidden: true
 group.all_switches:
   friendly_name: All Switches
-  hidden: false
   homebridge_hidden: true
+  hidden: false
 automation.climate__nightime_heat:
   homebridge_hidden: true
 automation.climate__nighttime_cool:
@@ -204,6 +204,21 @@ vacuum.neato: {}
 group.neato:
   icon: mdi:robot-vacuum
 binary_sensor.ryan_home:
-  friendly_name: Ryan
+  friendly_name: Ryan Home
+  initial_state: 'on'
 binary_sensor.chelsea_home:
-  friendly_name: Chelsea
+  friendly_name: Chelsea Home
+switch.enerwave_zwnrsm1_plussmart_single_relay_switch_module_switch:
+  icon: mdi:fan
+binary_sensor.ryan_away:
+  friendly_name: Ryan Away
+  initial_state: 'off'
+group.all_fans: {}
+switch.gr_unknown_type0003_id0003_switch:
+  hidden: true
+switch.neato_schedule:
+  icon: mdi:calendar-clock
+switch.siren:
+  icon: mdi:alarm-bell
+switch.front_porch_lights:
+  icon: mdi:ceiling-light

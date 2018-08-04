@@ -169,10 +169,27 @@
   device_class: lock
   payload_on: 1
   payload_off: 0
+  
+- platform: trend
+  sensors:
+    master_bath_humidity_rising:
+      friendly_name: Master Bathroom Humidity Rising
+      entity_id: sensor.master_bathroom_multisensor_humidity
+      max_samples: 4
+      min_gradient: 0.002
+      sample_duration: 60
+      
+    master_bath_temperature_rising:
+      friendly_name: Master Bathroom Humidity Rising
+      entity_id: sensor.master_bathroom_multisensor_temperature
+      max_samples: 4
+      min_gradient: 0.001
+      sample_duration: 60
 
 - platform: template
   sensors:
     security_ready:
+      friendly_name: Security Ready
       device_class: safety
       value_template: >-
         {{    is_state('binary_sensor.security_sensor_0',  'on')
@@ -183,56 +200,82 @@
            or is_state('binary_sensor.security_sensor_5',  'on')
            or is_state('binary_sensor.security_sensor_6',  'on')
            or is_state('binary_sensor.security_sensor_8',  'on')
-           or is_state('binary_sensor.security_sensor_10', 'on') }}
+           or is_state('binary_sensor.security_sensor_10', 'on')
+           or is_state('binary_sensor.water_heater_leak', 'on')
+           or is_state('binary_sensor.hvac_leak', 'on') 
+           or is_state('binary_sensor.office_window_east', 'on')
+           or is_state('binary_sensor.office_window_west', 'on') 
+           or is_state('binary_sensor.office_door', 'on') }}
            
     ryan_home:
+      friendly_name: Ryan is home
       device_class: presence
       value_template: >-
         {{    is_state('device_tracker.ryans_iphone',  'home') 
            or is_state('device_tracker.ryansapplewatch',  'home') 
            or is_state('device_tracker.ryansiphone',  'home') 
            or is_state('device_tracker.homeassistant_ryans_iphone',  'home')}} 
+           
+    ryan_away:
+      friendly_name: Ryan is away
+      device_class: presence
+      value_template: >-
+        {{    is_state('device_tracker.ryans_iphone',  'not_home')
+            or is_state('device_tracker.homeassistant_ryans_iphone',  'not_home')}}
   
     chelsea_home:
+      friendly_name: Chelsea is home
       device_class: presence
       value_template: >-
         {{    is_state('device_tracker.chelseas_iphone',  'home')
            or is_state('device_tracker.chelseasiphone',  'home') }}
-  
-- platform: bayesian
-  name: 'ryan_home_bayesian'
-  prior: 0.5
-  probability_threshold: 0.9
-  observations:
-    - entity_id: 'device_tracker.ryans_iphone' # Home Assistant App (GPS)
-      prob_given_true: 0.9
-      prob_given_false: 0.1
-      platform: 'state'
-      to_state: 'on'
-    - entity_id: 'device_tracker.ryansapplewatch' # Unifi AP
-      prob_given_true: 0.99
-      prob_given_false: 0.6
-      platform: 'state'
-      to_state: 'on'
-    - entity_id: 'device_tracker.ryansiphone' # Unifi AP
-      prob_given_true: 0.99
-      prob_given_false: 0.6
-      platform: 'state'
-      to_state: 'on'
-    - entity_id: 'device_tracker.homeassistant_ryans_iphone' # Own Tracks (GPS + BLE Beacon)
-      prob_given_true: 0.9
-      prob_given_false: 0.1
-      platform: 'state'
-      to_state: 'on'
-    - entity_id: 'device_tracker.ryans_iphone' # Own Tracks (GPS + BLE Beacon)
-      prob_given_true: 0.9
-      prob_given_false: 0.1
-      platform: 'state'
-      to_state: 'off'
-    - entity_id: 'device_tracker.homeassistant_ryans_iphone' # Own Tracks (GPS + BLE Beacon)
-      prob_given_true: 0.9
-      prob_given_false: 0.1
-      platform: 'state'
-      to_state: 'off'
+    
+    
+    chelsea_away:
+      friendly_name: Chelsea is away
+      device_class: presence
+      value_template: >-
+        {{    is_state('device_tracker.chelseas_iphone',  'not_home') }}
+        
+    ryan_and_chelsea_away:
+      friendly_name: Ryan and Chelsea is away
+      device_class: presence
+      value_template: >-
+        {{    is_state('binary_sensor.ryan_away',  'on')
+           and is_state('binary_sensor.chelsea_away',  'on') }}
+      
+           
+    hvac_leak:
+      friendly_name: HVAC Leak 
+      device_class: moisture
+      value_template: "{{is_state('sensor.homeseer_unknown_type0201_id000a_flood_5', '2')}}"
+
+    water_heater_leak:
+      friendly_name: Water Heater Leak
+      device_class: moisture
+      value_template: "{{is_state('sensor.homeseer_unknown_type0201_id000a_flood_6', '2')}}"
+      
+    office_window_west:
+      friendly_name: Office Window - West
+      device_class: window
+      value_template: "{{is_state('binary_sensor.neo_coolcam_doorwindow_detector_sensor_2', 'on')}}"
+      
+    office_window_east: 
+      friendly_name: Office Window - East
+      device_class: window
+      value_template: "{{is_state('binary_sensor.neo_coolcam_doorwindow_detector_sensor', 'on')}}"  
+      
+    office_door:
+      friendly_name: Office Door
+      device_class: door
+      value_template: "{{ is_state('sensor.vision_zd2105us5_recessed_doorwindow_sensor_alarm_level', '255') }}"
+      
+    master_bathroom_multisensor_motion:
+      friendly_name: Master Bathroom Motion
+      device_class: motion
+      value_template: "{{ is_state('sensor.zooz_zse40_4in1_sensor_alarm_level', '255') }}"
+      
+    
+      
       
     
