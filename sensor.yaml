@@ -73,17 +73,17 @@
     ups_load_watts:
       friendly_name: 'UPS Load'
       value_template: "{{ states('sensor.ups_load')|float * 5.0}}"
-      
       unit_of_measurement: 'watts'
+      
     hvac_zwave_battery:
       friendly_name: 'HVAC Z-Wave Battery Level'
-      value_template: "{{ states.zwave.homeseer_unknown_type0201_id000a_5.attributes.battery_level }}"
+      value_template: "{{ states.zwave.homeseer_unknown_type0201_id000a_7.attributes.battery_level }}"
       unit_of_measurement: '%'
       device_class: battery
 
     water_heater_zwave_battery:
       friendly_name: 'Water Heater Z-Wave Battery Level'
-      value_template: "{{ states.zwave.homeseer_unknown_type0201_id000a_6.attributes.battery_level }}"
+      value_template: "{{ states.zwave.homeseer_unknown_type0201_id000a_9.attributes.battery_level }}"
       unit_of_measurement: '%'
       device_class: battery
     

@@ -248,12 +248,12 @@
     hvac_leak:
       friendly_name: HVAC Leak 
       device_class: moisture
-      value_template: "{{is_state('sensor.homeseer_unknown_type0201_id000a_flood_5', '2')}}"
+      value_template: "{{states('sensor.homeseer_unknown_type0201_id000a_flood_7')|int == 2}}"
 
     water_heater_leak:
       friendly_name: Water Heater Leak
       device_class: moisture
-      value_template: "{{is_state('sensor.homeseer_unknown_type0201_id000a_flood_6', '2')}}"
+      value_template: "{{states('sensor.homeseer_unknown_type0201_id000a_flood_9')|int == 2}}"
       
     office_window_west:
       friendly_name: Office Window - West

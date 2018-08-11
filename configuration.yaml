@@ -57,10 +57,10 @@ panel_iframe: !include panel_iframe.yaml
 fan: !include fan.yaml
   
 apple_tv:
-  - host: !secret lr_apple_tv_ip
-    login_id: !secret lr_apple_tv_login_id
-    credentials: !secret lr_apple_tv_credentials
-    name: Living Room Apple TV
+  # - host: !secret lr_apple_tv_ip
+    # login_id: !secret lr_apple_tv_login_id
+    # credentials: !secret lr_apple_tv_credentials
+    # name: Living Room Apple TV
 
   - host: !secret mbr_apple_tv_ip
     login_id: !secret mbr_apple_tv_login_id

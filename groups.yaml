@@ -49,8 +49,8 @@
       - zwave.front_outdoor
       - zwave.gr_unknown_type0003_id0003
       - zwave.enerwave_zwnrsm1_plussmart_single_relay_switch_module
-      - zwave.homeseer_unknown_type0201_id000a_5
-      - zwave.homeseer_unknown_type0201_id000a_6
+      - zwave.homeseer_unknown_type0201_id000a_7
+      - zwave.homeseer_unknown_type0201_id000a_9
       - zwave.neo_coolcam_doorwindow_detector
       - zwave.neo_coolcam_doorwindow_detector_2
       - zwave.vision_zd2105us5_recessed_doorwindow_sensor
@@ -85,8 +85,8 @@
     entities: 
       - sensor.cpu_temp
       - sensor.garage_temperature
-      - sensor.homeseer_unknown_type0201_id000a_temperature_5
-      - sensor.homeseer_unknown_type0201_id000a_temperature_6
+      - sensor.homeseer_unknown_type0201_id000a_temperature_7
+      - sensor.homeseer_unknown_type0201_id000a_temperature_9
       - sensor.dark_sky_temperature
       - sensor.master_bathroom_multisensor_temperature
       - sensor.master_bathroom_multisensor_humidity
