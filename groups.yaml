@@ -3,13 +3,57 @@
     icon: mdi:home
     entities:
       - group.securityquick
-      - cover.garage_door
-      - climate.home
+      - group.garagedoor
+      - group.climate
       - group.systemmonitor
-      - camera.front_door
-      - camera.office_door
-      
+      - group.securitycameras
 
+  SecurityCameras:
+    view: no
+    icon: mdi:cctv
+    name: Security Cameras
+    entities: 
+      - camera.front_door
+      - camera.office_door  
+  Climate:
+    view: no
+    icon: mdi:snowflake
+    name: Climate Control
+    entities:
+      - climate.home
+      
+  GarageDoor:
+    view: no
+    icon: mdi:garage
+    name: Garage Door
+    entities: 
+    - cover.garage_door
+      
+  HomeSettings:
+    name: Home Settings
+    view: yes
+    icon: mdi:settings
+    entities:
+      - input_select.house_mode
+      - input_boolean.guest_mode
+      - input_boolean.morning_follows_sunrise
+      - input_datetime.morning_routine
+      - input_boolean.nightmode_follows_sunset
+      - input_datetime.nightmode_start
+      - input_boolean.daytime_mode_lags_sunrise
+      - input_number.daytime_mode_lag
+      - input_datetime.daytime_start
+      - input_boolean.disable_security_beep
+      - input_boolean.morning_mode
+      - group.debug
+      
+  Debug:
+    name: Debug Switches
+    entities:
+      - input_boolean.away_mode
+      - input_boolean.night_mode
+      - input_boolean.invert_ryan_away
+      - input_boolean.invert_chelsea_away
       
   SecurityQuick:
     name: Security Quick Glance
@@ -44,9 +88,11 @@
     entities:
       - zwave.aeotec_zw090_zstick_gen5_us
       - zwave.dining_room
-      - zwave.driveway_door
+      - zwave.ge_12727_inwall_smart_switch_toggle
       - zwave.driveway_flood
       - zwave.front_outdoor
+      - zwave.ge_14292_inwall_smart_toggle_switch_2
+      - zwave.ge_14292_inwall_smart_toggle_switch
       - zwave.gr_unknown_type0003_id0003
       - zwave.enerwave_zwnrsm1_plussmart_single_relay_switch_module
       - zwave.homeseer_unknown_type0201_id000a_7
@@ -61,12 +107,12 @@
     view: yes
     icon: mdi:folder-network
     entities:
-      - group.all_switches
-      - group.all_lights
       - group.all_covers
-      - group.all_fans
-      - group.all_remotes
       - group.all_devices
+      - group.all_fans
+      - group.all_lights
+      - group.all_remotes
+      - group.all_switches
       - group.all_vacuum_cleaners
       
   Neato:
@@ -106,12 +152,10 @@
     icon: mdi:television-classic
     entities:
       - media_player.living_room_tv
-      - media_player.apple_tv_2
+      - media_player.sound_bar
+      - media_player.living_room_2
       - sensor.plex
       - light.dining_room_dimmer
-      - automation.dining_room__nightlight_off
-      - automation.dining_room__nightlight_on
-      - automation.dining_room__turn_on_light_when_someone_arrives_home
 
   Batteries:
     name: Batteries
@@ -161,10 +205,7 @@
       - sensor.ring_front_door_last_ding
       - sensor.ring_front_door_last_motion
       - sensor.ring_front_door_battery
-      - switch.switch
-      - automation.front_yard__turn_on_porch_lights_when_motion_is_detect_at_front_door
-      - automation.front_yard__turn_off_porch_lights_after_motion_is_no_longer_detected
-
+      - switch.front_porch_lights
 
   Garage:
     name: Garage
@@ -237,7 +278,10 @@
       - sensor.master_bathroom_multisensor_temperature
       - sensor.master_bathroom_multisensor_humidity
       - fan.master_bathroom_ceiling_fan
+      - light.master_bathroom_dimmer
       - media_player.master_bedroom_apple_tv
+      - media_player.master_bedroom_tv
+      
 
   SecurityInputs:
     name: Security Inputs

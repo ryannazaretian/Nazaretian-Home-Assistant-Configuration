@@ -50,6 +50,9 @@ notify: !include notify.yaml
 group: !include groups.yaml
 switch: !include switch.yaml 
 input_number: !include input_number.yaml
+input_boolean: !include input_boolean.yaml
+input_select: !include input_select.yaml
+input_datetime: !include input_datetime.yaml
 climate: !include climate.yaml
 zone: !include zone.yaml
 media_player: !include media_player.yaml
@@ -57,15 +60,18 @@ panel_iframe: !include panel_iframe.yaml
 fan: !include fan.yaml
   
 apple_tv:
-  # - host: !secret lr_apple_tv_ip
-    # login_id: !secret lr_apple_tv_login_id
-    # credentials: !secret lr_apple_tv_credentials
-    # name: Living Room Apple TV
+  - host: !secret lr_apple_tv_ip
+    login_id: !secret lr_apple_tv_login_id
+    credentials: !secret lr_apple_tv_credentials
+    name: Living Room Apple TV
 
   - host: !secret mbr_apple_tv_ip
     login_id: !secret mbr_apple_tv_login_id
     credentials: !secret mbr_apple_tv_credentials
     name: Master Bedroom Apple TV
+    
+ecobee:
+  api_key: !secret ecobee_api
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -123,6 +129,7 @@ tts:
   platform: google
 
 recorder:
+  db_url: sqlite:////config/home-assitant_v2.db
   purge_interval: 1
   purge_keep_days: 14
   exclude:
@@ -144,3 +151,6 @@ alarm_control_panel:
     armed_away:
       pending_time: 60
       delay_time: 20
+      
+script: !include scripts.yaml
+cloud:

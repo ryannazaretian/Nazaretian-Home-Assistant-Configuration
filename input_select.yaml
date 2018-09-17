@@ -1,0 +1,9 @@
+house_mode:
+    name: House Mode
+    options: 
+    - Home - Morning
+    - Home - Daytime
+    - Home - Nighttime
+    - Away - Daytime
+    - Away - Nighttime
+    

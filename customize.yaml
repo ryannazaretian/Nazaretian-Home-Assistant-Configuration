@@ -5,15 +5,12 @@ light.dining_room_dimmer:
 zwave.aeotec_zw090_zstick_gen5_us:
   homebridge_hidden: true
 switch.driveway_flood_light:
-  icon: mdi:ceiling-light
+  icon: mdi:spotlight-beam
 switch.desktop:
   icon: mdi:desktop-tower
-switch.driveway_door_light:
-  icon: mdi:lightbulb
-switch.switch:
-  icon: mdi:ceiling-light
 cover.garage_door:
   icon: mdi:garage
+  order: '1'
 sensor.speedtest_ping:
   icon: mdi:timer
 sensor.cpu_temp:
@@ -200,9 +197,6 @@ binary_sensor.security_sensor_7:
   hidden: true
 binary_sensor.security_sensor_9:
   hidden: true
-vacuum.neato: {}
-group.neato:
-  icon: mdi:robot-vacuum
 binary_sensor.ryan_home:
   friendly_name: Ryan Home
   initial_state: 'on'
@@ -215,10 +209,24 @@ binary_sensor.ryan_away:
   initial_state: 'off'
 group.all_fans: {}
 switch.gr_unknown_type0003_id0003_switch:
-  hidden: true
+  hidden: false
 switch.neato_schedule:
   icon: mdi:calendar-clock
 switch.siren:
   icon: mdi:alarm-bell
 switch.front_porch_lights:
   icon: mdi:ceiling-light
+switch.ge_14292_inwall_smart_toggle_switch_switch_2:
+  hidden: false
+switch.ge_14292_inwall_smart_toggle_switch_switch:
+  hidden: false
+switch.back_porch_lights:
+  icon: mdi:ceiling-light
+switch.back_yard_floods:
+  icon: mdi:spotlight-beam
+switch.driveway_door_light:
+  icon: mdi:ceiling-light
+group.zwave:
+  icon: mdi:wifi
+input_boolean.guest_mode:
+  icon: mdi:account-star
