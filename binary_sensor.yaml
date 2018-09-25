@@ -298,7 +298,7 @@
       
     night_mode:
       friendly_name: Night Mode
-      value_template: "{{ is_state('input_select.house_mode', 'Home - Nighttime') or is_state('input_select.house_mode', 'Away - Nighttime') }}"
+      value_template: "{{ is_state('input_select.house_mode', 'Home - Nighttime') or is_state('input_select.house_mode', 'Away - Nighttime') or is_state('input_select.house_mode', 'Home - Morning') }}"
       
     heartbeat_status:
       friendly_name: Heartbeat Status
