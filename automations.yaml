@@ -66,9 +66,9 @@
   id: '1503764090424'
   trigger:
   - entity_id: binary_sensor.ryan_home
-    from: "off"
+    from: 'off'
     platform: state
-    to: "on"
+    to: 'on'
 - action:
   - data:
       message: Garage controller connected
@@ -116,9 +116,9 @@
   id: '1503765780870'
   trigger:
   - entity_id: binary_sensor.ryan_away
-    from: "off"
+    from: 'off'
     platform: state
-    to: "on"
+    to: 'on'
 - action:
   - data:
       message: Home Assistant Started
@@ -145,7 +145,8 @@
   - data:
       message: Garage door is open and no one is home!
     service: notify.ios
-  alias: Garage Door - Alert Household when garage is open for 15 minutes and no one is home
+  alias: Garage Door - Alert Household when garage is open for 15 minutes and no one
+    is home
   condition:
   - condition: state
     entity_id: group.household
@@ -172,7 +173,6 @@
   - minutes: /10
     platform: time
     seconds: 0
-
 - action:
   - data:
       payload_template: '{{states(''input_number.touchpanel_brightness'')}}'
@@ -184,4 +184,33 @@
   trigger:
   - entity_id: input_number.touchpanel_brightness
     platform: state
-
+- id: '1537802654861'
+  alias: HA - Heartbeat
+  trigger:
+  - platform: time
+    minutes: /5
+    seconds: 0
+  condition: []
+  action:
+  - data:
+      entity_id: input_boolean.homeassistant_heartbeat
+    service: input_boolean.toggle
+- id: '1537802946056'
+  alias: HA - Node Red Heartbeat Watchdog
+  trigger:
+  - entity_id: automation.ha__heartbeat
+    platform: state
+  - entity_id: binary_sensor.heartbeat_status
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.heartbeat_status
+    state: 'on'
+  action:
+  - data:
+      message: Node Red heartbeat did not change within timeout. Please restart Node
+        Red!
+      title: Node Red Watchdog Expired!
+    service: notify.ios_ryans_iphone

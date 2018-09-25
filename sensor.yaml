@@ -135,6 +135,12 @@
       unit_of_measurement: "%"
       value_template: "{{ states.zwave.vision_zd2105us5_recessed_doorwindow_sensor.attributes.battery_level }}"
       device_class: battery
+    
+    dishwasher_battery:
+      friendly_name: Dishwasher Battery
+      unit_of_measurement: "%"
+      value_template: "{{ states.zwave.dishwasher_leak.attributes.battery_level }}"
+      device_class: battery
       
 - platform: command_line
   name: CPU Temp

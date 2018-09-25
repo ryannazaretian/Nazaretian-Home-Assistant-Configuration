@@ -44,16 +44,23 @@
       - input_number.daytime_mode_lag
       - input_datetime.daytime_start
       - input_boolean.disable_security_beep
-      - input_boolean.morning_mode
+      - input_boolean.vacation_mode
       - group.debug
       
   Debug:
-    name: Debug Switches
+    name: Debug Switches / Info
     entities:
-      - input_boolean.away_mode
-      - input_boolean.night_mode
       - input_boolean.invert_ryan_away
       - input_boolean.invert_chelsea_away
+      - binary_sensor.ryan_and_chelsea_away
+      - binary_sensor.workday_sensor
+      - binary_sensor.away_mode
+      - binary_sensor.night_mode
+      - binary_sensor.morning_mode
+      - input_boolean.homeassistant_heartbeat
+      - input_boolean.nodered_heartbeat
+      - binary_sensor.heartbeat_status
+
       
   SecurityQuick:
     name: Security Quick Glance
@@ -81,6 +88,7 @@
       - sensor.office_window_west_zwave_battery
       - sensor.master_bathroom_multisensor_battery
       - sensor.office_door_battery
+      - sensor.dishwasher_battery
       
   ZwaveDevices:
     name: Z-Wave Devices
@@ -97,6 +105,7 @@
       - zwave.enerwave_zwnrsm1_plussmart_single_relay_switch_module
       - zwave.homeseer_unknown_type0201_id000a_7
       - zwave.homeseer_unknown_type0201_id000a_9
+      - zwave.dishwasher_leak
       - zwave.neo_coolcam_doorwindow_detector
       - zwave.neo_coolcam_doorwindow_detector_2
       - zwave.vision_zd2105us5_recessed_doorwindow_sensor

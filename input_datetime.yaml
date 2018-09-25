@@ -2,16 +2,13 @@ morning_routine:
   name: Morning Routine
   has_date: false
   has_time: true
-  initial: "05:15"
 
 nightmode_start:
     name: Nightmode
     has_date: false
     has_time: true
-    initial: "20:00"
   
 daytime_start:
     name: Daytime
     has_date: false
     has_time: true
-    initial: "07:00"

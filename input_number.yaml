@@ -1,14 +1,12 @@
 touchpanel_brightness:
     name: Touchpanel Brightness
     icon: mdi:brightness-5
-    initial: 127
     min: 15
     max: 255
     step: 1
   
 daytime_mode_lag:
     name: Daytime Mode Lag
-    initial: 120
     icon: mdi:timer
     unit_of_measurement: Minutes
     step: 15

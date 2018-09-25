@@ -85,6 +85,8 @@ history:
       - sensor.load_5m
       - sensor.since_last_boot
       - sensor.last_boot
+      - input_boolean.homeassistant_heartbeat
+      - input_boolean.nodered_heartbeat
 
 # View all events in a logbook
 logbook:
@@ -95,6 +97,9 @@ logbook:
       - sensor.load_15m
       - sensor.load_1m
       - sensor.load_5m
+      - input_boolean.homeassistant_heartbeat
+      - input_boolean.nodered_heartbeat
+      
 
 # Track the sun
 sun:

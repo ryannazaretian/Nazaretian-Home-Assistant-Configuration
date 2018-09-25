@@ -222,9 +222,9 @@
       value_template: >-
         {%- set value = (is_state('device_tracker.ryans_iphone',  'not_home') or is_state('device_tracker.homeassistant_ryans_iphone',  'not_home')) -%}
         {% if is_state('input_boolean.invert_ryan_away', 'off') %}
-        {{ not value }}
-        {% else %}
         {{ value }}
+        {% else %}
+        {{ not value }}
         {% endif %}
   
     chelsea_home:
@@ -241,14 +241,13 @@
       value_template: >-
         {%- set value = is_state('device_tracker.chelseas_iphone', 'not_home') -%}
         {% if is_state('input_boolean.invert_chelsea_away', 'off') %}
-        {{ not value }}
-        {% else %}
         {{ value }}
+        {% else %}
+        {{ not value }}
         {% endif %}
         
     ryan_and_chelsea_away:
       friendly_name: Ryan and Chelsea is away
-      device_class: presence
       value_template: >-
         {{    is_state('binary_sensor.ryan_away',  'on')
            and is_state('binary_sensor.chelsea_away',  'on') }}
@@ -263,6 +262,11 @@
       friendly_name: Water Heater Leak
       device_class: moisture
       value_template: "{{states('sensor.homeseer_unknown_type0201_id000a_flood_9')|int == 2}}"
+      
+    dishwasher_leak:
+      friendly_name: Dishwasher Leak
+      device_class: moisture
+      value_template: "{{states('sensor.homeseer_unknown_type0201_id000a_flood_10')|int == 2}}"
       
     office_window_west:
       friendly_name: Office Window - West
@@ -284,7 +288,31 @@
       device_class: motion
       value_template: "{{ is_state('sensor.zooz_zse40_4in1_sensor_alarm_level', '255') }}"
       
-    
+    away_mode:
+      friendly_name: Away Mode
+      value_template: "{{ is_state('input_select.house_mode', 'Away - Nighttime') or is_state('input_select.house_mode', 'Away - Daytime') }}"
+      
+    morning_mode: 
+      friendly_name: Morning Mode
+      value_template: "{{ is_state('input_select.house_mode', 'Home - Morning') }}"
+      
+    night_mode:
+      friendly_name: Night Mode
+      value_template: "{{ is_state('input_select.house_mode', 'Home - Nighttime') or is_state('input_select.house_mode', 'Away - Nighttime') }}"
+      
+    heartbeat_status:
+      friendly_name: Heartbeat Status
+      device_class: problem
+      value_template: "{{ (states.input_boolean.nodered_heartbeat.state) != (states.input_boolean.homeassistant_heartbeat.state) }}"
+      delay_on: 
+        seconds: 2
+      delay_off: 
+        seconds: 2
+
+- platform: workday
+  country: US
+  province: TX
+        
       
       
     
