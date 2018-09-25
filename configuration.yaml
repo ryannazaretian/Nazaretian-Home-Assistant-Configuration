@@ -134,7 +134,7 @@ tts:
   platform: google
 
 recorder:
-  db_url: sqlite:////config/home-assitant_v2.db
+  db_url: sqlite:////config/home-assistant_v2.db
   purge_interval: 1
   purge_keep_days: 14
   exclude:
@@ -149,13 +149,18 @@ alarm_control_panel:
     code: !secret alarm_code
     disarm_after_trigger: false
     disarmed:
-      trigger_time: 0
+      trigger_time: 
+        seconds: 0
     armed_home:
-      pending_time: 0
-      delay_time: 0
+      pending_time: 
+        seconds: 0
+      delay_time: 
+        seconds: 0
     armed_away:
-      pending_time: 60
-      delay_time: 20
+      pending_time: 
+        seconds: 60
+      delay_time:
+        seconds: 20
       
 script: !include scripts.yaml
 cloud:
