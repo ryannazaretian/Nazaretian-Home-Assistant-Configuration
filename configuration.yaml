@@ -72,6 +72,9 @@ apple_tv:
     
 ecobee:
   api_key: !secret ecobee_api
+  
+rachio:
+  api_key: !secret rachio_api
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:

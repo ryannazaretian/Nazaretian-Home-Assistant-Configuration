@@ -4,6 +4,8 @@
   mac_address: !secret desktop_mac
   host: !secret desktop_ip
   retain: true
+  
+- platform: rachio
 
 
 
