@@ -21,6 +21,8 @@ config:
 # Enables map
 map:
 
+api:
+
 http:
   # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
@@ -166,4 +168,3 @@ alarm_control_panel:
         seconds: 20
       
 script: !include scripts.yaml
-cloud:

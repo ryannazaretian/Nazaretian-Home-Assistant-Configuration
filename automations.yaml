@@ -1,14 +1,4 @@
 - action:
-  - data:
-      message: Download Speed Low
-    service: notify.ios
-  alias: Speedtest - Time Warner Download
-  id: '1499691067570'
-  trigger:
-  - below: '15'
-    entity_id: sensor.speedtest_download
-    platform: numeric_state
-- action:
   - alias: Update notifications
     data:
       message: Home Assistant  {{ states.updater.updater.state }}  is now available.
@@ -19,30 +9,6 @@
   trigger:
   - entity_id: updater.updater
     platform: state
-- action:
-  - alias: Set Subaru Distance Trigger
-    data:
-      payload: '100'
-      qos: 1
-      retain: 1
-      topic: garage_ctl/car0/dist_trig
-    service: mqtt.publish
-  - alias: Set Corvette Distance Trigger
-    data:
-      payload: '100'
-      qos: 1
-      retain: 1
-      topic: garage_ctl/car1/dist_trig
-    service: mqtt.publish
-  alias: Home Assistant - Set Parameters on Startup
-  condition: []
-  id: '1503199174152'
-  trigger:
-  - event: start
-    platform: homeassistant
-  - payload: started
-    platform: mqtt
-    topic: garage_state
 - action:
   - data:
       entity_id: cover.garage_door
@@ -69,17 +35,6 @@
     from: 'off'
     platform: state
     to: 'on'
-- action:
-  - data:
-      message: Garage controller connected
-    service: notify.ios_ryans_iphone
-  alias: Garage Door - Garage door controller connected
-  condition: []
-  id: '1503765196505'
-  trigger:
-  - payload: ''
-    platform: mqtt
-    topic: garage_state/started
 - action:
   - data:
       entity_id: cover.garage_door
@@ -173,17 +128,6 @@
   - minutes: /10
     platform: time
     seconds: 0
-- action:
-  - data:
-      payload_template: '{{states(''input_number.touchpanel_brightness'')}}'
-      topic: touchpanel/brightness
-    service: mqtt.publish
-  alias: Manually Set Touchpanel Brightness
-  condition: []
-  id: '1521688698723'
-  trigger:
-  - entity_id: input_number.touchpanel_brightness
-    platform: state
 - id: '1537802654861'
   alias: HA - Heartbeat
   trigger:

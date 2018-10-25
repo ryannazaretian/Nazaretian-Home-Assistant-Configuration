@@ -12,3 +12,45 @@ daytime_mode_lag:
     step: 15
     min: 0
     max: 360
+    
+dining_room_nightlight_brightness:
+    name: Dining Room Nightlight Brightness
+    icon: mdi:brightness-6
+    unit_of_measurement: percent
+    step: 1
+    min: 0
+    max: 100
+    
+
+master_bathroom_nightlight_brightness:
+    name: Master Bathroom Nightlight Brightness
+    icon: mdi:brightness-6
+    unit_of_measurement: percent
+    step: 1
+    min: 0
+    max: 100
+    
+car0_distance_trigger:
+    name: Subaru Distance Trigger
+    icon: mdi:ruler
+    unit_of_measurement: in
+    step: 10
+    min: 0
+    max: 250
+    
+car1_distance_trigger:
+    name: Corvette Distance Trigger
+    icon: mdi:ruler
+    unit_of_measurement: in
+    step: 10
+    min: 0
+    max: 250
+    
+speedtest_download_trigger:
+    name: Speedtest.net Download Speed Trigger
+    icon: mdi:speedometer
+    unit_of_measurement: Mbps
+    step: 10
+    min: 0
+    max: 200
+

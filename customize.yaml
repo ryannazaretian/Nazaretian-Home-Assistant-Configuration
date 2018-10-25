@@ -230,3 +230,9 @@ group.zwave:
   icon: mdi:wifi
 input_boolean.guest_mode:
   icon: mdi:account-star
+sensor.home_temperature:
+  friendly_name: North Hallway Temperature
+sensor.home_humidity:
+  friendly_name: North Hallway Humidity
+binary_sensor.home_occupancy:
+  friendly_name: North Hallway Occupancy

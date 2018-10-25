@@ -2,32 +2,35 @@
     view: yes
     icon: mdi:home
     entities:
+      - input_select.house_mode
       - group.securityquick
       - group.garagedoor
       - group.climate
       - group.systemmonitor
       - group.securitycameras
 
-  SecurityCameras:
-    view: no
-    icon: mdi:cctv
-    name: Security Cameras
-    entities: 
-      - camera.front_door
-      - camera.office_door  
-  Climate:
-    view: no
-    icon: mdi:snowflake
-    name: Climate Control
+  Rooms:
+    name: Rooms
+    view: yes
+    icon: mdi:grid
     entities:
-      - climate.home
-      
-  GarageDoor:
-    view: no
-    icon: mdi:garage
-    name: Garage Door
-    entities: 
-    - cover.garage_door
+      - group.masterbedroom
+      - group.masterbathroom
+      - group.bensroom
+      - group.guestroom
+      - group.guestbathroom
+      - group.northhallway
+      - group.livingroom
+      - group.office
+      - group.kitchen
+      - group.diningroom
+      - group.garage
+      - group.driveway
+      - group.frontyard
+      - group.backyard
+      - group.southhallway
+      - group.utilityroom
+      - group.attic
       
   HomeSettings:
     name: Home Settings
@@ -47,6 +50,29 @@
       - input_boolean.vacation_mode
       - group.debug
       
+  SecurityCameras:
+    view: no
+    icon: mdi:cctv
+    name: Security Cameras
+    entities:
+      - camera.front_door
+      - camera.office_door
+  Climate:
+    view: no
+    icon: mdi:snowflake
+    name: Climate Control
+    entities:
+      - climate.home
+
+  GarageDoor:
+    view: no
+    icon: mdi:garage
+    name: Garage Door
+    entities:
+    - cover.garage_door
+
+
+
   Debug:
     name: Debug Switches / Info
     entities:
@@ -61,15 +87,15 @@
       - input_boolean.nodered_heartbeat
       - binary_sensor.heartbeat_status
 
-      
+
   SecurityQuick:
     name: Security Quick Glance
     view: no
     icon: mdi:security-home
-    entities: 
+    entities:
       - alarm_control_panel.home_alarm
       - binary_sensor.security_ready
-      
+
   Zwave:
     name: Z-Wave
     view: yes
@@ -77,11 +103,11 @@
     entities:
       - group.zwavebatteries
       - group.zwavedevices
-    
+
   ZwaveBatteries:
     name: Z-Wave Batteries
     icon: mdi:battery
-    entities: 
+    entities:
       - sensor.hvac_zwave_battery
       - sensor.water_heater_zwave_battery
       - sensor.office_window_east_zwave_battery
@@ -89,7 +115,7 @@
       - sensor.master_bathroom_multisensor_battery
       - sensor.office_door_battery
       - sensor.dishwasher_battery
-      
+
   ZwaveDevices:
     name: Z-Wave Devices
     icon: mdi:access-point
@@ -123,53 +149,41 @@
       - group.all_remotes
       - group.all_switches
       - group.all_vacuum_cleaners
-      
-  Neato:
-    name: Neato
-    view: yes
-    icon: mdi:robot-vacuum-variant
-    entities:
-      - vacuum.neato
-      - camera.neato_cleaning_map
-      - switch.neato_schedule
-      
+
   Temperatures:
     name: Temperatures
     view: yes
     icon: mdi:thermometer
-    entities: 
+    entities:
       - sensor.cpu_temp
       - sensor.garage_temperature
       - sensor.homeseer_unknown_type0201_id000a_temperature_7
       - sensor.homeseer_unknown_type0201_id000a_temperature_9
+      - sensor.homeseer_unknown_type0201_id000a_temperature_10
       - sensor.dark_sky_temperature
       - sensor.master_bathroom_multisensor_temperature
       - sensor.master_bathroom_multisensor_humidity
-      
+      - sensor.bens_room_temperature
+      - sensor.guest_bedroom_temperature
+      - sensor.home_temperature
+      - sensor.living_room_temperature
+      - sensor.master_bedroom__temperature
+      - sensor.office_temperature
+
+
   HomeSecurity:
     name: Home Security
     view: yes
     icon: mdi:security-home
     entities:
      - alarm_control_panel.home_alarm
+     - binary_sensor.security_ready
      - group.securityinputs
-
-
-  LivingRoom:
-    name: Living Room
-    view: yes
-    icon: mdi:television-classic
-    entities:
-      - media_player.living_room_tv
-      - media_player.sound_bar
-      - media_player.living_room_2
-      - sensor.plex
-      - light.dining_room_dimmer
 
   Batteries:
     name: Batteries
     icon: mdi:battery
-    entities: 
+    entities:
       - sensor.ups_battery
       - sensor.neato_battery
       - sensor.hvac_zwave_battery
@@ -182,9 +196,9 @@
       - sensor.ryans_iphone_battery_level
       - sensor.chelseas_iphone_battery_level
 
-      
+
   SystemMonitor:
-    name: System Monitor
+    name: Server Rack
     icon: mdi:chip
     entities:
       - sensor.processor_use
@@ -204,101 +218,222 @@
   - sensor.speedtest_download
   - sensor.speedtest_upload
 
-  FrontDoor:
-    name: Front Door
-    view: yes
-    icon: mdi:door
+
+
+  MasterBedroom:
+    name: Master Bedroom
+    view: no
+    icon: mdi:bed-empty
     entities:
-      - camera.front_door
-      - sensor.ring_front_door_last_activity
-      - sensor.ring_front_door_last_ding
-      - sensor.ring_front_door_last_motion
-      - sensor.ring_front_door_battery
-      - switch.front_porch_lights
+      - binary_sensor.master_bedroom__occupancy
+      - sensor.master_bedroom__temperature
+      - binary_sensor.security_sensor_3
+
+  MasterBathroom:
+    name: Master Bathroom
+    view: no
+    icon: mdi:shower
+    entities:
+      - light.master_bathroom_dimmer
+      - input_boolean.master_bathroom_nightlight_enable
+      - input_number.master_bathroom_nightlight_brightness
+      - binary_sensor.master_bathroom_multisensor_motion
+      - binary_sensor.master_bathroom_occupancy
+      - sensor.master_bathroom_multisensor_temperature
+      - sensor.master_bathroom_multisensor_humidity
+      - fan.master_bathroom_ceiling_fan
+      - binary_sensor.security_sensor_3
+      
+  DiningRoom:
+    name: Dining Room
+    view: no
+    icon: mdi:silverware
+    entities: 
+      - light.dining_room_dimmer
+      - input_boolean.dining_room_nightlight_enable
+      - input_number.dining_room_nightlight_brightness
+
+  GuestBathroom:
+    name: Guest Bathroom
+    view: no
+    icon: mdi:shower
+    entities:
+      - binary_sensor.security_sensor_5
+
+  BensRoom:
+    name: Ben's Room
+    view: no
+    icon: mdi:bed-empty
+    entities:
+      - binary_sensor.bens_room_occupancy
+      - sensor.bens_room_temperature
+      - binary_sensor.security_sensor_5
+
+  GuestRoom:
+    name: Guest Room
+    view: no
+    icon: mdi:bed-empty
+    entities:
+      - binary_sensor.guest_bedroom_occupancy
+      - sensor.guest_bedroom_temperature
+      - binary_sensor.security_sensor_5
+      
+  NorthHallway:
+    name: North Hallway
+    view: no
+    icon: mdi:view-grid
+    entities: 
+    - climate.home
+    - binary_sensor.home_occupancy
+    - sensor.home_humidity
+    - sensor.home_temperature
+    
+  SouthHallway:
+    name: South Hallway
+    view: no
+    icon: mdi:view-grid
+    entities: 
+    - input_number.touchpanel_brightness
+    - input_boolean.disable_security_beep
+    
+
+  LivingRoom:
+    name: Living Room
+    view: no
+    icon: mdi:television-classic
+    entities:
+      - binary_sensor.living_room_occupancy
+      - sensor.living_room_temperature
+      - binary_sensor.security_sensor_4
+      - binary_sensor.security_sensor_2
+      - vacuum.neato
+      - sensor.neato_battery
+      - camera.neato_cleaning_map
+      - switch.neato_schedule
+
+  Office:
+    name: Office
+    view: no
+    icon: mdi:desktop-tower-monitor
+    entities:
+      - binary_sensor.office_occupancy
+      - sensor.office_temperature
+      - binary_sensor.office_door
+      - binary_sensor.office_window_east
+      - binary_sensor.office_window_west
+      - switch.desktop
+      
+  UtilityRoom:
+    name: Utility Room
+    view: no
+    icon: mdi:server
+    entities:
+      - input_number.speedtest_download_trigger
+      - binary_sensor.security_sensor_6
+      - binary_sensor.security_sensor_8
+      - sensor.processor_use
+      - sensor.cpu_temp
+      - sensor.load_1m
+      - sensor.load_5m
+      - sensor.load_15m
+      - sensor.last_boot
+      - sensor.since_last_boot
+      - sensor.ups_status
+      - sensor.ups_time_left
+      - sensor.ups_load_watts
+      - sensor.ups_battery
+      - sensor.plex
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.speedtest_ping
+      
+  Attic:
+    name: Attic
+    view: no
+    icon: mdi:roof
+    entities: 
+    - binary_sensor.security_sensor_10
+    - binary_sensor.hvac_leak
+    - binary_sensor.water_heater_leak
+    - sensor.homeseer_unknown_type0201_id000a_temperature_7
+    - sensor.homeseer_unknown_type0201_id000a_temperature_9
+      
+
+  Kitchen:
+    name: Kitchen
+    view: no
+    icon: mdi:fridge-outline
+    entities:
+      - binary_sensor.security_sensor_1
+      - binary_sensor.dishwasher_leak
 
   Garage:
     name: Garage
-    view: yes
+    view: no
     icon: mdi:garage
     entities:
-      - camera.office_door
+      - input_number.car0_distance_trigger
+      - input_number.car1_distance_trigger
+      - input_boolean.garage_door_open_close_automation_enable
       - sensor.garage_door_state
       - sensor.subaru_occupancy
       - sensor.corvette_occupancy
       - sensor.garage_temperature
       - sensor.subaru_sensor_distance
       - sensor.corvette_sensor_distance
-      - sensor.subaru_sensor_trigger
-      - sensor.corvette_sensor_trigger
       - cover.garage_door
-      - sensor.ring_office_door_last_activity
-      - sensor.ring_office_door_last_ding
-      - sensor.ring_office_door_last_motion
-      - switch.driveway_door_light
-      - switch.driveway_flood_light
       - sensor.garage_door_state
-      - automation.driveway__turn_off_light_after_door_closed
-      - automation.driveway__turn_off_side_light_after_motion_detected
-      - automation.driveway__turn_on_lights_when_door_opens
-      - automation.driveway__turn_on_side_light_when_motion_detected
-      - automation.garage_door__alert_household_when_garage_is_open_for_15_minutes_and_noone_is_home
-      - automation.garage_door__close_door_if_ryan_is_not_home_and_space_available
-      - automation.garage_door__close_notification_
-      - automation.garage_door__closing_notification
-      - automation.garage_door__garage_door_controller_connected
-      - automation.garage_door__open_garage_when_ryan_arrives_and_space_available
-      - automation.garage_door__open_notification
-      - automation.garage_door__opening_notification
-      - automation.ring__send_motion_notification_when_ryan_or_chelsea_is_not_home
-
-  Household:
-    name: Household
-    view: yes
-    icon: mdi:account-multiple
-    entities:
-      - binary_sensor.ryan_home
-      - binary_sensor.chelsea_home
-
-
-  HomeUPS:
-    name: Home UPS
-    view: yes
-    icon: mdi:battery
-    entities:
-      - sensor.ups_battery
-      - sensor.ups_input_voltage
-      - sensor.ups_load
-      - sensor.ups_load_watts
-      - sensor.ups_output_voltage
-      - sensor.ups_status
-      - sensor.ups_time_left
-      - sensor.ups_time_on_battery
-      - sensor.ups_transfer_count
-      - automation.ups__send_notification_on_power_loss
-      - automation.ups__send_notification_on_power_restored
-      - automation.ups__shutdown_home_assistant_when_on_battery_and_less_than_5_mins_remaining
+      - binary_sensor.security_sensor_0
+      - sensor.corvette_sensor_trigger
+      - sensor.subaru_sensor_trigger
       
-  MasterBedroom:
-    name: Master Bedroom
-    view: yes
-    icon: mdi:bed-empty
-    entities:
-      - binary_sensor.master_bathroom_multisensor_motion
-      - sensor.master_bathroom_multisensor_temperature
-      - sensor.master_bathroom_multisensor_humidity
-      - fan.master_bathroom_ceiling_fan
-      - light.master_bathroom_dimmer
-      - media_player.master_bedroom_apple_tv
-      - media_player.master_bedroom_tv
+  Driveway:
+    name: Driveway
+    view: no
+    icon: mdi:road-variant
+    entities: 
+    - switch.driveway_flood_light
+    - switch.driveway_door_light
+    - switch.driveway_
+    - switch.retaining_wall
+    - binary_sensor.ring_office_door_ding
+    - binary_sensor.ring_office_door_motion
+    - sensor.ring_office_door_last_ding
+    - sensor.ring_office_door_last_motion
+    - camera.office_door
       
+  BackYard:
+    name: Back Yard
+    view: no
+    icon: mdi:tree
+    entities:
+    - switch.back_porch_lights
+    - switch.back_yard_floods
+    - switch.back_porch_lights
+    - switch.back_lawn
+    - switch.back_shrubs
+    
+  FrontYard:
+    name: Front Yard
+    view: no
+    icon: mdi:tree
+    entities: 
+    - switch.front_porch_lights
+    - binary_sensor.ring_front_door_ding
+    - binary_sensor.ring_front_door_motion
+    - sensor.ring_front_door_battery
+    - sensor.ring_front_door_last_ding
+    - sensor.ring_front_door_last_motion
+    - switch.front_lawn
+    - switch.front_shrubs
+    - camera.front_door
 
+      
   SecurityInputs:
     name: Security Inputs
     view: no
     icon: mdi:security-home
-    entities: 
-      - binary_sensor.ring_front_door_motion
-      - binary_sensor.ring_office_door_motion
+    entities:
       - binary_sensor.security_sensor_0
       - binary_sensor.security_sensor_1
       - binary_sensor.security_sensor_2
@@ -323,49 +458,20 @@
       - binary_sensor.security_sensor_21
       - binary_sensor.hvac_leak
       - binary_sensor.water_heater_leak
+      - binary_sensor.dishwasher_leak
       - binary_sensor.office_window_east
       - binary_sensor.office_window_west
       - binary_sensor.office_door
       - binary_sensor.master_bathroom_multisensor_motion
+      - binary_sensor.ring_front_door_motion
+      - binary_sensor.ring_office_door_motion
+      - binary_sensor.bens_room_occupancy
+      - binary_sensor.guest_bedroom_occupancy
+      - binary_sensor.home_occupancy
+      - binary_sensor.living_room_occupancy
+      - binary_sensor.master_bedroom__occupancy
+      - binary_sensor.master_bathroom_occupancy
+      - binary_sensor.office_occupancy
+      - sensor.corvette_occupancy
+      - sensor.subaru_occupancy
       
-  Other:
-    name: Other
-    view: yes
-    icon: mdi:script
-    entities:
-      - automation.home_assistant__notify_ryan_on_startup
-      - automation.home_assistant__set_parameters_on_startup
-      - automation.home_assistant__update_notifications
-      - automation.speedtest__time_warner_download
-      - group.all_automations
-      
-  Darksky:
-    name: Dark Sky
-    view: yes
-    icon: mdi:weather-partlycloudy
-    entities: 
-      - sensor.dark_sky_summary
-      - sensor.dark_sky_precip_type
-      - sensor.dark_sky_precip_intensity
-      - sensor.dark_sky_precip_probability
-      - sensor.dark_sky_precip_accumulation
-      - sensor.dark_sky_temperature
-      - sensor.dark_sky_apparent_temperature
-      - sensor.dark_sky_dew_point
-      - sensor.dark_sky_wind_speed
-      - sensor.dark_sky_wind_bearing
-      - sensor.dark_sky_cloud_cover
-      - sensor.dark_sky_humidity
-      - sensor.dark_sky_pressure
-      - sensor.dark_sky_visibility
-      - sensor.dark_sky_ozone
-      - sensor.dark_sky_minutely_summary
-      - sensor.dark_sky_hourly_summary
-      - sensor.dark_sky_daily_summary
-      - sensor.dark_sky_temperature_max
-      - sensor.dark_sky_temperature_min
-      - sensor.dark_sky_apparent_temperature_max
-      - sensor.dark_sky_apparent_temperature_min
-      - sensor.dark_sky_precip_intensity_max
-      - sensor.dark_sky_uv_index
-      - sensor.dark_sky_icon

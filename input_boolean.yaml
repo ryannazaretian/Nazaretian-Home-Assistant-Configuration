@@ -33,3 +33,16 @@ nodered_heartbeat:
     name: Node Red Heartbeat
     initial: off
     icon: mdi:heart-pulse
+    
+dining_room_nightlight_enable:
+    name: Dining Room Nightlight Enable
+    icon: mdi:weather-night
+    
+master_bathroom_nightlight_enable:
+    name: Master Bathroom Nightlight Enable
+    icon: mdi:weather-night
+    
+garage_door_open_close_automation_enable:
+    name: Garage Door Automation Enable
+    icon: mdi:garage-open
+    

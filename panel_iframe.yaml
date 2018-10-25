@@ -7,3 +7,8 @@ rachio:
   title: Rachio
   url: "https://app.rach.io"
   icon: mdi:water-pump
+  
+# ecobee:
+  # title: ecobee
+  # url: "https://www.ecobee.com/consumerportal/index.html"
+  # icon: mdi:thermostat
