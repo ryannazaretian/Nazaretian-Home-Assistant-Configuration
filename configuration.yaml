@@ -60,6 +60,14 @@ zone: !include zone.yaml
 media_player: !include media_player.yaml
 panel_iframe: !include panel_iframe.yaml
 fan: !include fan.yaml
+
+logger:
+  default: info
+  logs:
+    aiounifi: debug
+    homeassistant.components.unifi: debug
+    homeassistant.components.switch.unifi: debug
+
   
 apple_tv:
   - host: !secret lr_apple_tv_ip

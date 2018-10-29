@@ -324,16 +324,12 @@
       value_template: "{{ is_state('binary_sensor.subaru_parking_raw', 'on') }}"
       delay_off:
         minutes: 1
-      delay_on:
-        minutes: 1
 
     corvette_parking:
       friendly_name: "Corvette Parking"
       device_class: occupancy
       value_template: "{{ is_state('binary_sensor.corvette_parking_raw', 'on') }}"
       delay_off:
-        minutes: 1
-      delay_on:
         minutes: 1
 
 - platform: workday

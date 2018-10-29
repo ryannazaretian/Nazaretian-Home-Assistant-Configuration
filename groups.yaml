@@ -36,6 +36,7 @@
     name: Home Settings
     view: yes
     icon: mdi:settings
+    control: hidden
     entities:
       - input_select.house_mode
       - input_boolean.guest_mode
@@ -57,6 +58,7 @@
     entities:
       - camera.front_door
       - camera.office_door
+  
   Climate:
     view: no
     icon: mdi:snowflake
@@ -75,6 +77,7 @@
 
   Debug:
     name: Debug Switches / Info
+    control: hidden
     entities:
       - input_boolean.invert_ryan_away
       - input_boolean.invert_chelsea_away
@@ -224,6 +227,7 @@
     name: Master Bedroom
     view: no
     icon: mdi:bed-empty
+    control: hidden
     entities:
       - binary_sensor.master_bedroom__occupancy
       - sensor.master_bedroom__temperature
@@ -233,10 +237,12 @@
     name: Master Bathroom
     view: no
     icon: mdi:shower
+    control: hidden
     entities:
       - light.master_bathroom_dimmer
       - input_boolean.master_bathroom_nightlight_enable
       - input_number.master_bathroom_nightlight_brightness
+      - input_number.master_bathroom_morning_brightness
       - binary_sensor.master_bathroom_multisensor_motion
       - binary_sensor.master_bathroom_occupancy
       - sensor.master_bathroom_multisensor_temperature
@@ -248,6 +254,7 @@
     name: Dining Room
     view: no
     icon: mdi:silverware
+    control: hidden
     entities: 
       - light.dining_room_dimmer
       - input_boolean.dining_room_nightlight_enable
@@ -257,6 +264,7 @@
     name: Guest Bathroom
     view: no
     icon: mdi:shower
+    control: hidden
     entities:
       - binary_sensor.security_sensor_5
 
@@ -264,6 +272,7 @@
     name: Ben's Room
     view: no
     icon: mdi:bed-empty
+    control: hidden
     entities:
       - binary_sensor.bens_room_occupancy
       - sensor.bens_room_temperature
@@ -273,6 +282,7 @@
     name: Guest Room
     view: no
     icon: mdi:bed-empty
+    control: hidden
     entities:
       - binary_sensor.guest_bedroom_occupancy
       - sensor.guest_bedroom_temperature
@@ -282,25 +292,28 @@
     name: North Hallway
     view: no
     icon: mdi:view-grid
+    control: hidden
     entities: 
-    - climate.home
-    - binary_sensor.home_occupancy
-    - sensor.home_humidity
-    - sensor.home_temperature
+      - climate.home
+      - binary_sensor.home_occupancy
+      - sensor.home_humidity
+      - sensor.home_temperature
     
   SouthHallway:
     name: South Hallway
     view: no
     icon: mdi:view-grid
+    control: hidden
     entities: 
-    - input_number.touchpanel_brightness
-    - input_boolean.disable_security_beep
+      - input_number.touchpanel_brightness
+      - input_boolean.disable_security_beep
     
 
   LivingRoom:
     name: Living Room
     view: no
     icon: mdi:television-classic
+    control: hidden
     entities:
       - binary_sensor.living_room_occupancy
       - sensor.living_room_temperature
@@ -315,6 +328,7 @@
     name: Office
     view: no
     icon: mdi:desktop-tower-monitor
+    control: hidden
     entities:
       - binary_sensor.office_occupancy
       - sensor.office_temperature
@@ -327,6 +341,7 @@
     name: Utility Room
     view: no
     icon: mdi:server
+    control: hidden
     entities:
       - input_number.speedtest_download_trigger
       - binary_sensor.security_sensor_6
@@ -351,6 +366,7 @@
     name: Attic
     view: no
     icon: mdi:roof
+    control: hidden
     entities: 
     - binary_sensor.security_sensor_10
     - binary_sensor.hvac_leak
@@ -363,6 +379,7 @@
     name: Kitchen
     view: no
     icon: mdi:fridge-outline
+    control: hidden
     entities:
       - binary_sensor.security_sensor_1
       - binary_sensor.dishwasher_leak
@@ -371,6 +388,7 @@
     name: Garage
     view: no
     icon: mdi:garage
+    control: hidden
     entities:
       - input_number.car0_distance_trigger
       - input_number.car1_distance_trigger
@@ -391,6 +409,7 @@
     name: Driveway
     view: no
     icon: mdi:road-variant
+    control: hidden
     entities: 
     - switch.driveway_flood_light
     - switch.driveway_door_light
@@ -406,6 +425,7 @@
     name: Back Yard
     view: no
     icon: mdi:tree
+    control: hidden
     entities:
     - switch.back_porch_lights
     - switch.back_yard_floods
@@ -417,6 +437,7 @@
     name: Front Yard
     view: no
     icon: mdi:tree
+    control: hidden
     entities: 
     - switch.front_porch_lights
     - binary_sensor.ring_front_door_ding
