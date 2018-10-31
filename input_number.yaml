@@ -16,7 +16,7 @@ daytime_mode_lag:
 dining_room_nightlight_brightness:
     name: Dining Room Nightlight Brightness
     icon: mdi:brightness-6
-    unit_of_measurement: percent
+    unit_of_measurement: "%"
     step: 1
     min: 0
     max: 100
@@ -25,7 +25,7 @@ dining_room_nightlight_brightness:
 master_bathroom_nightlight_brightness:
     name: Master Bathroom Nightlight Brightness
     icon: mdi:brightness-6
-    unit_of_measurement: percent
+    unit_of_measurement: "%"
     step: 1
     min: 0
     max: 100
@@ -33,7 +33,7 @@ master_bathroom_nightlight_brightness:
 master_bathroom_morning_brightness:
     name: Master Bathroom Morning Brightness
     icon: mdi:brightness-6
-    unit_of_measurement: percent
+    unit_of_measurement: "%"
     step: 1
     min: 0
     max: 100

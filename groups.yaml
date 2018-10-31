@@ -393,6 +393,8 @@
       - input_number.car0_distance_trigger
       - input_number.car1_distance_trigger
       - input_boolean.garage_door_open_close_automation_enable
+      - input_boolean.garage_door_open_ryan_arrives
+      - input_boolean.garage_door_open_chelsea_arrives
       - sensor.garage_door_state
       - sensor.subaru_occupancy
       - sensor.corvette_occupancy
@@ -432,6 +434,7 @@
     - switch.back_porch_lights
     - switch.back_lawn
     - switch.back_shrubs
+    - binary_sensor.security_sensor_2
     
   FrontYard:
     name: Front Yard

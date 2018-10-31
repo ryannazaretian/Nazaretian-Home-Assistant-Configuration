@@ -46,3 +46,10 @@ garage_door_open_close_automation_enable:
     name: Garage Door Automation Enable
     icon: mdi:garage-open
     
+garage_door_open_ryan_arrives:
+    name: Open garage door for Ryan
+    icon: mdi:map-marker-radius
+    
+garage_door_open_chelsea_arrives:
+    name: Open garage door for Chelsea
+    icon: mdi:map-marker-radius
