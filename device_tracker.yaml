@@ -1,6 +1,7 @@
-- platform: owntracks
-  max_gps_accuracy: 200
-  waypoints: True
+# - platform: owntracks
+  # max_gps_accuracy: 200
+  # waypoints: True
+  
 - platform: unifi
   host: !secret unifi_ip
   port: !secret unifi_port

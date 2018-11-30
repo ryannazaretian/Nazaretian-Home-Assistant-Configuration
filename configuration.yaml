@@ -140,6 +140,9 @@ neato:
   username: !secret neato_username
   password: !secret neato_password
   
+# Example configuration.yaml entry to enable the cloud component
+cloud:
+  
 ios:
 
 # Text to speech
