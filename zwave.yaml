@@ -1,0 +1,8 @@
+usb_path: /dev/ttyACM0
+device_config: 
+  light.dining_room_dimmer: 
+    polling_intensity: 1
+    refresh_value: true
+  light.master_bathroom_dimmer: 
+    polling_intensity: 1
+    refresh_value: true
