@@ -69,16 +69,16 @@ logger:
     homeassistant.components.switch.unifi: debug
 
   
-apple_tv:
-  - host: !secret lr_apple_tv_ip
-    login_id: !secret lr_apple_tv_login_id
-    credentials: !secret lr_apple_tv_credentials
-    name: Living Room Apple TV
+# apple_tv:
+  # - host: !secret lr_apple_tv_ip
+    # login_id: !secret lr_apple_tv_login_id
+    # credentials: !secret lr_apple_tv_credentials
+    # name: Living Room Apple TV
 
-  - host: !secret mbr_apple_tv_ip
-    login_id: !secret mbr_apple_tv_login_id
-    credentials: !secret mbr_apple_tv_credentials
-    name: Master Bedroom Apple TV
+  # - host: !secret mbr_apple_tv_ip
+    # login_id: !secret mbr_apple_tv_login_id
+    # credentials: !secret mbr_apple_tv_credentials
+    # name: Master Bedroom Apple TV
     
 ecobee:
   api_key: !secret ecobee_api
@@ -96,7 +96,6 @@ history:
       - sensor.load_15m
       - sensor.load_1m
       - sensor.load_5m
-      - sensor.since_last_boot
       - sensor.last_boot
       - input_boolean.homeassistant_heartbeat
       - input_boolean.nodered_heartbeat
@@ -105,7 +104,6 @@ history:
 logbook:
   exclude:
     entities:
-      - sensor.since_last_boot
       - sensor.last_boot
       - sensor.load_15m
       - sensor.load_1m

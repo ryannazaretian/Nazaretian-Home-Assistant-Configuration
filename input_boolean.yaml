@@ -53,3 +53,7 @@ garage_door_open_ryan_arrives:
 garage_door_open_chelsea_arrives:
     name: Open garage door for Chelsea
     icon: mdi:map-marker-radius
+    
+seasonal_lighting:
+    name: Seasonal Lighting
+    icon: mdi:pine-tree
