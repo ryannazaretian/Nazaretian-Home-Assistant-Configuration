@@ -165,6 +165,9 @@
     - status
     - timeleft
     - tonbatt
+    - itemp
+    - battv
+    - lastxfer
 - platform: plex
   username: !secret plex_username
   password: !secret plex_password

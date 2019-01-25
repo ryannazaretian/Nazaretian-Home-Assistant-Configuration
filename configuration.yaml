@@ -41,7 +41,7 @@ http:
 updater:
 
 # Discover some devices automatically
-discovery:
+# discovery:
 
 # Include component files
 binary_sensor: !include binary_sensor.yaml
@@ -142,6 +142,9 @@ neato:
 cloud:
   
 ios:
+
+owntracks:
+  waypoints: false
 
 # Text to speech
 tts:

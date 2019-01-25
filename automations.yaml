@@ -13,27 +13,26 @@
   - data:
       message: Home Assistant Started
     service: notify.ios_ryans_iphone
-  alias: Home Assistant - Notify Ryan on Startup
+  alias: Notify Ryan on Startup
   condition: []
   id: '1503944562866'
   trigger:
   - event: start
     platform: homeassistant
 - id: '1537802654861'
-  alias: HA - Heartbeat
+  alias: HA Heartbeat
   trigger:
-  - platform: time
-    minutes: /5
-    seconds: 0
+    platform: time_pattern
+    minutes: '/5'
   condition: []
   action:
   - data:
       entity_id: input_boolean.homeassistant_heartbeat
     service: input_boolean.toggle
 - id: '1537802946056'
-  alias: HA - Node Red Heartbeat Watchdog
+  alias: Node Red Heartbeat Watchdog
   trigger:
-  - entity_id: automation.ha__heartbeat
+  - entity_id: automation.ha_heartbeat
     platform: state
   - entity_id: binary_sensor.heartbeat_status
     from: 'off'

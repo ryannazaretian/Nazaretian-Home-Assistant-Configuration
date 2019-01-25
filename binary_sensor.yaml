@@ -213,46 +213,63 @@
       friendly_name: Ryan is home
       device_class: presence
       value_template: >-
-        {{    is_state('device_tracker.ryans_iphone',  'home') 
-           or is_state('device_tracker.ryansapplewatch',  'home') 
-           or is_state('device_tracker.ryansiphone',  'home') 
-           or is_state('device_tracker.homeassistant_ryans_iphone',  'home')}} 
+         {{   is_state('device_tracker.ryannazaretian_ryans_iphone',  'home') }}
+         {% if is_state('input_boolean.invert_ryan_away', 'off') %}
+         {{ value }}
+         {% else %}
+         {{ not value }}
+         {% endif %} 
+
+        #{{    is_state('device_tracker.ryans_iphone',  'home') 
+        #   or is_state('device_tracker.ryannazaretian_ryans_iphone',  'home')}} 
            
-    ryan_away:
-      friendly_name: Ryan is away
-      device_class: presence
-      value_template: >-
-        {%- set value = (is_state('device_tracker.ryans_iphone',  'not_home') or is_state('device_tracker.homeassistant_ryans_iphone',  'not_home')) -%}
-        {% if is_state('input_boolean.invert_ryan_away', 'off') %}
-        {{ value }}
-        {% else %}
-        {{ not value }}
-        {% endif %}
+   # ryan_away:
+   #   friendly_name: Ryan is away
+   #   device_class: presence
+   #   value_template: >-
+   #     {%- set value = (is_state('device_tracker.ryans_iphone',  'not_home') or is_state('device_tracker.ryannazaretian_ryans_iphone',  'not_home')) -%}
+   #     {% if is_state('input_boolean.invert_ryan_away', 'off') %}
+   #     {{ value }}
+   #     {% else %}
+   #     {{ not value }}
+   #     {% endif %}
   
     chelsea_home:
       friendly_name: Chelsea is home
       device_class: presence
       value_template: >-
-        {{    is_state('device_tracker.chelseas_iphone',  'home')
-           or is_state('device_tracker.chelseasiphone',  'home') }}
-    
-    
-    chelsea_away:
-      friendly_name: Chelsea is away
-      device_class: presence
-      value_template: >-
-        {%- set value = is_state('device_tracker.chelseas_iphone', 'not_home') -%}
+        {{    is_state('device_tracker.chelseanazaretian_39beb247_0adb_4932_a6d0_de9c931ca779',  'home') }}
         {% if is_state('input_boolean.invert_chelsea_away', 'off') %}
         {{ value }}
         {% else %}
         {{ not value }}
         {% endif %}
+#        {{    is_state('device_tracker.chelseanazaretian_39beb2470adb4932a6d0de9c931ca779',  'home')
+#           or is_state('device_tracker.chelseas_iphone',  'home') }}
+    
+    
+#    chelsea_away:
+#      friendly_name: Chelsea is away
+#      device_class: presence
+#      value_template: >-
+#        {%- set value = (is_state('device_tracker.chelseas_iphone',  'not_home') or is_state('device_tracker.chelseanazaretian_39beb2470adb4932a6d0de9c931ca779', 'not_home')) -%}
+#        {% if is_state('input_boolean.invert_chelsea_away', 'off') %}
+#        {{ value }}
+#        {% else %}
+#        {{ not value }}
+#        {% endif %}
         
-    ryan_and_chelsea_away:
-      friendly_name: Ryan and Chelsea is away
+#    ryan_and_chelsea_away:
+#      friendly_name: Ryan and Chelsea is away
+#      value_template: >-
+#        {{    is_state('binary_sensor.ryan_away',  'on')
+#           and is_state('binary_sensor.chelsea_away',  'on') }}
+    
+    ryan_or_chelsea_home:
+      friendly_name: Ryan or Chelsea is home
       value_template: >-
-        {{    is_state('binary_sensor.ryan_away',  'on')
-           and is_state('binary_sensor.chelsea_away',  'on') }}
+        {{    is_state('binary_sensor.ryan_home',  'on')
+           or is_state('binary_sensor.chelsea_home',  'on') }}
       
            
     hvac_leak:

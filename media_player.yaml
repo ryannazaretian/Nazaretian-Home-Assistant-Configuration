@@ -1,14 +1,14 @@
-- platform: webostv
-  host: !secret mbr_webos_ip
-  mac:  !secret mbr_webos_mac
-  name: Master Bedroom TV
-  filename: mbr_webostv.conf
+# - platform: webostv
+  # host: !secret mbr_webos_ip
+  # mac:  !secret mbr_webos_mac
+  # name: Master Bedroom TV
+  # filename: mbr_webostv.conf
   
-- platform: webostv
-  host: !secret lr_webos_ip
-  mac:  !secret lr_webos_mac
-  name: Living Room TV
-  filename: lr_webostv.conf
+# - platform: webostv
+  # host: !secret lr_webos_ip
+  # mac:  !secret lr_webos_mac
+  # name: Living Room TV
+  # filename: lr_webostv.conf
   
 - platform: plex
   entity_namespace: 'plex'
