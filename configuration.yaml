@@ -85,6 +85,63 @@ ecobee:
   
 rachio:
   api_key: !secret rachio_api
+  
+homekit:
+  auto_start: False
+  filter:
+    include_domains:
+      - alarm_control_panel
+      - switch
+      - light
+      - cover
+      - fan
+    include_entities:
+      - switch.back_porch_lights
+      - switch.desktop
+      - switch.front_porch_lights
+      - switch.front_yard_lighting
+      - switch.kitchen_seasonal
+      - switch.living_room_seasonal
+      - switch.neato_schedule
+      - light.dining_room_dimmer
+      - light.master_bathroom_dimmer
+      - fan.master_bathroom_ceiling_fan
+      - cover.garage_door
+      - binary_sensor.security_ready
+      - binary_sensor.security_sensor_0
+      - binary_sensor.security_sensor_1
+      - binary_sensor.security_sensor_2
+      - binary_sensor.security_sensor_3
+      - binary_sensor.security_sensor_4
+      - binary_sensor.security_sensor_5
+      - binary_sensor.security_sensor_6
+      - binary_sensor.security_sensor_8
+      - binary_sensor.security_sensor_10
+      - binary_sensor.dishwasher_leak
+      - binary_sensor.hvac_leak
+      - binary_sensor.water_heater_leak
+      - sensor.master_bathroom_multisensor_temperature
+      - sensor.master_bathroom_multisensor_humidity
+      - sensor.garage_temperature
+      - sensor.ups_internal_temperature
+      - sensor.homeseer_unknown_type0201_id000a_temperature_9
+      - sensor.homeseer_unknown_type0201_id000a_temperature_7
+      - sensor.cpu_temp
+
+    exclude_entities:
+      - switch.siren
+      - switch.rachio28c6ac_in_standby_mode
+      - switch.back_lawn
+      - switch.back_shrubs
+      - switch.front_lawn
+      - switch.front_shrubs
+      - switch.retaining_wall
+      - switch.driveway
+      - switch.enerwave_zwnrsm1_plussmart_single_relay_switch_module_switch
+      
+  entity_config:
+    alarm_control_panel.home_alarm:
+      code: !secret alarm_code
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:

@@ -23,7 +23,7 @@
   alias: HA Heartbeat
   trigger:
     platform: time_pattern
-    minutes: '/5'
+    minutes: /5
   condition: []
   action:
   - data:
@@ -48,3 +48,11 @@
         Red!
       title: Node Red Watchdog Expired!
     service: notify.ios_ryans_iphone
+- id: '1548611863883'
+  alias: 'Start HomeKit'
+  trigger:
+    - platform: homeassistant
+      event: start
+  action:
+    - delay: 00:05  # Waits 5 minutes
+    - service: homekit.start
