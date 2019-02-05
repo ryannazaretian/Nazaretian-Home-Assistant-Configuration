@@ -3,6 +3,32 @@ device_config:
   light.dining_room_dimmer: 
     polling_intensity: 1
     refresh_value: true
+    delay: 2
   light.master_bathroom_dimmer: 
     polling_intensity: 1
     refresh_value: true
+    delay: 2
+  light.bar:
+    polling_intensity: 1
+    refresh_value: true
+    delay: 2
+  light.breakfast_nook:
+    polling_intensity: 1
+    refresh_value: true
+    delay: 2
+  light.fireplace:
+    polling_intensity: 1
+    refresh_value: true
+    delay: 2
+  light.living_room:
+    polling_intensity: 1
+    refresh_value: true
+    delay: 2
+  light.main_kitchen:
+    polling_intensity: 1
+    refresh_value: true
+    delay: 2
+  light.parlor:
+    polling_intensity: 1
+    refresh_value: true
+    delay: 2

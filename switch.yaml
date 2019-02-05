@@ -7,5 +7,11 @@
   
 - platform: rachio
 
+- platform: tplink
+  name: Ben's Lamp
+  host: 192.168.1.21
+- platform: tplink
+  name: Master Bedroom Lamp
+  host: 192.168.1.22
 
 

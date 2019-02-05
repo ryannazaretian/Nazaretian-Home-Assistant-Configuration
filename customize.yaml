@@ -145,3 +145,7 @@ device_tracker.chelseanazaretian_39beb2470adb4932a6d0de9c931ca779:
   friendly_name: Chelsea's iPhone (OwnTracks)
 device_tracker.ryannazaretian_ryans_iphone:
   friendly_name: Ryan's iPhone (OwnTracks)
+switch.master_bedroom_lamp:
+  icon: mdi:lamp
+switch.ben_s_lamp:
+  icon: mdi:lamp
