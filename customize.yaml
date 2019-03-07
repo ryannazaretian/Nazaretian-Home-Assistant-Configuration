@@ -149,3 +149,5 @@ switch.master_bedroom_lamp:
   icon: mdi:lamp
 switch.ben_s_lamp:
   icon: mdi:lamp
+switch.bens_lamp:
+  icon: mdi:lamp

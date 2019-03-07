@@ -7,4 +7,3 @@
   payload_stop: "STOP"
   state_open: "OPENED"
   state_closed: "CLOSED"
-  device_class: garage

@@ -1,24 +1,20 @@
-- platform: yr
-  monitored_conditions:
-    - temperature
-    - symbol
-    - precipitation
-    - windSpeed
-    - pressure
-    - windDirection
-    - humidity
-    - fog
-    - cloudiness
-    - lowClouds
-    - mediumClouds
-    - highClouds
-    - dewpointTemperature
+# - platform: yr
+  # monitored_conditions:
+    # - temperature
+    # - symbol
+    # - precipitation
+    # - windSpeed
+    # - pressure
+    # - windDirection
+    # - humidity
+    # - fog
+    # - cloudiness
+    # - lowClouds
+    # - mediumClouds
+    # - highClouds
+    # - dewpointTemperature
     
-- platform: speedtest
-  monitored_conditions:
-   - ping
-   - download
-   - upload
+
    
 - platform: ring
   monitored_conditions:
@@ -77,32 +73,32 @@
       
     hvac_zwave_battery:
       friendly_name: 'HVAC Z-Wave Battery Level'
-      value_template: "{{ states.zwave.homeseer_unknown_type0201_id000a_7.attributes.battery_level }}"
+      value_template: "{{ (states('zwave.homeseer_unknown_type0201_id000a_7.attributes.battery_level')|int) }}"
       unit_of_measurement: '%'
       device_class: battery
 
     water_heater_zwave_battery:
       friendly_name: 'Water Heater Z-Wave Battery Level'
-      value_template: "{{ states.zwave.homeseer_unknown_type0201_id000a_9.attributes.battery_level }}"
+      value_template: "{{ (states('zwave.homeseer_unknown_type0201_id000a_9.attributes.battery_level')|int) }}"
       unit_of_measurement: '%'
       device_class: battery
     
     neato_battery:
       friendly_name: 'Neato Battery Level'
-      value_template: "{{ states.vacuum.neato.attributes.battery_level }}"
+      value_template: "{{ (states('vacuum.neato.attributes.battery_level')|float) }}"
       icon_template: "{{ states.vacuum.neato.attributes.battery_icon }}"
       unit_of_measurement: '%'
       device_class: battery
       
     office_window_west_zwave_battery:
       friendly_name: 'Office Windows - West Battery Level'
-      value_template: "{{ states.zwave.neo_coolcam_doorwindow_detector.attributes.battery_level }}"
+      value_template: "{{ (states('zwave.neo_coolcam_doorwindow_detector.attributes.battery_level')|int) }}"
       unit_of_measurement: '%'
       device_class: battery
       
     office_window_east_zwave_battery:
       friendly_name: 'Office Windows - East Battery Level'
-      value_template: "{{ states.zwave.neo_coolcam_doorwindow_detector_2.attributes.battery_level }}"
+      value_template: "{{ (states('zwave.neo_coolcam_doorwindow_detector_2.attributes.battery_level')|int) }}"
       unit_of_measurement: '%'
       device_class: battery
       
@@ -121,7 +117,7 @@
     master_bathroom_multisensor_battery:
       friendly_name: Master Bathroom Battery 
       unit_of_measurement: "%"
-      value_template: "{{ states.zwave.zooz_zse40_4in1_sensor.attributes.battery_level }}"
+      value_template: "{{ (states('zwave.zooz_zse40_4in1_sensor.attributes.battery_level')|int) }}"
       device_class: battery
       
     master_bathroom_multisensor_illuminance:
@@ -133,13 +129,13 @@
     office_door_battery:
       friendly_name: Office Door Battery
       unit_of_measurement: "%"
-      value_template: "{{ states.zwave.vision_zd2105us5_recessed_doorwindow_sensor.attributes.battery_level }}"
+      value_template: "{{ (states('zwave.vision_zd2105us5_recessed_doorwindow_sensor.attributes.battery_level')|int) }}"
       device_class: battery
     
     dishwasher_battery:
       friendly_name: Dishwasher Battery
       unit_of_measurement: "%"
-      value_template: "{{ states.zwave.dishwasher_leak.attributes.battery_level }}"
+      value_template: "{{ (states('zwave.dishwasher_leak.attributes.battery_level')|int) }}"
       device_class: battery
       
 - platform: command_line
@@ -155,6 +151,7 @@
     - type: load_15m
     - type: processor_use
     - type: last_boot
+    
 - platform: apcupsd
   resources:
     - bcharge
@@ -168,6 +165,7 @@
     - itemp
     - battv
     - lastxfer
+    
 - platform: plex
   username: !secret plex_username
   password: !secret plex_password

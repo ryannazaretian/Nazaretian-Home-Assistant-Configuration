@@ -21,6 +21,9 @@ config:
 # Enables map
 map:
 
+# Enables System Health
+system_health:
+
 api:
 
 http:
@@ -61,14 +64,7 @@ media_player: !include media_player.yaml
 panel_iframe: !include panel_iframe.yaml
 fan: !include fan.yaml
 
-logger:
-  default: info
-  logs:
-    aiounifi: debug
-    homeassistant.components.unifi: debug
-    homeassistant.components.switch.unifi: debug
-
-  
+ 
 # apple_tv:
   # - host: !secret lr_apple_tv_ip
     # login_id: !secret lr_apple_tv_login_id
@@ -85,6 +81,10 @@ ecobee:
   
 rachio:
   api_key: !secret rachio_api
+  
+speedtestdotnet:
+  scan_interval:
+    hours: 1
   
 homekit:
   auto_start: False
@@ -237,3 +237,10 @@ alarm_control_panel:
         seconds: 20
       
 script: !include scripts.yaml
+
+logger:
+  default: info
+  logs:
+    aiounifi: debug
+    homeassistant.components.unifi: debug
+    homeassistant.components.switch.unifi: debug

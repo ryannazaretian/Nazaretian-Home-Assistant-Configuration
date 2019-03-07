@@ -7,16 +7,12 @@
   state_topic: "garage_state/car0/state"
   name: "Subaru Parking Raw"
   device_class: occupancy
-  icon: mdi:sports_car
 
 - platform: mqtt
   state_topic: "garage_state/car1/state"
   name: "Corvette Parking Raw"
   device_class: occupancy
-  icon: mdi:sports_car
   
-
-
 - platform: apcupsd
 - platform: mqtt
   state_topic: "securitySystem/sensor_0"
