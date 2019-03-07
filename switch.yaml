@@ -2,6 +2,5 @@
   mac_address: !secret desktop_mac
   name: "Desktop"
   host: !secret desktop_ip
-  
-- platform: rachio
+
 

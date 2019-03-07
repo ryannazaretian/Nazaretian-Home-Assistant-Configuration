@@ -348,9 +348,7 @@
 - platform: workday
   country: US
   province: TX
-  
-- platform: rachio
-        
+          
       
       
     
