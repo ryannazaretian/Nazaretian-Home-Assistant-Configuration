@@ -47,22 +47,25 @@ updater:
 # discovery:
 
 # Include component files
+automation: !include automations.yaml
 binary_sensor: !include binary_sensor.yaml
-sensor: !include sensor.yaml
+climate: !include climate.yaml
 cover: !include cover.yaml
 device_tracker: !include device_tracker.yaml
-notify: !include notify.yaml
-group: !include groups.yaml
-switch: !include switch.yaml 
-input_number: !include input_number.yaml
-input_boolean: !include input_boolean.yaml
-input_select: !include input_select.yaml
-input_datetime: !include input_datetime.yaml
-climate: !include climate.yaml
-zone: !include zone.yaml
-media_player: !include media_player.yaml
-panel_iframe: !include panel_iframe.yaml
 fan: !include fan.yaml
+group: !include groups.yaml
+input_boolean: !include input_boolean.yaml
+input_datetime: !include input_datetime.yaml
+input_number: !include input_number.yaml
+input_select: !include input_select.yaml
+light: !include light.yaml
+media_player: !include media_player.yaml
+notify: !include notify.yaml
+panel_iframe: !include panel_iframe.yaml
+script: !include scripts.yaml
+sensor: !include sensor.yaml
+switch: !include switch.yaml 
+zone: !include zone.yaml
 
  
 # apple_tv:
@@ -176,7 +179,6 @@ sun:
 mqtt:
   broker: localhost
 
-automation: !include automations.yaml
 
 # Ring
 ring:
@@ -195,7 +197,6 @@ neato:
   username: !secret neato_username
   password: !secret neato_password
   
-# Example configuration.yaml entry to enable the cloud component
 cloud:
   
 ios:
@@ -222,6 +223,9 @@ alarm_control_panel:
     name: Home Alarm
     code: !secret alarm_code
     disarm_after_trigger: false
+    triggered:
+      pending_time: 
+        seconds: 20
     disarmed:
       trigger_time: 
         seconds: 0
@@ -234,9 +238,7 @@ alarm_control_panel:
       pending_time: 
         seconds: 60
       delay_time:
-        seconds: 20
-      
-script: !include scripts.yaml
+        seconds: 0
 
 logger:
   default: info

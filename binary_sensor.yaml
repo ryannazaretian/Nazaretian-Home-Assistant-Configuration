@@ -332,18 +332,18 @@
         minutes: 5
         
     subaru_parking:
-      friendly_name: "Subaru Parking"
+      friendly_name: "Left Side Parking"
       device_class: occupancy
       value_template: "{{ is_state('binary_sensor.subaru_parking_raw', 'on') }}"
       delay_off:
-        minutes: 1
+        seconds: 30
 
     corvette_parking:
-      friendly_name: "Corvette Parking"
+      friendly_name: "Right Side Parking"
       device_class: occupancy
       value_template: "{{ is_state('binary_sensor.corvette_parking_raw', 'on') }}"
       delay_off:
-        minutes: 1
+        seconds: 30
 
 - platform: workday
   country: US
