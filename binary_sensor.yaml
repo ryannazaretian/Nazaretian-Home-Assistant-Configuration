@@ -3,15 +3,15 @@
   - ding
   - motion
   
-- platform: mqtt
-  state_topic: "garage_state/car0/state"
-  name: "Subaru Parking Raw"
-  device_class: occupancy
-
-- platform: mqtt
-  state_topic: "garage_state/car1/state"
-  name: "Corvette Parking Raw"
-  device_class: occupancy
+#- platform: mqtt
+#  state_topic: "garage_state/car0/state"
+#  name: "Subaru Parking Raw"
+#  device_class: occupancy
+#
+#- platform: mqtt
+#  state_topic: "garage_state/car1/state"
+#  name: "Corvette Parking Raw"
+#  device_class: occupancy
   
 - platform: apcupsd
 - platform: mqtt
@@ -183,6 +183,26 @@
       max_samples: 4
       min_gradient: 0.001
       sample_duration: 60
+      
+- platform: template
+  sensors:
+    disable_ac:
+      friendly_name: Window / Door Open for >=5 Minutes
+      device_class: problem
+      value_template: >-
+        {{    is_state('binary_sensor.security_sensor_1',  'on')
+           or is_state('binary_sensor.security_sensor_2',  'on')
+           or is_state('binary_sensor.security_sensor_3',  'on')
+           or is_state('binary_sensor.security_sensor_4',  'on')
+           or is_state('binary_sensor.security_sensor_5',  'on')
+           or is_state('binary_sensor.security_sensor_6',  'on')
+           or is_state('binary_sensor.security_sensor_8',  'on')
+           or is_state('binary_sensor.security_sensor_10', 'on')
+           or is_state('binary_sensor.office_window_east', 'on')
+           or is_state('binary_sensor.office_window_west', 'on') 
+           or is_state('binary_sensor.office_door', 'on') }}
+      delay_on:
+        minutes: 5
 
 - platform: template
   sensors:
@@ -209,7 +229,7 @@
       friendly_name: Ryan is home
       device_class: presence
       value_template: >-
-         {{   is_state('device_tracker.ryannazaretian_ryans_iphone',  'home') }}
+         {% set value = is_state('device_tracker.ryans_iphone', 'home') %}
          {% if is_state('input_boolean.invert_ryan_away', 'off') %}
          {{ value }}
          {% else %}
@@ -234,7 +254,7 @@
       friendly_name: Chelsea is home
       device_class: presence
       value_template: >-
-        {{    is_state('device_tracker.chelseanazaretian_39beb247_0adb_4932_a6d0_de9c931ca779',  'home') }}
+        {%  set value = is_state('device_tracker.chelseas_iphone', 'home') %}
         {% if is_state('input_boolean.invert_chelsea_away', 'off') %}
         {{ value }}
         {% else %}
@@ -330,20 +350,19 @@
       value_template: "{{ is_state('sensor.zooz_zse40_4in1_sensor_alarm_level', '255') }}"
       delay_off:
         minutes: 5
-        
-    subaru_parking:
+ 
+    left_side_parking:
       friendly_name: "Left Side Parking"
       device_class: occupancy
-      value_template: "{{ is_state('binary_sensor.subaru_parking_raw', 'on') }}"
-      delay_off:
-        seconds: 30
+      value_template: '{{ states("sensor.left_vehicle_sensor")|float < states("input_number.left_car_distance_trigger")|float }} '
+   
 
-    corvette_parking:
+    right_side_parking:
       friendly_name: "Right Side Parking"
       device_class: occupancy
-      value_template: "{{ is_state('binary_sensor.corvette_parking_raw', 'on') }}"
-      delay_off:
-        seconds: 30
+      value_template: '{{ states("sensor.right_vehicle_sensor")|float < states("input_number.right_car_distance_trigger")|float }}'
+      
+
 
 - platform: workday
   country: US

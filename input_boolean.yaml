@@ -54,6 +54,10 @@ garage_door_open_chelsea_arrives:
     name: Open garage door for Chelsea
     icon: mdi:map-marker-radius
     
+garage_door_open_ble_arrival:
+    name: Open garage door for BLE Beacon
+    icon: mdi:map-marker-radius
+    
 seasonal_lighting:
     name: Seasonal Lighting
     icon: mdi:pine-tree

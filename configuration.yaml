@@ -28,7 +28,7 @@ api:
 
 http:
   # Uncomment this to add a password (recommended!)
-  api_password: !secret http_password
+  # api_password: !secret http_password
   # Uncomment this if you are using SSL or running in Docker etc
   base_url: !secret base_url
   # cors_allowed_origins:
@@ -78,9 +78,6 @@ zone: !include zone.yaml
     # login_id: !secret mbr_apple_tv_login_id
     # credentials: !secret mbr_apple_tv_credentials
     # name: Master Bedroom Apple TV
-    
-ecobee:
-  api_key: !secret ecobee_api
   
 rachio:
   api_key: !secret rachio_api
@@ -108,8 +105,9 @@ homekit:
       - switch.neato_schedule
       - light.dining_room_dimmer
       - light.master_bathroom_dimmer
+      - light.kitchen_cabinet_lighting
       - fan.master_bathroom_ceiling_fan
-      - cover.garage_door
+      - cover.garage_door_cover
       - binary_sensor.security_ready
       - binary_sensor.security_sensor_0
       - binary_sensor.security_sensor_1
@@ -125,7 +123,6 @@ homekit:
       - binary_sensor.water_heater_leak
       - sensor.master_bathroom_multisensor_temperature
       - sensor.master_bathroom_multisensor_humidity
-      - sensor.garage_temperature
       - sensor.ups_internal_temperature
       - sensor.homeseer_unknown_type0201_id000a_temperature_9
       - sensor.homeseer_unknown_type0201_id000a_temperature_7
@@ -170,7 +167,6 @@ logbook:
       - sensor.load_5m
       - input_boolean.homeassistant_heartbeat
       - input_boolean.nodered_heartbeat
-      
 
 # Track the sun
 sun:
@@ -178,7 +174,6 @@ sun:
 # Enable MQTT Broker
 mqtt:
   broker: localhost
-
 
 # Ring
 ring:
@@ -200,13 +195,6 @@ neato:
 cloud:
   
 ios:
-
-owntracks:
-  waypoints: false
-
-# Text to speech
-tts:
-  platform: google
 
 recorder:
   db_url: sqlite:////config/home-assistant_v2.db
@@ -239,10 +227,3 @@ alarm_control_panel:
         seconds: 60
       delay_time:
         seconds: 0
-
-logger:
-  default: info
-  logs:
-    aiounifi: debug
-    homeassistant.components.unifi: debug
-    homeassistant.components.switch.unifi: debug

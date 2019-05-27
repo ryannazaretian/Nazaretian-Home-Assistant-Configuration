@@ -14,7 +14,8 @@
     # - highClouds
     # - dewpointTemperature
     
-
+- platform: enphase_envoy
+  ip_address: !secret enphase_envoy_ip
    
 - platform: ring
   monitored_conditions:
@@ -24,48 +25,52 @@
     - last_motion
     - volume
     
-- platform: mqtt
-  state_topic: "garage_state/door_state"
-  name: "Garage Door State"
-  
-- platform: mqtt
-  state_topic: "garage_state/temperature"
-  name: "Garage Temperature"
-  unit_of_measurement: "°F"
-  device_class: temperature
-  
-- platform: mqtt
-  state_topic: "garage_state/car0/dist"
-  name: "Subaru Sensor Distance"
-  unit_of_measurement: "in"
-  
-- platform: mqtt
-  state_topic: "garage_state/car1/dist"
-  name: "Corvette Sensor Distance"
-  unit_of_measurement: "in"
-  
-- platform: mqtt
-  state_topic: "garage_state/car0/trigger"
-  name: "Subaru Sensor Trigger"
-  unit_of_measurement: "in"
-  
-- platform: mqtt
-  state_topic: "garage_state/car1/trigger"
-  name: "Corvette Sensor Trigger"
-  unit_of_measurement: "in"
-  
+#- platform: mqtt
+#  state_topic: "garage_state/door_state"
+#  name: "Garage Door State"
+#  
+#- platform: mqtt
+#  state_topic: "garage_state/temperature"
+#  name: "Garage Temperature"
+#  unit_of_measurement: "°F"
+#  device_class: temperature
+#  
+#- platform: mqtt
+#  state_topic: "garage_state/car0/dist"
+#  name: "Subaru Sensor Distance"
+#  unit_of_measurement: "in"
+#  
+#- platform: mqtt
+#  state_topic: "garage_state/car1/dist"
+#  name: "Corvette Sensor Distance"
+#  unit_of_measurement: "in"
+#  
+#- platform: mqtt
+#  state_topic: "garage_state/car0/trigger"
+#  name: "Subaru Sensor Trigger"
+#  unit_of_measurement: "in"
+#  
+#- platform: mqtt
+#  state_topic: "garage_state/car1/trigger"
+#  name: "Corvette Sensor Trigger"
+#  unit_of_measurement: "in"
+#  
+#- platform: template
+#  sensors:
+#    subaru_occupancy:
+#      friendly_name: 'Subaru Occupancy'
+#      value_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}Car In{% else %}Car Out{% endif %}'
+#      icon_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
+#    
+#    corvette_occupancy:
+#      friendly_name: 'Corvette Occupancy'
+#      value_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}Car In{% else %}Car Out{% endif %}'
+#      icon_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
+#    
+
 - platform: template
   sensors:
-    subaru_occupancy:
-      friendly_name: 'Subaru Occupancy'
-      value_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}Car In{% else %}Car Out{% endif %}'
-      icon_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
-    
-    corvette_occupancy:
-      friendly_name: 'Corvette Occupancy'
-      value_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}Car In{% else %}Car Out{% endif %}'
-      icon_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
-    
+
     ups_load_watts:
       friendly_name: 'UPS Load'
       value_template: "{{ states('sensor.ups_load')|float * 5.0}}"
@@ -137,6 +142,62 @@
       unit_of_measurement: "%"
       value_template: "{{ state_attr('zwave.dishwasher_leak', 'battery_level') }}"
       device_class: battery
+      
+    home_current_amps:
+      friendly_name: Home Current
+      unit_of_measurement: "A"
+      value_template: "{{ (states('sensor.envoy_current_energy_consumption')|float / states('sensor.ups_input_voltage')|float) }}"
+      icon_template: mdi:current-ac
+     
+        
+    envoy_current_net_energy:
+      friendly_name: Envoy Current Net Power
+      device_class: power
+      unit_of_measurement: "W"
+      value_template: "{{ (states('sensor.envoy_current_energy_production')|float - states('sensor.envoy_current_energy_consumption')|float) }}"
+      icon_template: >-
+        {% if (states('sensor.envoy_current_energy_production')|float - states('sensor.envoy_current_energy_consumption')|float) > 0 %}
+          mdi:solar-power
+        {% else %}
+          mdi:flash
+        {% endif %}
+        
+    envoy_today_s_net_energy:
+      friendly_name: Envoy Today's Net Energy
+      device_class: power
+      unit_of_measurement: "kWh"
+      value_template: "{{ (states('sensor.envoy_today_s_energy_production')|float - states('sensor.envoy_today_s_energy_consumption')|float) / 1000 }}"
+      icon_template: >-
+        {% if (states('sensor.envoy_today_s_energy_production')|float - states('sensor.envoy_today_s_energy_consumption')|float) > 0 %}
+          mdi:solar-power
+        {% else %}
+          mdi:flash
+        {% endif %}
+        
+    envoy_last_seven_days_net_energy:
+      friendly_name: Envoy Last Seven Days Net Energy
+      device_class: power
+      unit_of_measurement: "kWh"
+      value_template: "{{ (states('sensor.envoy_last_seven_days_energy_production')|float - states('sensor.envoy_last_seven_days_energy_consumption')|float) / 1000 }}"
+      icon_template: >-
+        {% if (states('sensor.envoy_last_seven_days_energy_production')|float - states('sensor.envoy_last_seven_days_energy_consumption')|float) > 0 %}
+          mdi:solar-power
+        {% else %}
+          mdi:flash
+        {% endif %}
+        
+    envoy_lifetime_net_energy:
+      friendly_name: Envoy Lifetime Net Energy
+      device_class: power
+      unit_of_measurement: "MWh"
+      value_template: "{{ (states('sensor.envoy_lifetime_energy_production')|float - states('sensor.envoy_lifetime_energy_consumption')|float) / 1000000 }}"
+      icon_template: >-
+        {% if (states('sensor.envoy_lifetime_energy_production')|float - states('sensor.envoy_lifetime_energy_consumption')|float) > 0 %}
+          mdi:solar-power
+        {% else %}
+          mdi:flash
+        {% endif %}
+        
       
 - platform: command_line
   name: CPU Temp

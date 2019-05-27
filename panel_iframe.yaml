@@ -1,14 +1,10 @@
-nodered:
-  title: 'Node-Red'
-  icon: 'mdi:shuffle-variant'
-  url: 'http://192.168.215.110:1880'
-  
 rachio:
   title: Rachio
   url: "https://app.rach.io"
   icon: mdi:water-pump
   
-# ecobee:
-  # title: ecobee
-  # url: "https://www.ecobee.com/consumerportal/index.html"
-  # icon: mdi:thermostat
+  
+# esphome:
+  # title: ESPHome
+  # url: "192.168.1.10:6052"
+  # icon: mdi:chip

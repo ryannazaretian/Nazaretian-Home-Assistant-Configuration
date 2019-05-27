@@ -38,16 +38,16 @@ master_bathroom_morning_brightness:
     min: 0
     max: 100
     
-car0_distance_trigger:
-    name: Subaru Distance Trigger
+left_car_distance_trigger:
+    name: Left Car Distance Trigger
     icon: mdi:ruler
     unit_of_measurement: in
     step: 10
     min: 0
     max: 250
     
-car1_distance_trigger:
-    name: Corvette Distance Trigger
+right_car_distance_trigger:
+    name: Right Car Distance Trigger
     icon: mdi:ruler
     unit_of_measurement: in
     step: 10

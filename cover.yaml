@@ -1,9 +1,9 @@
-- platform: mqtt
-  name: "Garage Door"
-  state_topic: "garage_state/door_state"
-  command_topic: "garage_ctl/toggle_door"
-  payload_open: "OPEN"
-  payload_close: "CLOSE"
-  payload_stop: "STOP"
-  state_open: "OPENED"
-  state_closed: "CLOSED"
+#- platform: mqtt
+#  name: "Garage Door"
+#  state_topic: "garage_state/door_state"
+#  command_topic: "garage_ctl/toggle_door"
+#  payload_open: "OPEN"
+#  payload_close: "CLOSE"
+#  payload_stop: "STOP"
+#  state_open: "OPENED"
+#  state_closed: "CLOSED"
