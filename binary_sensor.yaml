@@ -355,12 +355,16 @@
       friendly_name: "Left Side Parking"
       device_class: occupancy
       value_template: '{{ states("sensor.left_vehicle_sensor")|float < states("input_number.left_car_distance_trigger")|float }} '
+      delay_off: 
+        seconds: 30
    
 
     right_side_parking:
       friendly_name: "Right Side Parking"
       device_class: occupancy
       value_template: '{{ states("sensor.right_vehicle_sensor")|float < states("input_number.right_car_distance_trigger")|float }}'
+      delay_off: 
+        seconds: 30
       
 
 
@@ -368,6 +372,13 @@
   country: US
   province: TX
           
+- platform: nexia
+
+
+- platform: octoprint
+  monitored_conditions:
+  - Printing
+  - Printing Error
       
       
     

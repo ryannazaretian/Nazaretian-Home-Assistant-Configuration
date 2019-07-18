@@ -126,7 +126,7 @@
       device_class: battery
       
     master_bathroom_multisensor_illuminance:
-      friendly_name: Master Bathroom Battery 
+      friendly_name: Master Bathroom Illuminance 
       unit_of_measurement: "%"
       value_template: "{{ states('sensor.zooz_zse40_4in1_sensor_luminance') }}"
       device_class: illuminance
@@ -262,3 +262,6 @@
     - uv_index
     - icon
     
+- platform: nexia
+
+- platform: octoprint

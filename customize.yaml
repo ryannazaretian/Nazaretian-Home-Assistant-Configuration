@@ -151,3 +151,15 @@ switch.ben_s_lamp:
   icon: mdi:lamp
 switch.bens_lamp:
   icon: mdi:lamp
+sensor.compressor_speed:
+  icon: mdi:speedometer
+sensor.octoprint_actual_tool0_temp:
+  friendly_name: OctoPrint actual hot end temperature
+  unit_of_measurement: °F
+sensor.octoprint_target_bed_temp:
+  unit_of_measurement: °F
+sensor.octoprint_target_tool0_temp:
+  friendly_name: OctoPrint target hot end temp
+  unit_of_measurement: °F
+sensor.octoprint_actual_bed_temp:
+  unit_of_measurement: °F

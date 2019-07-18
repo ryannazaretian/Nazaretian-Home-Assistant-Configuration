@@ -1,15 +1,16 @@
+#homeassistant:
+#  # Name of the location where Home Assistant is running
+#  name: Home
+#  # Location required to calculate the time the sun rises and sets
+#  latitude: !secret latitude
+#  longitude: !secret longitude
+#  # Impacts weather/sunrise data (altitude above sea level in meters)
+#  elevation: !secret elevation
+#  # metric for Metric, imperial for Imperial
+#  unit_system: imperial
+#  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+#  time_zone: America/Chicago
 homeassistant:
-  # Name of the location where Home Assistant is running
-  name: Home
-  # Location required to calculate the time the sun rises and sets
-  latitude: !secret latitude
-  longitude: !secret longitude
-  # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: !secret elevation
-  # metric for Metric, imperial for Imperial
-  unit_system: imperial
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: America/Chicago
   customize: !include customize.yaml
 
 # Enables the frontend
@@ -49,6 +50,7 @@ updater:
 # Include component files
 automation: !include automations.yaml
 binary_sensor: !include binary_sensor.yaml
+camera: !include camera.yaml
 climate: !include climate.yaml
 cover: !include cover.yaml
 device_tracker: !include device_tracker.yaml
@@ -95,6 +97,7 @@ homekit:
       - light
       - cover
       - fan
+      - climate
     include_entities:
       - switch.back_porch_lights
       - switch.desktop
@@ -127,6 +130,12 @@ homekit:
       - sensor.homeseer_unknown_type0201_id000a_temperature_9
       - sensor.homeseer_unknown_type0201_id000a_temperature_7
       - sensor.cpu_temp
+      - climate.garage
+      - climate.living_room
+      - climate.mbdrm_office
+      - sensor.outdoor_temperature
+      - sensor.relative_humidity
+
 
     exclude_entities:
       - switch.siren
@@ -180,8 +189,7 @@ ring:
   username: !secret ring_username
   password: !secret ring_password
 
-camera:
-  - platform: ring
+
 
 zwave:
   usb_path: /dev/ttyACM0
@@ -191,10 +199,25 @@ apcupsd:
 neato:
   username: !secret neato_username
   password: !secret neato_password
+
+panel_custom:
+  - name: zwavegraph2
+    sidebar_title: Z-Wave Graph
+    sidebar_icon: mdi:access-point-network
+    url_path: zwave
   
 cloud:
-  
+
 ios:
+
+tts:
+  - platform: google_translate
+
+nexia:
+  username: !secret nexia_username
+  password: !secret nexia_password
+  id: !secret home_id
+  scan_interval: 30
 
 recorder:
   db_url: sqlite:////config/home-assistant_v2.db
@@ -227,3 +250,9 @@ alarm_control_panel:
         seconds: 60
       delay_time:
         seconds: 0
+        
+octoprint:
+  host: !secret octoprint_host
+  api_key: !secret octoprint_api
+  bed: true
+  number_of_tools: 1
