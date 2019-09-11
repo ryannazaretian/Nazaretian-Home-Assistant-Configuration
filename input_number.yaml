@@ -62,3 +62,20 @@ speedtest_download_trigger:
     min: 0
     max: 200
 
+tesla_battery_capacity:
+    name: Telsa Battery Capacity
+    icon: mdi:battery-unknown
+    unit_of_measurement: kWh
+    min: 50
+    max: 100
+
+tesla_target_charge_soc:
+    name: Tesla Target Charge
+    icon: mdi:target
+    unit_of_measurement: "%"
+    min: 0
+    max: 100
+
+
+
+

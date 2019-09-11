@@ -376,8 +376,7 @@ class NexiaThermostat:
         """
         zone_id = self._get_zone_key('id', thermostat_id, zone_id)
         return "/houses/" + str(self.house_id) + "/xxl_zones/" + str(
-            zone_id) + (
-                   "/" + text if text else "")
+            zone_id) + ("/" + text if text else "")
 
     ########################################################################
     # Session Methods
@@ -672,7 +671,7 @@ class NexiaThermostat:
         :param thermostat_id: int - the ID of the thermostat to use
         :return: bool
         """
-        if self.has_emergency_heat():
+        if self.has_emergency_heat(thermostat_id=thermostat_id):
             return self._get_thermostat_key("emergency_heat_active",
                                             thermostat_id)
         raise Exception("This system does not support emergency heat")
@@ -692,11 +691,13 @@ class NexiaThermostat:
         """
         Returns the outdoor temperature.
         :param thermostat_id: int - the ID of the thermostat to use
-        :return: float
+        :return: float - the temperature, returns nan if invalid
         """
         if self.has_outdoor_temperature(thermostat_id):
-            return float(
-                self._get_thermostat_key('outdoor_temperature', thermostat_id))
+            outdoor_temp = self._get_thermostat_key('outdoor_temperature', thermostat_id)
+            if outdoor_temp.isnumeric():
+                return float(outdoor_temp)
+            return float("Nan")
         raise Exception(
             "This system does not have an outdoor temperature sensor")
 
@@ -1011,8 +1012,7 @@ class NexiaThermostat:
         """
         if preset != self.PRESET_MODE_NONE:
             index = self.get_zone_presets(thermostat_id=thermostat_id,
-                                          zone_id=zone_id).index(
-                preset) + 1
+                                          zone_id=zone_id).index(preset) + 1
             return (
                 self._get_zone_key(f"preset_cool{index}",
                                    thermostat_id=thermostat_id,
@@ -1102,6 +1102,17 @@ class NexiaThermostat:
                 f"The cool setpoint ({cool_temperature}) must be greater than "
                 f"the minimum temperature of {min_temperature} degrees.")
         # The heat and cool setpoints appear to be valid.
+
+    def is_zone_in_permanent_hold(self, thermostat_id=None, zone_id=0):
+        """
+        Returns True if the zone is in a permanent hold.
+        :param thermostat_id: int - the ID of the thermostat to use
+        :param zone_id: The index of the zone, defaults to 0.
+        :return: bool
+        """
+        return self._get_zone_key("permanent_hold",
+                                  thermostat_id=thermostat_id,
+                                  zone_id=zone_id)
 
     ########################################################################
     # Zone Set Methods
@@ -1295,13 +1306,14 @@ class NexiaThermostat:
                                                    thermostat_id)
             else:
                 cool_temperature = self.round_temp(set_temperature,
-                                                   thermostat_id) + math.ceil(
-                    deadband / 2)
+                                                   thermostat_id) + \
+                                                   math.ceil(deadband / 2)
                 heat_temperature = self.round_temp(set_temperature,
-                                                   thermostat_id) - math.ceil(
-                    deadband / 2)
+                                                   thermostat_id) - \
+                                                   math.ceil(deadband / 2)
 
-        self.check_heat_cool_setpoints(heat_temperature, cool_temperature,
+        self.check_heat_cool_setpoints(heat_temperature,
+                                       cool_temperature,
                                        thermostat_id=thermostat_id)
         url = self._get_zone_put_url("setpoints", thermostat_id=thermostat_id,
                                      zone_id=zone_id)

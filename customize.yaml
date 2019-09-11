@@ -39,59 +39,6 @@ device_tracker.homeassistant_ryans_iphone:
   friendly_name: Ryan's iPhone (OwnTracks)
 sensor.ups_load_watts:
   icon: mdi:flash-circle
-binary_sensor.security_sensor_4:
-  device_class: door
-  friendly_name: Front Door
-binary_sensor.security_sensor_0:
-  device_class: garage_door
-  friendly_name: Garage Bay Door
-binary_sensor.security_sensor_1:
-  device_class: window
-  friendly_name: Kitchen / Breakfast Nook Windows
-binary_sensor.security_sensor_2:
-  device_class: door
-  friendly_name: Back Door / Living Room Windows
-binary_sensor.security_sensor_3:
-  device_class: window
-  friendly_name: Master Bedroom / Master Bathroom Windows
-binary_sensor.security_sensor_5:
-  device_class: window
-  friendly_name: North Bedrooms / Bathroom Windows
-binary_sensor.security_sensor_6:
-  device_class: window
-  friendly_name: Utility Room Window
-binary_sensor.security_sensor_8:
-  device_class: door
-  friendly_name: Garage Entry Door
-binary_sensor.security_sensor_21:
-  hidden: true
-binary_sensor.security_sensor_20:
-  hidden: true
-binary_sensor.security_sensor_19:
-  hidden: true
-binary_sensor.security_sensor_18:
-  hidden: true
-binary_sensor.security_sensor_17:
-  hidden: true
-binary_sensor.security_sensor_16:
-  hidden: true
-binary_sensor.security_sensor_15:
-  hidden: true
-binary_sensor.security_sensor_14:
-  hidden: true
-binary_sensor.security_sensor_13:
-  hidden: true
-binary_sensor.security_sensor_12:
-  hidden: true
-binary_sensor.security_sensor_11:
-  hidden: true
-binary_sensor.security_sensor_10:
-  device_class: smoke
-  friendly_name: Smoke / Heat Detectors
-binary_sensor.security_sensor_7:
-  hidden: true
-binary_sensor.security_sensor_9:
-  hidden: true
 binary_sensor.ryan_home:
   friendly_name: Ryan Home
   initial_state: 'on'
@@ -155,11 +102,111 @@ sensor.compressor_speed:
   icon: mdi:speedometer
 sensor.octoprint_actual_tool0_temp:
   friendly_name: OctoPrint actual hot end temperature
-  unit_of_measurement: °F
+  unit_of_measurement: °C
 sensor.octoprint_target_bed_temp:
-  unit_of_measurement: °F
+  unit_of_measurement: °C
 sensor.octoprint_target_tool0_temp:
   friendly_name: OctoPrint target hot end temp
-  unit_of_measurement: °F
+  unit_of_measurement: °C
 sensor.octoprint_actual_bed_temp:
-  unit_of_measurement: °F
+  unit_of_measurement: °C
+binary_sensor.tesla_model_3_charger_sensor:
+  device_class: plug
+switch.tesla_model_3_charger_switch:
+  icon: mdi:ev-station
+sensor.tesla_model_3_battery_sensor:
+  device_class: battery
+binary_sensor.tesla_model_3_parking_brake_sensor:
+  device_class: moving
+  icon: mdi:car-brake-parking
+lock.tesla_model_3_charger_door_lock:
+  device_class: opening
+sensor.tesla_model_3_mileage_sensor:
+  icon: mdi:counter
+sensor.tesla_model_3_range_sensor:
+  icon: mdi:gauge-empty
+switch.tesla_model_3_maxrange_switch:
+  icon: mdi:battery-charging
+climate.tesla_model_3_hvac_climate_system:
+  hvac_modes:
+  - heat
+  - 'off'
+  icon: mdi:air-conditioner
+device_tracker.tesla_model_3_5yj3e1eb6kf454093_location_tracker:
+  friendly_name: Tesla Location
+  icon: mdi:garage
+sensor.envoy_consumption_integrated_meter_last_seven_days:
+  device_class: power
+  friendly_name: Envoy Consumption - Last Seven Days
+  icon: mdi:gauge
+sensor.envoy_consumption_integrated_meter_lifetime:
+  device_class: power
+  friendly_name: Envoy Consumption - Lifetime
+  icon: mdi:gauge
+sensor.envoy_consumption_integrated_meter_now:
+  device_class: power
+  friendly_name: Envoy Consumption - Now
+  icon: mdi:gauge
+sensor.envoy_consumption_integrated_meter_today:
+  device_class: power
+  friendly_name: Envoy Consumption - Today
+  icon: mdi:gauge
+sensor.envoy_distribution_panel_current:
+  device_class: power
+  friendly_name: Envoy Consumption - Current
+  icon: mdi:alpha-a-circle-outline
+sensor.envoy_distribution_panel_voltage:
+  device_class: power
+  friendly_name: Envoy Consumption - Voltage
+  icon: mdi:alpha-v-circle-outline
+sensor.envoy_last_seven_days_net_energy:
+  friendly_name: Envoy Net Energy - Last Seven Days
+  icon: mdi:flash
+sensor.envoy_production_integrated_meter_last_seven_days:
+  device_class: power
+  friendly_name: Envoy Production - Last Seven Days
+  icon: mdi:solar-power
+sensor.envoy_production_integrated_meter_lifetime:
+  device_class: power
+  friendly_name: Envoy Production - Lifetime
+  icon: mdi:solar-power
+sensor.envoy_production_integrated_meter_now:
+  device_class: power
+  friendly_name: Envoy Production - Now
+  icon: mdi:solar-power
+sensor.envoy_production_integrated_meter_today:
+  device_class: power
+  friendly_name: Envoy Production - Today
+  icon: mdi:solar-power
+sensor.envoy_solar_current:
+  device_class: power
+  friendly_name: Envoy Production - Current
+  icon: mdi:alpha-a-circle-outline
+sensor.envoy_solar_voltage:
+  device_class: power
+  friendly_name: Envoy Production - Voltage
+  icon: mdi:alpha-v-circle-outline
+binary_sensor.power_exporting:
+  friendly_name: Envoy - Exporting
+  icon: mdi:export
+binary_sensor.power_importing:
+  friendly_name: Envoy - Importing
+  icon: mdi:import
+sensor.envoy_lifetime_net_energy:
+  friendly_name: Envoy Net Energy - Lifetime
+  icon: mdi:mdi:flash
+sensor.envoy_today_s_net_energy:
+  friendly_name: Envoy Net Energy - Today
+  icon: mdi:flash
+sensor.net_consumption_now:
+  device_class: power
+  friendly_name: Envoy Net Energy - Now
+  icon: mdi:flash
+sensor.tesla_target_kwh:
+  icon: mdi:target
+sensor.tesla_kwh_remaining:
+  icon: mdi:battery-negative
+sensor.tesla_kwh_to_target:
+  icon: mdi:battery-positive
+sensor.ups_last_transfer:
+  icon: mdi:calendar-clock

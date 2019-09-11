@@ -55,7 +55,6 @@ climate: !include climate.yaml
 cover: !include cover.yaml
 device_tracker: !include device_tracker.yaml
 fan: !include fan.yaml
-group: !include groups.yaml
 input_boolean: !include input_boolean.yaml
 input_datetime: !include input_datetime.yaml
 input_number: !include input_number.yaml
@@ -111,19 +110,21 @@ homekit:
       - light.kitchen_cabinet_lighting
       - fan.master_bathroom_ceiling_fan
       - cover.garage_door_cover
-      - binary_sensor.security_ready
-      - binary_sensor.security_sensor_0
-      - binary_sensor.security_sensor_1
-      - binary_sensor.security_sensor_2
-      - binary_sensor.security_sensor_3
-      - binary_sensor.security_sensor_4
-      - binary_sensor.security_sensor_5
-      - binary_sensor.security_sensor_6
-      - binary_sensor.security_sensor_8
-      - binary_sensor.security_sensor_10
+      - binary_sensor.garage_bay_door
+      - binary_sensor.office_door
+      - binary_sensor.garage_entry_door
+      - binary_sensor.front_door
+      - binary_sensor.back_door_living_room_windows
+      - binary_sensor.kitchen_breakfast_nook_windows
+      - binary_sensor.utility_window
+      - binary_sensor.north_bedroom_bathroom_windows
+      - binary_sensor.office_window_east
+      - binary_sensor.office_window_west
+      - binary_sensor.master_bedroom_bathroom_windows
       - binary_sensor.dishwasher_leak
       - binary_sensor.hvac_leak
       - binary_sensor.water_heater_leak
+      - binary_sensor.smoke_detector
       - sensor.master_bathroom_multisensor_temperature
       - sensor.master_bathroom_multisensor_humidity
       - sensor.ups_internal_temperature
@@ -180,16 +181,10 @@ logbook:
 # Track the sun
 sun:
 
-# Enable MQTT Broker
-mqtt:
-  broker: localhost
-
 # Ring
 ring:
   username: !secret ring_username
   password: !secret ring_password
-
-
 
 zwave:
   usb_path: /dev/ttyACM0
@@ -256,3 +251,7 @@ octoprint:
   api_key: !secret octoprint_api
   bed: true
   number_of_tools: 1
+  
+tesla: 
+  username: !secret tesla_username
+  password: !secret tesla_password

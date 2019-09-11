@@ -3,4 +3,4 @@
   name: "Desktop"
   host: !secret desktop_ip
 
-
+- platform: ring

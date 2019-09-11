@@ -1,22 +1,3 @@
-# - platform: yr
-  # monitored_conditions:
-    # - temperature
-    # - symbol
-    # - precipitation
-    # - windSpeed
-    # - pressure
-    # - windDirection
-    # - humidity
-    # - fog
-    # - cloudiness
-    # - lowClouds
-    # - mediumClouds
-    # - highClouds
-    # - dewpointTemperature
-    
-- platform: enphase_envoy
-  ip_address: !secret enphase_envoy_ip
-   
 - platform: ring
   monitored_conditions:
     - battery
@@ -24,49 +5,6 @@
     - last_ding
     - last_motion
     - volume
-    
-#- platform: mqtt
-#  state_topic: "garage_state/door_state"
-#  name: "Garage Door State"
-#  
-#- platform: mqtt
-#  state_topic: "garage_state/temperature"
-#  name: "Garage Temperature"
-#  unit_of_measurement: "°F"
-#  device_class: temperature
-#  
-#- platform: mqtt
-#  state_topic: "garage_state/car0/dist"
-#  name: "Subaru Sensor Distance"
-#  unit_of_measurement: "in"
-#  
-#- platform: mqtt
-#  state_topic: "garage_state/car1/dist"
-#  name: "Corvette Sensor Distance"
-#  unit_of_measurement: "in"
-#  
-#- platform: mqtt
-#  state_topic: "garage_state/car0/trigger"
-#  name: "Subaru Sensor Trigger"
-#  unit_of_measurement: "in"
-#  
-#- platform: mqtt
-#  state_topic: "garage_state/car1/trigger"
-#  name: "Corvette Sensor Trigger"
-#  unit_of_measurement: "in"
-#  
-#- platform: template
-#  sensors:
-#    subaru_occupancy:
-#      friendly_name: 'Subaru Occupancy'
-#      value_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}Car In{% else %}Car Out{% endif %}'
-#      icon_template: '{% if is_state("binary_sensor.subaru_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
-#    
-#    corvette_occupancy:
-#      friendly_name: 'Corvette Occupancy'
-#      value_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}Car In{% else %}Car Out{% endif %}'
-#      icon_template: '{% if is_state("binary_sensor.corvette_parking", "on") %}mdi:check-circle-outline{% else %}mdi:checkbox-blank-circle-outline{% endif %}'
-#    
 
 - platform: template
   sensors:
@@ -142,63 +80,66 @@
       unit_of_measurement: "%"
       value_template: "{{ state_attr('zwave.dishwasher_leak', 'battery_level') }}"
       device_class: battery
-      
-    home_current_amps:
-      friendly_name: Home Current
-      unit_of_measurement: "A"
-      value_template: "{{ (states('sensor.envoy_current_energy_consumption')|float / states('sensor.ups_input_voltage')|float) }}"
-      icon_template: mdi:current-ac
-     
-        
-    envoy_current_net_energy:
-      friendly_name: Envoy Current Net Power
-      device_class: power
-      unit_of_measurement: "W"
-      value_template: "{{ (states('sensor.envoy_current_energy_production')|float - states('sensor.envoy_current_energy_consumption')|float) }}"
-      icon_template: >-
-        {% if (states('sensor.envoy_current_energy_production')|float - states('sensor.envoy_current_energy_consumption')|float) > 0 %}
-          mdi:solar-power
-        {% else %}
-          mdi:flash
-        {% endif %}
-        
+
+    octoprint_time_elapsed_friendly:
+      friendly_name: "Octoprint time elapsed"
+      value_template: "{{ states('sensor.octoprint_time_elapsed') | int | timestamp_custom('%H:%M:%S', 0) }}"
+
+    octoprint_time_remaining_friendly:
+      friendly_name: "Octoprint time remaining"
+      value_template: "{{ states('sensor.octoprint_time_remaining') | int | timestamp_custom('%H:%M:%S', 0) }}"
+
     envoy_today_s_net_energy:
       friendly_name: Envoy Today's Net Energy
       device_class: power
       unit_of_measurement: "kWh"
-      value_template: "{{ (states('sensor.envoy_today_s_energy_production')|float - states('sensor.envoy_today_s_energy_consumption')|float) / 1000 }}"
+      value_template: "{{ ((states('sensor.envoy_consumption_integrated_meter_today')|float - states('sensor.envoy_production_integrated_meter_today')|float) / 1000) | round(2) }}"
       icon_template: >-
-        {% if (states('sensor.envoy_today_s_energy_production')|float - states('sensor.envoy_today_s_energy_consumption')|float) > 0 %}
-          mdi:solar-power
-        {% else %}
+        {% if (states('sensor.envoy_consumption_integrated_meter_today')|float - states('sensor.envoy_production_integrated_meter_today')|float) > 0 %}
           mdi:flash
+        {% else %}
+          mdi:solar-power
         {% endif %}
         
     envoy_last_seven_days_net_energy:
       friendly_name: Envoy Last Seven Days Net Energy
       device_class: power
       unit_of_measurement: "kWh"
-      value_template: "{{ (states('sensor.envoy_last_seven_days_energy_production')|float - states('sensor.envoy_last_seven_days_energy_consumption')|float) / 1000 }}"
+      value_template: "{{ ((states('sensor.envoy_consumption_integrated_meter_last_seven_days')|float - states('sensor.envoy_production_integrated_meter_last_seven_days')|float) / 1000) | round(2) }}"
       icon_template: >-
-        {% if (states('sensor.envoy_last_seven_days_energy_production')|float - states('sensor.envoy_last_seven_days_energy_consumption')|float) > 0 %}
-          mdi:solar-power
-        {% else %}
+        {% if (states('sensor.envoy_consumption_integrated_meter_last_seven_days')|float - states('sensor.envoy_production_integrated_meter_last_seven_days')|float) > 0 %}
           mdi:flash
+        {% else %}
+          mdi:solar-power
         {% endif %}
         
     envoy_lifetime_net_energy:
       friendly_name: Envoy Lifetime Net Energy
       device_class: power
       unit_of_measurement: "MWh"
-      value_template: "{{ (states('sensor.envoy_lifetime_energy_production')|float - states('sensor.envoy_lifetime_energy_consumption')|float) / 1000000 }}"
+      value_template: "{{ ((states('sensor.envoy_consumption_integrated_meter_lifetime')|float - states('sensor.envoy_production_integrated_meter_lifetime')|float) / 1000000) | round(2) }}"
       icon_template: >-
-        {% if (states('sensor.envoy_lifetime_energy_production')|float - states('sensor.envoy_lifetime_energy_consumption')|float) > 0 %}
-          mdi:solar-power
-        {% else %}
+        {% if (states('sensor.envoy_consumption_integrated_meter_lifetime')|float - states('sensor.envoy_production_integrated_meter_lifetime')|float) > 0 %}
           mdi:flash
+        {% else %}
+          mdi:solar-power
         {% endif %}
-        
-      
+
+    tesla_kwh_remaining:
+      friendly_name: Tesla kWh Remaining
+      unit_of_measurement: "kWh"
+      value_template: "{{ states('input_number.tesla_battery_capacity')|float * (states('sensor.tesla_model_3_battery_sensor')|float / 100.0) | round(2) }}"
+
+    tesla_target_kwh:
+      friendly_name: Tesla Target Charge
+      unit_of_measurement: "kWh"
+      value_template: "{{ states('input_number.tesla_battery_capacity')|float * (states('input_number.tesla_target_charge_soc')|float / 100.0) | round(2)}}"
+
+    tesla_kwh_to_target:
+      friendly_name: Tesla kWh to Target Charge
+      unit_of_measurement: "kWh"
+      value_template: "{{ (states('sensor.tesla_target_kwh')|float - states('sensor.tesla_kwh_remaining')|float) | round(2) }}"
+
 - platform: command_line
   name: CPU Temp
   command: "/bin/cat /sys/class/thermal/thermal_zone0/temp"
@@ -265,3 +206,90 @@
 - platform: nexia
 
 - platform: octoprint
+
+- platform: rest
+  name: Envoy Production Integrated Meter - Lifetime
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.production[1].whLifetime) }}'
+  method: GET
+  unit_of_measurement: "Wh"
+- platform: rest
+  name: Envoy Production Integrated Meter - Last Seven Days
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.production[1].whLastSevenDays) }}'
+  method: GET
+  unit_of_measurement: "Wh"
+- platform: rest
+  name: Envoy Production Integrated Meter - Today
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.production[1].whToday) }}'
+  method: GET
+  unit_of_measurement: "Wh"
+- platform: rest
+  name: Envoy Production Integrated Meter - Now
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.production[1].wNow) }}'
+  method: GET
+  unit_of_measurement: "W"
+# Envoy Integrated Meter - Total Consumption
+- platform: rest
+  name: Envoy Consumption Integrated Meter - Lifetime
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.consumption[0].whLifetime) }}'
+  method: GET
+  unit_of_measurement: "Wh"
+- platform: rest
+  name: Envoy Consumption Integrated Meter - Last Seven Days
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.consumption[0].whLastSevenDays) }}'
+  method: GET
+  unit_of_measurement: "Wh"
+- platform: rest
+  name: Envoy Consumption Integrated Meter - Today
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.consumption[0].whToday) }}'
+  #value_template: '{{ "%.1f" | format(float(value_json.consumption[0].whToday) / 1000) }}'
+  method: GET
+  unit_of_measurement: "Wh"
+- platform: rest
+  name: Envoy Consumption Integrated Meter - Now
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.consumption[0].wNow) }}'
+  method: GET
+  unit_of_measurement: "W"
+
+- platform: rest
+  name: Envoy Distribution Panel - Voltage
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.consumption[0].rmsVoltage) }}'
+  method: GET
+  unit_of_measurement: "V"
+- platform: rest
+  name: Envoy Distribution Panel - Current
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.consumption[0].rmsCurrent) }}'
+  method: GET
+  unit_of_measurement: "A"
+- platform: rest
+  name: Envoy Solar - Voltage
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.production[1].rmsVoltage) }}'
+  method: GET
+  unit_of_measurement: "V"
+- platform: rest
+  name: Envoy Solar - Current
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.production[1].rmsCurrent) }}'
+  method: GET
+  unit_of_measurement: "A"
+
+# Envoy Integrated Meter - Net Consumption
+- platform: rest
+  name: Net Consumption - Now
+  resource: !secret enphase_envoy_rest_address
+  value_template: '{{ "%.1f" | format(value_json.consumption[1].wNow) }}'
+  method: GET
+  unit_of_measurement: "W"
+
+
+
