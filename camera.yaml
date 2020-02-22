@@ -2,26 +2,5 @@
   name: OctoPrint
   still_image_url: !secret octoprint_still_image_url
   mjpeg_url: !secret octoprint_mjpeg_url
-  
-- platform: ring
 
-- platform: generic
-  name: Living Room
-  still_image_url: !secret motioneye_still_address_livingroom
-  stream_source: !secret motioneye_motion_address_livingroom
-  username: !secret motioneye_username
-  password: !secret motioneye_password
-  
-- platform: generic
-  name: Garage
-  still_image_url: !secret motioneye_still_address_garage
-  stream_source: !secret motioneye_still_address_garage
-  username: !secret motioneye_username
-  password: !secret motioneye_password
-  
-- platform: generic
-  name: Ben's Room
-  still_image_url: !secret motioneye_still_address_bensroom
-  stream_source: !secret motioneye_still_address_bensroom
-  username: !secret motioneye_username
-  password: !secret motioneye_password
+- platform: zoneminder

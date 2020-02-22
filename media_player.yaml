@@ -10,8 +10,8 @@
   # name: Living Room TV
   # filename: lr_webostv.conf
   
-- platform: plex
-  entity_namespace: 'plex'
+#- platform: plex
+#  entity_namespace: 'plex'
 
   
 # - platform: apple_tv

@@ -1,6 +1,10 @@
 - platform: wake_on_lan
-  mac_address: !secret desktop_mac
+  mac: !secret desktop_mac
   name: "Desktop"
   host: !secret desktop_ip
 
-- platform: ring
+#- platform: ring
+
+- platform: zoneminder
+  command_on: Modect
+  command_off: Monitor

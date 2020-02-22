@@ -12,7 +12,9 @@ cover.garage_door:
 sensor.speedtest_ping:
   icon: mdi:timer
 sensor.cpu_temp:
+  device_class: temperature
   icon: mdi:thermometer
+  unit_of_measurement: °C
 group.all_automations:
   friendly_name: All Automations
   hidden: false
@@ -145,7 +147,7 @@ sensor.envoy_consumption_integrated_meter_lifetime:
   icon: mdi:gauge
 sensor.envoy_consumption_integrated_meter_now:
   device_class: power
-  friendly_name: Envoy Consumption - Now
+  friendly_name: Envoy Distribution Panel - Power
   icon: mdi:gauge
 sensor.envoy_consumption_integrated_meter_today:
   device_class: power
@@ -153,11 +155,11 @@ sensor.envoy_consumption_integrated_meter_today:
   icon: mdi:gauge
 sensor.envoy_distribution_panel_current:
   device_class: power
-  friendly_name: Envoy Consumption - Current
+  friendly_name: Envoy Distribution Panel - Current
   icon: mdi:alpha-a-circle-outline
 sensor.envoy_distribution_panel_voltage:
   device_class: power
-  friendly_name: Envoy Consumption - Voltage
+  friendly_name: Envoy Distribution Panel - Voltage
   icon: mdi:alpha-v-circle-outline
 sensor.envoy_last_seven_days_net_energy:
   friendly_name: Envoy Net Energy - Last Seven Days
@@ -172,7 +174,7 @@ sensor.envoy_production_integrated_meter_lifetime:
   icon: mdi:solar-power
 sensor.envoy_production_integrated_meter_now:
   device_class: power
-  friendly_name: Envoy Production - Now
+  friendly_name: Envoy Solar - Power
   icon: mdi:solar-power
 sensor.envoy_production_integrated_meter_today:
   device_class: power
@@ -180,11 +182,11 @@ sensor.envoy_production_integrated_meter_today:
   icon: mdi:solar-power
 sensor.envoy_solar_current:
   device_class: power
-  friendly_name: Envoy Production - Current
+  friendly_name: Envoy Solar - Current
   icon: mdi:alpha-a-circle-outline
 sensor.envoy_solar_voltage:
   device_class: power
-  friendly_name: Envoy Production - Voltage
+  friendly_name: Envoy Solar - Voltage
   icon: mdi:alpha-v-circle-outline
 binary_sensor.power_exporting:
   friendly_name: Envoy - Exporting
@@ -210,3 +212,48 @@ sensor.tesla_kwh_to_target:
   icon: mdi:battery-positive
 sensor.ups_last_transfer:
   icon: mdi:calendar-clock
+cover.garage_door_cover:
+  icon: mdi:garage
+binary_sensor.heartbeat_signal:
+  icon: mdi:heart-pulse
+binary_sensor.localhost_9443:
+  friendly_name: Zoneminder Status
+switch.coffee_maker:
+  device_class: outlet
+  icon: mdi:coffee-maker
+switch.garage_lights:
+  icon: mdi:lightbulb
+switch.kitchen_seasonal:
+  device_class: outlet
+  icon: mdi:power-socket-us
+switch.living_room_seasonal:
+  device_class: outlet
+  icon: mdi:power-socket-us
+light.kitchen_cabinet_lighting:
+  icon: mdi:led-strip-variant
+sensor.ionman_battery_sensor:
+  device_class: battery
+sensor.ups_battery:
+  device_class: battery
+switch.pantry_light:
+  icon: mdi:lightbulb
+sensor.left_vehicle_sensor:
+  icon: mdi:ruler
+sensor.right_vehicle_sensor:
+  icon: mdi:ruler
+zwave.enerwave_zwnrsm1_plussmart_single_relay_switch_module: {}
+switch.zooz_unknown_type_a000_id_a008_switch:
+  device_class: switch
+  icon: mdi:fan
+light.zooz_unknown_type_a000_id_a008_level_2:
+  icon: mdi:ceiling-light
+binary_sensor.10_24_55_6:
+  friendly_name: Zoneminder Connectivity
+input_number.dining_room_nightlight_brightness:
+  friendly_name: Kitchen Cabinet Nightlight Brightness
+sensor.phase_a_voltage:
+  icon: mdi:alpha-v-circle-outline
+sensor.phase_b_voltage:
+  icon: mdi:alpha-v-circle-outline
+sensor.phase_delta_voltage:
+  icon: mdi:alpha-v-circle-outline

@@ -1,10 +1,3 @@
-- platform: ring
-  monitored_conditions:
-  - ding
-  - motion
-  
-- platform: apcupsd
-      
 - platform: template
   sensors:
     disable_ac:
@@ -29,6 +22,7 @@
       device_class: safety
       value_template: >-
         {{    is_state('binary_sensor.office_door',                     'on')
+           or is_state('binary_sensor.garage_bay_door',                 'on')
            or is_state('binary_sensor.garage_entry_door',               'on')
            or is_state('binary_sensor.front_door',                      'on')
            or is_state('binary_sensor.back_door_living_room_windows',   'on')
@@ -166,5 +160,7 @@
 - platform: octoprint
   monitored_conditions:
   - Printing
-  - Printing Error      
+  - Printing Error   
+  
+- platform: zoneminder
     

@@ -1,51 +1,17 @@
-#homeassistant:
-#  # Name of the location where Home Assistant is running
-#  name: Home
-#  # Location required to calculate the time the sun rises and sets
-#  latitude: !secret latitude
-#  longitude: !secret longitude
-#  # Impacts weather/sunrise data (altitude above sea level in meters)
-#  elevation: !secret elevation
-#  # metric for Metric, imperial for Imperial
-#  unit_system: imperial
-#  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-#  time_zone: America/Chicago
 homeassistant:
   customize: !include customize.yaml
+  
+default_config:
 
-# Enables the frontend
-frontend:
-
-# Enables configuration UI
-config:
-
-# Enables map
-map:
-
-# Enables System Health
-system_health:
+mobile_app:
 
 api:
 
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
 http:
-  # Uncomment this to add a password (recommended!)
-  # api_password: !secret http_password
-  # Uncomment this if you are using SSL or running in Docker etc
   base_url: !secret base_url
-  # cors_allowed_origins:
-  # add in the domain name or IP mentioned in the CORS error
-  # - localhost
-
-
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
-updater:
-
-# Discover some devices automatically
-# discovery:
 
 # Include component files
 automation: !include automations.yaml
@@ -63,22 +29,11 @@ light: !include light.yaml
 media_player: !include media_player.yaml
 notify: !include notify.yaml
 panel_iframe: !include panel_iframe.yaml
+scene: !include scenes.yaml
 script: !include scripts.yaml
 sensor: !include sensor.yaml
 switch: !include switch.yaml 
 zone: !include zone.yaml
-
- 
-# apple_tv:
-  # - host: !secret lr_apple_tv_ip
-    # login_id: !secret lr_apple_tv_login_id
-    # credentials: !secret lr_apple_tv_credentials
-    # name: Living Room Apple TV
-
-  # - host: !secret mbr_apple_tv_ip
-    # login_id: !secret mbr_apple_tv_login_id
-    # credentials: !secret mbr_apple_tv_credentials
-    # name: Master Bedroom Apple TV
   
 rachio:
   api_key: !secret rachio_api
@@ -86,7 +41,7 @@ rachio:
 speedtestdotnet:
   scan_interval:
     hours: 1
-  
+
 homekit:
   auto_start: False
   filter:
@@ -140,6 +95,8 @@ homekit:
 
     exclude_entities:
       - switch.siren
+      - switch.north_backyard_siren
+      - switch.south_backyard_siren
       - switch.rachio28c6ac_in_standby_mode
       - switch.back_lawn
       - switch.back_shrubs
@@ -153,8 +110,6 @@ homekit:
     alarm_control_panel.home_alarm:
       code: !secret alarm_code
 
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
 
 # Enables support for tracking state changes over time.
 history:
@@ -178,32 +133,14 @@ logbook:
       - input_boolean.homeassistant_heartbeat
       - input_boolean.nodered_heartbeat
 
-# Track the sun
-sun:
-
-# Ring
-ring:
-  username: !secret ring_username
-  password: !secret ring_password
-
 zwave:
   usb_path: /dev/ttyACM0
-
-apcupsd:
-
-neato:
-  username: !secret neato_username
-  password: !secret neato_password
 
 panel_custom:
   - name: zwavegraph2
     sidebar_title: Z-Wave Graph
     sidebar_icon: mdi:access-point-network
     url_path: zwave
-  
-cloud:
-
-ios:
 
 tts:
   - platform: google_translate
@@ -255,3 +192,14 @@ octoprint:
 tesla: 
   username: !secret tesla_username
   password: !secret tesla_password
+  
+zoneminder:
+  host: !secret zoneminder_ip
+  ssl: true
+  verify_ssl: false
+  path: /zm/
+  path_zms: /zm/cgi-bin/nph-zms
+  
+weather:
+  - platform: darksky
+    api_key: !secret darksky

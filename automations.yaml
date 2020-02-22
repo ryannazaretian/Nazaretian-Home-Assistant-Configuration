@@ -3,22 +3,22 @@
     data:
       message: Home Assistant  {{ states.updater.updater.state }}  is now available.
       title: New Home Assistant Release
-    service: notify.ios
+    service: notify.mobile_app_ryans_iphone
   alias: Home Assistant - Update Notifications
   id: '1501803740993'
   trigger:
   - entity_id: updater.updater
     platform: state
-- action:
-  - data:
-      message: Home Assistant Started
-    service: notify.ios_ryans_iphone
+- id: '1503944562866'
   alias: Notify Ryan on Startup
-  condition: []
-  id: '1503944562866'
   trigger:
   - event: start
     platform: homeassistant
+  condition: []
+  action:
+  - data:
+      message: Home Assistant Started
+    service: notify.mobile_app_ryans_iphone
 - id: '1537802654861'
   alias: HA Heartbeat
   trigger:
@@ -47,12 +47,12 @@
       message: Node Red heartbeat did not change within timeout. Please restart Node
         Red!
       title: Node Red Watchdog Expired!
-    service: notify.ios_ryans_iphone
+    service: notify.mobile_app_ryans_iphone
 - id: '1548611863883'
-  alias: 'Start HomeKit'
+  alias: Start HomeKit
   trigger:
-    - platform: homeassistant
-      event: start
+  - platform: homeassistant
+    event: start
   action:
-    - delay: 00:05  # Waits 5 minutes
-    - service: homekit.start
+  - delay: 00:05
+  - service: homekit.start
